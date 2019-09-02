@@ -1,6 +1,6 @@
 # Wica-JS
 
-This is the **Wica-JS** Git repository, one component of the PSI's WICA software suite. 
+This is the Wica-JS Git repository, one component of the PSI's WICA software suite. 
  
 WICA stands for *Web Interface for Controls Applications*. The basic idea is to support the streaming of live data 
 from a distributed control system to update a user's web pages in real-time.
@@ -17,7 +17,7 @@ Wica comprises two main components:
 Currently WICA interoperates with the EPICS Control Systems using its well established Channel Access (CA) protocol. 
 
 
-# Wica-JS Main Features
+# Main Features
 
 * Collaborates with Wica-HTTP backend server to stream control system data to update user web pages.
 * Supports configuration of streaming options including backend data acquisition modes (poll or monitor) and channel 
