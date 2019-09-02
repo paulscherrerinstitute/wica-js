@@ -44,4 +44,4 @@ VOLUME /root/wica
 # 5.0 Define the ENTRYPOINT
 ###############################################################################
 
-ENTRYPOINT /bin/bash
+ENTRYPOINT /bin/sh
