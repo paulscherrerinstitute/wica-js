@@ -30,7 +30,7 @@ WORKDIR /root
 RUN mkdir wica
 
 # Populate the application directories as appropriate
-COPY ./src/wica/* wica
+ADD src/wica /wica
 
 
 ###############################################################################
