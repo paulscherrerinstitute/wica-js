@@ -24,7 +24,7 @@ Currently WICA interoperates with the EPICS Control Systems using its well estab
 filtering (eg noise or rate limiting).
 * Supports all modern web browsers including Chrome, Firefox, Safari and Edge.
 * Supports all current web platforms including desktop, tablet and mobile.
-* Supports HTML element text rendering.
+* Supports HTML element text rendering (including visualisation of communication outages).
 * Supports JS event generation to enable custom calculations or rendering.
 * Implemented as Javascript ES6-module with few external dependencies.
 * Works out-of-the-box: no complicated build chain (currently no build chain at all).
