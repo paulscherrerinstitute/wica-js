@@ -1,5 +1,0 @@
-{
-  "props": { "hbflux" :  2000 },
-  "channels" : [ { "name": "test:counter00" },
-                 { "name": "test:counter01" } ]
-}
