@@ -8,11 +8,11 @@ FROM alpine:latest
 ## 1.0 Define the application
 ################################################################################
 
-# Document the fact that this image will normally be run as root.
+# If we need to look inside thism image we will do it as root.
 USER root
 
 # Set the working directory
-WORKDIR /
+WORKDIR /root
 
 ###############################################################################
 # 2.0 Install any additional applications
@@ -25,16 +25,16 @@ WORKDIR /
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir /wica
+RUN mkdir ./wica
 
 # Populate the application directories as appropriate
-COPY ./src/wica/ /wica
+COPY ./src/wica/ ./wica
 
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
 
-VOLUME /wica
+VOLUME /root/wica
 
 ###############################################################################
 # 5.0 Define the ENTRYPOINT
