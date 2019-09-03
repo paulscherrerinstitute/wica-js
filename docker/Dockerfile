@@ -12,7 +12,7 @@ FROM alpine:latest
 USER root
 
 # Set the working directory
-WORKDIR /root
+WORKDIR /
 
 ###############################################################################
 # 2.0 Install any additional applications
