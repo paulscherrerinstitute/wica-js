@@ -30,8 +30,7 @@ WORKDIR /root
 RUN mkdir wica
 
 # Populate the application directories as appropriate
-ADD src/wica/ /wica
-
+COPY ./src/wica/ ./wica
 
 ###############################################################################
 # 4.0 Define the exposed volumes
