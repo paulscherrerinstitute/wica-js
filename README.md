@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-jssvg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
+
 # Wica-JS
 
 This is the Wica-JS Git repository, one component of the PSI's WICA software suite. 
