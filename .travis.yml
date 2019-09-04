@@ -17,8 +17,8 @@ before_script:
 
 script:
   - echo -n "*** LIFECYCLE STARTED - 'script' *************************************************************************"
-  - docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
   - docker push paulscherrerinstitute/wica-js:latest
   - echo -n "LIFECYCLE COMPLETED - 'script' ***************************************************************************"
 
