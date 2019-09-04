@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-jssvg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
+[![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
 
 # Wica-JS
 
