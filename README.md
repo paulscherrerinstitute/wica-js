@@ -1,6 +1,10 @@
 [![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
 
-# Wica-JS
+Note: this README is still under construction. 
+
+https://cdn.pixabay.com/photo/2016/09/04/03/44/under-construction-1643192_960_720.png
+
+# Overview
 
 This is the Wica-JS Git repository, one component of the PSI's WICA software suite. 
  
@@ -31,4 +35,4 @@ filtering (eg noise or rate limiting).
 * Implemented as Javascript ES6-module with few external dependencies.
 * Works out-of-the-box: no complicated build chain (currently no build chain at all).
 
-# Getting Started
+# Usage
