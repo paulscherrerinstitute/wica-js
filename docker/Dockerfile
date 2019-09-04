@@ -12,7 +12,7 @@ FROM alpine:latest
 USER root
 
 # Set the working directory
-WORKDIR /public
+WORKDIR /root
 
 ###############################################################################
 # 2.0 Install any additional applications
@@ -25,16 +25,16 @@ WORKDIR /public
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir ./wica
+RUN mkdir ./static/wica
 
 # Populate the application directories as appropriate
-COPY ./src/wica/ ./wica
+COPY ./src/wica/ ./static/wica
 
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
 
-VOLUME /public/wica
+VOLUME /root/static/wica
 
 ###############################################################################
 # 5.0 Define the ENTRYPOINT
