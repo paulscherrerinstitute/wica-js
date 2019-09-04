@@ -25,7 +25,7 @@ WORKDIR /root
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir ./static/wica
+RUN mkdir ./static ./static/wica
 
 # Populate the application directories as appropriate
 COPY ./src/wica/ ./static/wica
