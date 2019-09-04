@@ -1,0 +1,28 @@
+language: javascript
+
+services:
+  - docker
+
+before_install:
+  - echo -n "*** LIFECYCLE STARTED - 'before_install' *****************************************************************"
+  - echo -n "*** LIFECYCLE COMPLETED - before_install *****************************************************************"
+
+install:
+  - echo "*** LIFECYCLE STARTED - 'install' ***************************************************************************"
+  - echo "*** LIFECYCLE COMPLETED - 'install' *************************************************************************"
+
+before_script:
+  - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
+  - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
+
+script:
+  - echo -n "*** LIFECYCLE STARTED - 'script' *************************************************************************"
+  - docker build -t paulscherrerinstitute/wica-stream:latest -f docker/Dockerfile .
+  - echo -n "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push paulscherrerinstitute/wica-js:latest
+  - echo -n "LIFECYCLE COMPLETED - 'script' ***************************************************************************"
+
+after_script:
+  - echo -n "*** LIFECYCLE STARTED - 'after_script' *******************************************************************"
+  - echo -n "*** LIFECYCLE COMPLETED - 'after_script' *****************************************************************"
+
