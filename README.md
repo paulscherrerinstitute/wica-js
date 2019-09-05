@@ -5,7 +5,7 @@ Note: this README is still **under construction** and may contain incorrect or m
 
 # Overview
 
-This is the Wica-JS Git repository, one component of the PSI's WICA software suite. 
+This is the Wica-JS Git repository, one component of PSI's WICA software suite. 
  
 WICA stands for *Web Interface for Controls Applications*. The basic idea is to support the streaming of live data 
 from a distributed control system to update a user's web pages in real-time.
@@ -29,7 +29,7 @@ Currently WICA interoperates with the EPICS Control Systems using its well estab
 filtering (eg noise or rate limiting).
 * Supports all modern web browsers including Chrome, Firefox, Safari and Edge.
 * Supports all current web platforms including desktop, tablet and mobile.
-* Supports HTML element text rendering (including visualisation of communication outages).
+* Supports HTML element text rendering (including visualisation of alarm and connection status).
 * Supports JS event generation to enable custom calculations or rendering.
 * Implemented as Javascript ES6-module with few external dependencies.
 * Works out-of-the-box: no complicated build chain (currently no build chain at all).
