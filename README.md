@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
 
 :construction:
-Note: this README is still **under construction** and may contain incorrect or misleading information. Sorry about
-that. We will work to improve it.
+Note: this README is still **under construction** and may contain incorrect or misleading information. 
 
 # Overview
 
