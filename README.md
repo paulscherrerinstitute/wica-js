@@ -46,6 +46,11 @@ filtering (eg noise or rate limiting).
    
 # Installation
 
+The release names for this project follow the  [semantic versioning](https://semver.org/) naming convention
+proposed on the GitHub site.
+      
+Examples: wica-js-1.0.0, wica-js-1.1.0, wica-js-1.2.3.rc1, wica-js-1.2.3.rc2, wica-js-7.1.5.rc19
+
 The [Wica-JS](https://github.com/paulscherrerinstitute/wica-js) library is downloaded and bundled automatically 
 into the build of the [Wica-HTTP](https://github.com/paulscherrerinstitute/wica-http) server. Normally there is 
 no need to obtain it separately.
