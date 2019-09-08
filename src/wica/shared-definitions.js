@@ -305,5 +305,5 @@ const WicaChannelProperties = Object.freeze ({
     n: 1,
     m: 1,
     interval: 1,
-    deadband: 1.0,
+    deadband: 1.0
 } );
