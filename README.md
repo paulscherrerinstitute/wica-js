@@ -50,7 +50,7 @@ The [Wica-JS](https://github.com/paulscherrerinstitute/wica-js) library is downl
 into the build of the [Wica-HTTP](https://github.com/paulscherrerinstitute/wica-http) server. Normally there is 
 no need to obtain it separately.
 
-See the Wica-HTTP [Http Endpoints]( https://github.com/paulscherrerinstitute/wica-http/blob/master/README.md#HTTP%20Endpoints) 
+See the Wica-HTTP [Wica-Http Endpoints](https://github.com/paulscherrerinstitute/wica-http/blob/master/README.md#Wica-HTTP-Endpoints) 
 documentation for the relevant URL.
 
 # Wica-JS API Documentation
