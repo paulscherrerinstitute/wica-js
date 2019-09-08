@@ -37,4 +37,31 @@ filtering (eg noise or rate limiting).
 * Implemented as Javascript ES6-module with few external dependencies.
 * Works out-of-the-box: no complicated build chain (currently no build chain at all).
 
-# Usage
+# Requirements
+
+   * Requires web browser that supports Javascript ES6. See [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6)).
+   * Requires web browser which support Server-Sent-Events (SSE), also know as [EventSource](https://caniuse.com/#feat=eventsource).
+   * Requires [JSON 5 library](https://json5.org) 
+   
+   
+# Installation
+
+The [Wica-JS](https://github.com/paulscherrerinstitute/wica-js) library is downloaded and bundled automatically 
+into the build of the [Wica-HTTP](https://github.com/paulscherrerinstitute/wica-http) server. Normally there is 
+no need to obtain it separately.
+
+See the Wica-HTTP [Http Endpoints]( https://github.com/paulscherrerinstitute/wica-http/blob/master/README.md#HTTP%20Endpoints) 
+documentation for the relevant URL.
+
+# Wica-JS API Documentation
+
+The API documentation (ES6doc) is available [here](https://paulscherrerinstitute.github.io/wica-js/)
+
+# Project Changes and Tagged Releases
+
+* See the [CHANGELOG](CHANGELOG.md) file for further information.
+* See also the project's [Issue Board](https://github.com/paulscherrerinstitute/wica-js/issues).
+
+# Contact
+
+If you have questions please contact: 'simon.rees@psi.ch'.
