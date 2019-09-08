@@ -62,7 +62,7 @@ documentation for the relevant URL.
 
 # Wica-JS API Documentation
 
-The API documentation (ES6doc) is available [here](https://paulscherrerinstitute.github.io/wica-js/)
+Coming Soon: the API documentation (ES6doc) will be available [here](https://paulscherrerinstitute.github.io/wica-js/)
 
 # Project Changes and Tagged Releases
 
