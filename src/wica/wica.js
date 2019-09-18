@@ -18,7 +18,7 @@ log.setLevel( log.logLevels.WARN );
 log.info( "Wica is loading support for the current document... ");
 
 // Define the server this application is intended to target.
-const WICA_OWN_HOST = ".";
+const WICA_OWN_HOST = location.origin;
 const WICA_LOC_HOST = "http://localhost:8080";
 const WICA_DEV_HOST  = "https://gfa-wica-dev.psi.ch";
 const WICA_PROD_HOST = "https://gfa-wica.psi.ch";
