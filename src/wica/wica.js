@@ -18,6 +18,7 @@ log.setLevel( log.logLevels.WARN );
 log.info( "Wica is loading support for the current document... ");
 
 // Define the server this application is intended to target.
+const WICA_OWN_HOST = ".";
 const WICA_LOC_HOST = "http://localhost:8080";
 const WICA_DEV_HOST  = "https://gfa-wica-dev.psi.ch";
 const WICA_PROD_HOST = "https://gfa-wica.psi.ch";
@@ -25,7 +26,7 @@ const WICA_DMZ_HOST = "https://wica.psi.ch";
 
 // Create and activate a document support loader for the document
 // which loads this library.
-const documentSupportLoader = new ClientAPI.DocumentSupportLoader( WICA_LOC_HOST );
+const documentSupportLoader = new ClientAPI.DocumentSupportLoader( WICA_OWN_HOST );
 documentSupportLoader.activate( 200, 200 );
 
 // Attach a handler to shut things down when the browser navigates away.
