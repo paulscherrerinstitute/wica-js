@@ -36,7 +36,7 @@ deploy:
     skip_cleanup: true
     draft: true
     on:
-      tags: false
+      tags: true
       repo: paulscherrerinstitute/wica-js
 
   # Here we copy the latest Javadoc to the GitHub pages site.
