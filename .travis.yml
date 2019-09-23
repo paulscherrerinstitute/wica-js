@@ -34,7 +34,7 @@ deploy:
     file_glob: true
     file: dist/rel/wica.min.js
     skip_cleanup: true
-    draft: true
+    draft: false
     on:
       tags: true
       repo: paulscherrerinstitute/wica-js
