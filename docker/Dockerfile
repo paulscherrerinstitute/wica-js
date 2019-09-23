@@ -25,16 +25,16 @@ WORKDIR /root
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir ./static ./static/wica
+RUN mkdir ./static ./static/wica-js
 
 # Populate the application directories as appropriate
-COPY ./src/wica/ ./static/wica
+COPY ./dist/rel/wica.min.js ./static/wica-js
 
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
 
-VOLUME /root/static/wica
+VOLUME /root/static/wica-js
 
 ###############################################################################
 # 5.0 Define the ENTRYPOINT
