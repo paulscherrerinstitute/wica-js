@@ -27,6 +27,9 @@ WORKDIR /root
 # Create the directories needed by this application
 RUN mkdir ./static ./static/wica-js
 
+# Perform a complete npm build cyle
+# RUN npm run clean && npm run lint && npm run build && npm run docs
+
 # Populate the application directories as appropriate
 COPY ./dist/rel/wica.min.js ./static/wica-js
 
