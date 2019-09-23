@@ -257,6 +257,6 @@ class DocumentStreamConnector
                 log.log( "Value updated on channel: '" + key + "', new value: '" + channelValueLatestAsString + "'" );
             });
         });
-    };
+    }
 
 }

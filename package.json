@@ -1,0 +1,37 @@
+{
+  "name": "wica-js",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js)",
+  "main": "src/wica.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "clean": "rm -rf build dist",
+    "lint": "eslint src/",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc src/ -d dist/api",
+    "terser": "terser src/*.js > build/wica.min.js",
+    "build_old": "rollup build/wica.min.js  --output.format=esm --file=dist/rel/wica.bundle.js",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulscherrerinstitute/wica-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulscherrerinstitute/wica-js/issues"
+  },
+  "homepage": "https://github.com/paulscherrerinstitute/wica-js#readme",
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "jsdoc": "^3.6.3",
+    "rollup": "^1.21.4",
+    "rollup-plugin-terser": "^5.1.2"
+  },
+  "dependencies": {
+    "json5": "^2.1.0"
+  }
+}

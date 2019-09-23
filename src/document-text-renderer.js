@@ -128,10 +128,10 @@ class DocumentTextRenderer
             // Get the element's rendering properties object if available
             // Note: since this attribute is configured by the user as a JSON string it's important
             // to validate the data and to output some diagnostic message if there is a problem.
-            const renderingProperties = DocumentTextRenderer.getRenderingProperties( element, renderingPropertiesAttribute );
+            const renderingProperties = DocumentTextRenderer.getRenderingProperties( element, renderingPropertiesAttribute, channelNameAttribute );
 
             // Bail out if rendering is disabled for this widget
-            const disableRendering = renderingProperties.hasOwnProperty("disable") ? renderingProperties.disable : false;
+            const disableRendering = {}.hasOwnProperty.call( renderingProperties, "disable" ) ? renderingProperties.disable : false;
             if ( disableRendering )
             {
                 return;
@@ -189,8 +189,8 @@ class DocumentTextRenderer
 
         // The renderer assigns units either from either the rendering properties "units" field if
         // available or from the metadata "egu" field if available. Otherwise it assigns blank.
-        const units = renderingProperties.hasOwnProperty("units") ? renderingProperties.units :
-                      channelMetadata.hasOwnProperty( "egu") ? channelMetadata.egu : "";
+        const units = {}.hasOwnProperty.call( renderingProperties, "units" ) ? renderingProperties.units :
+                      {}.hasOwnProperty.call( channelMetadata, "egu" ) ? channelMetadata.egu : "";
 
         switch ( channelMetadata.type )
         {
@@ -200,29 +200,25 @@ class DocumentTextRenderer
                 element.textContent = JsonUtilities.stringify( rawValue );
                 break;
 
-            case "REAL":
-                const useExponentialFormat = renderingProperties.hasOwnProperty("exp" ) ? renderingProperties.exp : false;
-                const precision = Math.min( renderingProperties.hasOwnProperty("prec") ? renderingProperties.prec : channelMetadata.prec, DEFAULT_PRECISION );
+            case "REAL": {
+                const useExponentialFormat = {}.hasOwnProperty.call(renderingProperties, "exp") ? renderingProperties.exp : false;
+                const precision = Math.min({}.hasOwnProperty.call(renderingProperties, "pred") ? renderingProperties.prec : channelMetadata.prec, DEFAULT_PRECISION);
                 // TODO: Look at improved deserialisation of NaN's, Infinity etc
                 // TODO: The backend serialiser has been changed (2019-02-02) to the more rigorous implementation of
                 // TODO: sending Nan and Infinity as numbers not strings. Need to check whether the implementation
                 // TODO: here still works.
-                if ( (rawValue === "Infinity") || (rawValue === "NaN"))
-                {
+                if ((rawValue === "Infinity") || (rawValue === "NaN")) {
                     // This was required in earlier versions of the backend server where Infinity
                     // and Nan was sent as a JSON string. Since 2019-02-02 should no longer be required.
-                    logger.warn( "Programming error: unexpected JSON String format for numeric value of NaN or Infinity." );
+                    log.warn("Programming error: unexpected JSON String format for numeric value of NaN or Infinity.");
                     element.textContent = rawValue;
-                }
-                else if ( useExponentialFormat )
-                {
-                    element.textContent =  rawValue.toExponential( useExponentialFormat ) + " " + units;
-                }
-                else
-                {
-                    element.textContent =  rawValue.toFixed( precision ) + " " + units;
+                } else if (useExponentialFormat) {
+                    element.textContent = rawValue.toExponential(useExponentialFormat) + " " + units;
+                } else {
+                    element.textContent = rawValue.toFixed(precision) + " " + units;
                 }
                 break;
+            }
 
             case "INTEGER":
                 // TODO: Look at improved deserialisation of NaN's, Infinity etc
@@ -233,7 +229,7 @@ class DocumentTextRenderer
                 {
                     // This was required in earlier versions of the backend server where Infinity
                     // and Nan was sent as a JSON string. Since 2019-02-02 should no longer be required.
-                    logger.warn( "Programming error: unexpected JSON String format for numeric value of NaN or Infinity." );
+                    log.warn( "Programming error: unexpected JSON String format for numeric value of NaN or Infinity." );
                     element.textContent = rawValue;
                 }
                 else
@@ -288,11 +284,13 @@ class DocumentTextRenderer
      * @param {Element} element - The element.
      * @param {string} renderingPropertiesAttribute - The name of the element's HTML attribute which
      *      contains the rendering properties.
+     * @param {string} channelNameAttribute - The name of the attribute which contains the channel name.
      * @return {WicaRenderingProperties} - the object, or {} if for any reason it cannot be obtained
      *     from the element's HTML attribute.
      */
-    static getRenderingProperties( element, renderingPropertiesAttribute )
+    static getRenderingProperties( element, renderingPropertiesAttribute, channelNameAttribute )
     {
+        const channelName = element.getAttribute( channelNameAttribute );
         const renderingPropertiesString = element.hasAttribute( renderingPropertiesAttribute ) ? element.getAttribute( renderingPropertiesAttribute ) : "{}";
         try
         {
@@ -317,7 +315,7 @@ class DocumentTextRenderer
         let vDebug = "";
         for ( const prop in err )
         {
-            if ( err.hasOwnProperty( prop ) )
+            if ( {}.hasOwnProperty.call( err, prop ) )
             {
                 vDebug += "property: " + prop + " value: [" + err[ prop ] + "]\n";
             }

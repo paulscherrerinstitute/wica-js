@@ -83,7 +83,7 @@ function findWicaElementsWithChannelName( channelName )
  */
 function findWicaElementsWithAttributeValue( attributeName, attributeValue )
 {
-    const selector = "*[" + attributeName + " = \'" + attributeValue + "\']";
+    const selector = "*[" + attributeName + " = " + attributeValue + "]";
     return document.querySelectorAll( selector );
 }
 
@@ -98,7 +98,7 @@ function findWicaElementsWithAttributeValue( attributeName, attributeValue )
  */
 function findWicaElementsWithAttributeValueAlsoInShadowDom( parentNode, attributeName, attributeValue )
 {
-    const selector = "*[" + attributeName + " = \'" + attributeValue + "\']";
+    const selector = "*[" + attributeName + " = " + attributeValue + "]";
     const nodesInParent = parentNode.querySelectorAll( selector );
 
     let nodesInChildren = [];

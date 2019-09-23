@@ -233,7 +233,7 @@ class DocumentEventManager
         let vDebug = "";
         for ( const prop in err )
         {
-            if ( err.hasOwnProperty( prop ) )
+            if ( Object.hasOwnProperty.call( err, prop ) )
             {
                 vDebug += "property: " + prop + " value: [" + err[ prop ] + "]\n";
             }

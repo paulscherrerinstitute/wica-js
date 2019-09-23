@@ -15,8 +15,7 @@
 
 /*- Import/Export Declarations -----------------------------------------------*/
 
-import JSON5 from './json5-latest.min.js';
-
+import JSON5 from '../node_modules/json5/dist/index.min.mjs';
 import * as log from "./logger.js";
 
 export { load, parse, stringify };
