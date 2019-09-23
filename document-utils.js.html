@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: document-utils.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: document-utils.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Provides helper functions for wica-aware html pages.
+ * @module
+ */
+
+/*- Import/Export Declarations -----------------------------------------------*/
+
+import * as log from "./logger.js"
+import {WicaElementConnectionAttributes} from './shared-definitions.js';
+
+export { findWicaElements,
+         findWicaElementsWithAttributeName,
+         findWicaElementsWithChannelName,
+         findWicaElementsWithAttributeValue }
+
+/*- Script Execution Starts Here ---------------------------------------------*/
+
+log.log( "Executing script in document-utils.js module...");
+
+/**
+ * Finds all "wica-aware" HTML elements in the current document. That's to say, all elements
+ * which include an attribute which defines the name of the wica channel.
+ *
+ * @returns {NodeListOf&lt;Element>} - The result list.
+ */
+function findWicaElements()
+{
+    return findWicaElementsWithAttributeNameAlsoInShadowDom( document, WicaElementConnectionAttributes.channelName );
+}
+
+/**
+ * Finds all wica-aware HTML elements in the current document with the given attribute name.
+ *
+ * @param {!string} attributeName - The attribute name to search for.
+ * @returns {NodeListOf&lt;Element>} - The result list.
+ */
+function findWicaElementsWithAttributeName( attributeName )
+{
+    const selector = "[" + attributeName + "]";
+    return document.querySelectorAll( selector );
+}
+
+/**
+* Finds all wica-aware HTML elements in the current document whose attribute name
+* matches the specified value.
+*
+* @param {ParentNode} parentNode - the node at which to start searching.
+* @param {!string} attributeName - The attribute name to target.
+* @returns {NodeListOf&lt;Element>} - The result list.
+*/
+function findWicaElementsWithAttributeNameAlsoInShadowDom( parentNode, attributeName )
+{
+    const selector = "[" + attributeName + "]";
+    const nodesInParent = parentNode.querySelectorAll( selector );
+    let nodesInChildren = [];
+    Array.from( parentNode.querySelectorAll('*') )
+        .filter( element => element.shadowRoot )
+        .forEach( element => {
+            const nodesInChild = findWicaElementsWithAttributeNameAlsoInShadowDom( element.shadowRoot, attributeName );
+            const nodesInChildAsArray = Array.from( nodesInChild );
+            nodesInChildren = nodesInChildren.concat( nodesInChildAsArray );
+        });
+
+    return [ ...nodesInParent, ...nodesInChildren ];
+}
+/**
+ * Finds all wica-aware HTML elements in the current document with the specified wica channel name.
+ *
+ * @param {!string} channelName - The channel name to search for.
+ * @returns {NodeListOf&lt;Element>} - The result list.
+ */
+function findWicaElementsWithChannelName( channelName )
+{
+    return findWicaElementsWithAttributeValueAlsoInShadowDom( document, WicaElementConnectionAttributes.channelName, channelName );
+}
+
+/**
+ * Finds all wica-aware HTML elements in the current document whose attribute name matches the specified value.
+ *
+ * @param {!string} attributeName - The attribute name to target.
+ * @param {!string} attributeValue - The attribute value to target.
+ * @returns {NodeListOf&lt;Element>} - The result list.
+ */
+function findWicaElementsWithAttributeValue( attributeName, attributeValue )
+{
+    const selector = "*[" + attributeName + " = " + attributeValue + "]";
+    return document.querySelectorAll( selector );
+}
+
+/**
+ * Finds all wica-aware HTML elements in the current document whose attribute name
+ * matches the specified value.
+ *
+ * @param {ParentNode} parentNode - the node at which to start searching.
+ * @param {!string} attributeName - The attribute name to target.
+ * @param {!string} attributeValue - The attribute value to target.
+ * @returns {Array&lt;Element>} - The result list.
+ */
+function findWicaElementsWithAttributeValueAlsoInShadowDom( parentNode, attributeName, attributeValue )
+{
+    const selector = "*[" + attributeName + " = " + attributeValue + "]";
+    const nodesInParent = parentNode.querySelectorAll( selector );
+
+    let nodesInChildren = [];
+    Array.from( parentNode.querySelectorAll('*') )
+        .filter( element => element.shadowRoot)
+        .forEach( element => {
+            const nodesInChild = findWicaElementsWithAttributeValueAlsoInShadowDom( element.shadowRoot, attributeName, attributeValue );
+            const nodesInChildAsArray = Array.from( nodesInChild );
+            nodesInChildren = nodesInChildren.concat( nodesInChildAsArray );
+        });
+
+    return  [ ...nodesInParent, ...nodesInChildren ];
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-client-api.html">client-api</a></li><li><a href="module-document-event-manager.html">document-event-manager</a></li><li><a href="module-document-stream-connector.html">document-stream-connector</a></li><li><a href="module-document-support-loader.html">document-support-loader</a></li><li><a href="module-document-text-renderer.html">document-text-renderer</a></li><li><a href="module-document-utils.html">document-utils</a></li><li><a href="module-json5-wrapper.html">json5-wrapper</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-plot-buffer.html">plot-buffer</a></li><li><a href="module-shared-definitions.html">shared-definitions</a></li><li><a href="module-stream-manager.html">stream-manager</a></li><li><a href="module-wica.html">wica</a></li></ul><h3>Classes</h3><ul><li><a href="module-document-event-manager-DocumentEventManager.html">DocumentEventManager</a></li><li><a href="module-document-stream-connector-DocumentStreamConnector.html">DocumentStreamConnector</a></li><li><a href="module-document-support-loader-DocumentSupportLoader.html">DocumentSupportLoader</a></li><li><a href="module-document-text-renderer-DocumentTextRenderer.html">DocumentTextRenderer</a></li><li><a href="module-plot-buffer-PlotBuffer.html">PlotBuffer</a></li><li><a href="module-stream-manager-StreamManager.html">StreamManager</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 23 2019 17:52:38 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

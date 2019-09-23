@@ -1,0 +1,3370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: shared-definitions</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: shared-definitions</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Provides definitions that are shared throughout the application.</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~WicaChannelProperties"><span class="type-signature">(inner, constant) </span>WicaChannelProperties<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    JS Object that defines the properties supported by a WicaChannel and their default values.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>daqmode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The data acquisition mode. Optional parameter which overrides
+    property set on the stream.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pollint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The interval between successive polls of the channel value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fields</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A semicolon delimited list defining the data fields that
+   should be included when sending value information for this channel.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prec</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The precision (= number of digits after the decimal point) to be
+    used when sending numeric information.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WicaChannelFilterType</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    WicaChannelFilterTypeLatestValueSampler
+                
+                </td>
+            
+
+            <td class="description last">The type of filtering to be
+    used on the channel. See <a href="module-shared-definitions.html#.WicaChannelFilterType">WicaChannelFilterType</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">The filter number of samples.
+    See <a href="module-shared-definitions.html#.WicaChannelFilterTypeLatestValueSampler">WicaChannelFilterTypeLatestValueSampler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">The filter cycle length.
+    See <a href="module-shared-definitions.html#.WicaChannelFilterTypeFixedCycleSampler">WicaChannelFilterTypeFixedCycleSampler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>interval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">The filter sampling interval.
+    See <a href="module-shared-definitions.html#.WicaChannelFilterTypeRateLimitingSampler">WicaChannelFilterTypeRateLimitingSampler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deadband</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1.0
+                
+                </td>
+            
+
+            <td class="description last">The filter deadband.
+    See <a href="module-shared-definitions.html#.WicaChannelFilterTypeChangeFilteringSampler">WicaChannelFilterTypeChangeFilteringSampler</a>.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line299">line 299</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~WicaElementConnectionAttributes"><span class="type-signature">(inner, constant) </span>WicaElementConnectionAttributes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    JS Object that defines the HTML element attributes used by the
+DocumentStreamConnector when communicating
+with the Wica server.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>streamState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-stream-state"
+                
+                </td>
+            
+
+            <td class="description last">The name of the element attribute which reflects
+    the state of the connection to the wica server's data stream. Format: JS string literal with possible
+    values: [ "connect-CCC", "opened-XXX", "closed-XXX" ], where CCC represents the incrementing connection
+    request counter and XXX the id of the last stream that was opened.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-name"
+                
+                </td>
+            
+
+            <td class="description last">The name of the element attribute which specifies
+    the wica channel name. This is the minimum information that must be present for an element to be
+    considered "wica-aware". Format: JS string literal.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelProperties</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-properties"
+                
+                </td>
+            
+
+            <td class="description last">The name of the element attribute which
+    specifies the wica channel properties. Format: JSON string literal, representing JS
+    <a href="module-shared-definitions.html#~WicaChannelProperties">WicaChannelProperties</a> object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelConnectionState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-connection-state"
+                
+                </td>
+            
+
+            <td class="description last">The name of the element
+    attribute which reflects the state of the connection between the wica server and the wica
+    channel's data source. Format: JS string literal with possible values: ["connecting-N", "opened-X",
+    "closed-X"], where N represents the incrementing count of connection attempts and X represents the
+    stream ID assigned by the server.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelMetadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-metadata"
+                
+                </td>
+            
+
+            <td class="description last">The name of the element attribute which
+    reflects the metadata obtained most recently from the wica channel. Format: JSON string literal,
+    representing JS <a href="module-shared-definitions.html#.WicaChannelMetadata">WicaChannelMetadata</a> object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelValueArray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-value-array"
+                
+                </td>
+            
+
+            <td class="description last">The name of the attribute which
+    reflects the most recently obtained values from the wica channel. Format: JSON string literal,
+    representing JS Array of <a href="module-shared-definitions.html#.WicaChannelValue">WicaChannelValue</a> objects.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelValueLatest</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-value-latest"
+                
+                </td>
+            
+
+            <td class="description last">The name of the attribute which is
+    set to reflect the last value obtained from the channel. Format: JSON string literal, representing JS
+    <a href="module-shared-definitions.html#.WicaChannelValue">WicaChannelValue</a> object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelAlarmState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-channel-alarm-state"
+                
+                </td>
+            
+
+            <td class="description last">The name of the attribute which reflects
+    the alarm status most recently obtained from the channel. Format: JS number literal with possible values:
+    [ 0 (= "NO_ALARM"), 1 (= "MINOR_ALARM"), 2 (= "MAJOR_ALARM"), 3 (= "INVALID_ALARM") ].</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~WicaElementEventAttributes"><span class="type-signature">(inner, constant) </span>WicaElementEventAttributes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    JS Object that defines the HTML element attributes used by the
+DocumentEventManager in its mission to fire
+events on wica-aware elements.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>eventHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "onchange"
+                
+                </td>
+            
+
+            <td class="description last">The name of the attribute which will be
+    examined to look for a wica custom event handler.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~WicaElementRenderingAttributes"><span class="type-signature">(inner, constant) </span>WicaElementRenderingAttributes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    JS Object that defines the HTML element attributes used by the
+DocumentTextRenderer when rendering the element's
+visual state.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tooltip</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-tooltip"
+                
+                </td>
+            
+
+            <td class="description last">The name of the attribute which specifies the tooltip to
+    be displayed when the browser's cursor hovers over the element. When not explicitly set by the developer
+    the wica channel name will be assigned to this attribute instead. Format: JS string literal.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>renderingProperties</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    "data-wica-rendering-props"
+                
+                </td>
+            
+
+            <td class="description last">The name of the attribute which provides
+    other miscellaneous properties which affect the way the element is rendered. Format: JSON string literal
+    representing JS <a href="module-shared-definitions.html#~WicaRenderingProperties">WicaRenderingProperties</a>
+    object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~WicaRenderingProperties"><span class="type-signature">(inner, constant) </span>WicaRenderingProperties<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    JS Object that defines the properties and default values used by the
+DocumentTextRenderer when rendering the element's
+visual state.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>disable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Disables rendering for this channel.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
+
+            <td class="description last">The units to be displayed when rendering numeric information. When this
+    property is specified it will be used. When not specified an attempt will be made to obtain the units
+    from the metadata.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>exp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Sets the rendering format for channels which return numeric data. Possible
+    values: [true (use exponential format, eg 1.27E-1), false (use fixed decimal point format, eg 0.127)].</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prec</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    8
+                
+                </td>
+            
+
+            <td class="description last">The precision (= number of digits after the decimal point) to be used for
+    channels which return numeric data.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line243">line 243</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~WicaStreamProperties"><span class="type-signature">(inner, constant) </span>WicaStreamProperties<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    JS Object that defines the properties and default values supported by a WicaStream.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hbflux</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    15000
+                
+                </td>
+            
+
+            <td class="description last">The interval in milliseconds between heartbeat messages.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metaflux</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    100
+                
+                </td>
+            
+
+            <td class="description last">The interval in milliseconds between transmitting successive
+   Server-Sent-Event (SSE) messages with the latest wica channel metadata.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>monflux</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    100
+                
+                </td>
+            
+
+            <td class="description last">The interval in milliseconds between transmitting successive
+   Server-Sent-Event (SSE) messages with the latest wica channel monitored values.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pollflux</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1000
+                
+                </td>
+            
+
+            <td class="description last">The interval in milliseconds between transmitting successive
+   Server-Sent-Event (SSE) messages with the latest wica channel polled values.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>daqmode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    monitor
+                
+                </td>
+            
+
+            <td class="description last">The default data acquisition mode.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pollint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1000
+                
+                </td>
+            
+
+            <td class="description last">The default polling interval in milliseconds.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prec</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    6
+                
+                </td>
+            
+
+            <td class="description last">The precision (= number of digits after the decimal point) to be used when
+    sending numeric information.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fields</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    val;sevr
+                
+                </td>
+            
+
+            <td class="description last">A semicolon delimited list defining the data fields that
+   should be included by default in the stream of WicaChannelValues.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line267">line 267</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id=".WicaChannelFilterType">WicaChannelFilterType</h4>
+
+
+
+
+<div class="description">
+    Provides a union type definition for the filtering possibilities that may be configured on a wica channel.
+
+See <a href="module-shared-definitions.html#.WicaChannelFilterTypeAllValueSampler">WicaChannelFilterTypeAllValueSampler</a>,
+    <a href="module-shared-definitions.html#.WicaChannelFilterTypeLatestValueSampler">WicaChannelFilterTypeLatestValueSampler</a>,
+    <a href="module-shared-definitions.html#.WicaChannelFilterTypeFixedCycleSampler">WicaChannelFilterTypeFixedCycleSampler</a>,
+    <a href="module-shared-definitions.html#.WicaChannelFilterTypeRateLimitingSampler">WicaChannelFilterTypeRateLimitingSampler</a>,
+    and <a href="module-shared-definitions.html#.WicaChannelFilterTypeChangeFilteringSampler">WicaChannelFilterTypeChangeFilteringSampler</a>.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelFilterTypeAllValueSampler">WicaChannelFilterTypeAllValueSampler</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a filter that "does nothing", passing through all values obtained from the
+channel's data source.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filterType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"all-value" - the string literal that configures this type of filter.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelFilterTypeChangeFilteringSampler">WicaChannelFilterTypeChangeFilteringSampler</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a filter that that passes through values every time the input signal makes a
+ transition whose absolute value exceeds the configured deadband. The filter operates only on channels whose
+ underlying type is numeric; the information for all other channel types passes through unchanged.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filterType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"changes" - the string literal that configures this type of filter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deadband</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Defines the absolute change which must occur in the input value in order for
+    the new value to be passed through the filter.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelFilterTypeFixedCycleSampler">WicaChannelFilterTypeFixedCycleSampler</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a filter that passes through values obtained from the channel's data source
+on a fixed one-in-N sampling basis.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filterType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"one-in-m" - the string literal that configures this type of filter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>m</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The sampling cycle length.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelFilterTypeLatestValueSampler">WicaChannelFilterTypeLatestValueSampler</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a filter that passes through only the latest values received from the
+channel during the wica server's previous value update sampling time window.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filterType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"last-n" - the string literal that configures this type of filter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum number of values to pass through the filter on each update cycle.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelFilterTypeRateLimitingSampler">WicaChannelFilterTypeRateLimitingSampler</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a filter that passes through values obtained from the channel's data source based
+on a minimum time interval between successive samples.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filterType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"rate-limiter" - the string literal that configures this type of filter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>interval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The minimum time duration between samples in milliseconds.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelMetadata">WicaChannelMetadata</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a union type which describes the metadata information associated with a wica channel.
+
+See <a href="module-shared-definitions.html#.WicaChannelMetadataOther">WicaChannelMetadataOther</a>,
+and <a href="module-shared-definitions.html#.WicaChannelMetadataEpics">WicaChannelMetadataEpics</a>.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelMetadataEpics">WicaChannelMetadataEpics</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition to describe the metadata associated with a channel based on an EPICS data source.
+
+The published properties may vary according to the EPICS record that publishes the EPICS channel. A combination
+of any or all of the following properties is possible.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">One of: "REAL", "INTEGER", "STRING", "REAL_ARRAY", "INTEGER_ARRAY", "STRING_ARRAY".</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>egu</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Engineering Units in which the channel's value will be expressed.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prec</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The precision in which the channel's value will be expressed. Applies only to numeric types.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hopr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">High Operating Range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lopr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Low Operating Range.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>drvh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Drive High Control Limit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>drvl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Drive Low Control Limit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hihi</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Upper Alarm Limit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lolo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Lower Alarm Limit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>high</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Upper Warning Limit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>low</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Lower Warning Limit.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelMetadataOther">WicaChannelMetadataOther</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition to describe the metadata associated with a channel based on a data source with
+minimal additional information.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">One of: "REAL", "INTEGER", "STRING", "REAL_ARRAY", "INTEGER_ARRAY", "STRING_ARRAY".
+    This property is always present.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelName">WicaChannelName</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a JS string which defines the name of a channel.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id=".WicaChannelValue">WicaChannelValue</h4>
+
+
+
+
+<div class="description">
+    Provides a type definition for a JS Object that provides channel value information.
+
+The value information includes the raw channel value, the timestamp at which the value was obtained, and the
+channel alarm status.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>val</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON String representation of the current value. Set to NULL if the channel's
+    data source is offline, or otherwise unavailable.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sevr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">[Alarm Severity] -  Present if the WicaStreamProperty 'includeAlarmInfo' is true. The
+   following values are defined (0 = No Alarm; 1 = Minor Alarm, 2 = Major Alarm)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">[Timestamp] - present if the WicaStreamProperty 'includeTimestamp' is true.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shared-definitions.js.html">shared-definitions.js</a>, <a href="shared-definitions.js.html#line125">line 125</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-client-api.html">client-api</a></li><li><a href="module-document-event-manager.html">document-event-manager</a></li><li><a href="module-document-stream-connector.html">document-stream-connector</a></li><li><a href="module-document-support-loader.html">document-support-loader</a></li><li><a href="module-document-text-renderer.html">document-text-renderer</a></li><li><a href="module-document-utils.html">document-utils</a></li><li><a href="module-json5-wrapper.html">json5-wrapper</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-plot-buffer.html">plot-buffer</a></li><li><a href="module-shared-definitions.html">shared-definitions</a></li><li><a href="module-stream-manager.html">stream-manager</a></li><li><a href="module-wica.html">wica</a></li></ul><h3>Classes</h3><ul><li><a href="module-document-event-manager-DocumentEventManager.html">DocumentEventManager</a></li><li><a href="module-document-stream-connector-DocumentStreamConnector.html">DocumentStreamConnector</a></li><li><a href="module-document-support-loader-DocumentSupportLoader.html">DocumentSupportLoader</a></li><li><a href="module-document-text-renderer-DocumentTextRenderer.html">DocumentTextRenderer</a></li><li><a href="module-plot-buffer-PlotBuffer.html">PlotBuffer</a></li><li><a href="module-stream-manager-StreamManager.html">StreamManager</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 23 2019 17:52:38 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
