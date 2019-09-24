@@ -87,7 +87,7 @@ class DocumentSupportLoader
             link.id = 'wica-css-id';
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = this.streamServerUrl + '/wica/wica.css';
+            link.href = this.streamServerUrl + '/wica/wica.min.css';
             link.media = 'all';
             head.appendChild(link);
         }
