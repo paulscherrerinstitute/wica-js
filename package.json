@@ -1,18 +1,18 @@
 {
   "name": "wica-js",
   "version": "1.0.0",
-  "description": "[![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js)",
+  "description": "Wica Javascript Library",
   "main": "src/wica.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "clean": "rm -rf build dist",
-    "lint": "eslint src/",
+    "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc src/ -d dist/api",
-    "terser": "terser src/*.js > build/wica.min.js",
-    "build": "rollup  -c"
+    "build": "rollup  -c",
+    "build:watch": "rollup -c -w"
   },
   "repository": {
     "type": "git",
