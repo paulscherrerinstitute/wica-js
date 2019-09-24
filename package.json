@@ -10,7 +10,7 @@
     "clean": "rm -rf build dist",
     "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "jsdoc src/ -d dist/api",
+    "docs": "jsdoc src/  -c .jsdoc.conf.json -d dist/api",
     "build": "rollup  -c",
     "build:watch": "rollup -c -w"
   },
