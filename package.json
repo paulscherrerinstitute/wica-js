@@ -12,8 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc src/ -d dist/api",
     "terser": "terser src/*.js > build/wica.min.js",
-    "build_old": "rollup build/wica.min.js  --output.format=esm --file=dist/rel/wica.bundle.js",
-    "build": "rollup -c"
+    "build": "rollup  -c"
   },
   "repository": {
     "type": "git",
@@ -29,6 +28,8 @@
     "eslint": "^6.4.0",
     "jsdoc": "^3.6.3",
     "rollup": "^1.21.4",
+    "rollup-plugin-multi-entry": "^2.1.0",
+    "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-terser": "^5.1.2"
   },
   "dependencies": {
