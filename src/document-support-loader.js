@@ -80,6 +80,13 @@ class DocumentSupportLoader
      */
     loadWicaCSS_()
     {
+        // DISABLE use of streamServerUrl when calculating URL to load CSS.
+        // It's currently not clear (2019-09-25) whether we ever need to prepend
+        // streamSerevr URL to the request or whether we can assume in all situations
+        // that the wia.css file is colocated at the same origin as the wica.js file.
+        const prependStreamServerUrl = false;
+
+        // This mechanism ensures that the Wica CSS file is loaded only once.
         if ( !document.getElementById('wica-css-id') )
         {
             const head = document.getElementsByTagName('head')[0];
@@ -87,7 +94,7 @@ class DocumentSupportLoader
             link.id = 'wica-css-id';
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = this.streamServerUrl + '/wica/wica.min.css';
+            link.href =  prependStreamServerUrl ? this.streamServerUrl + '/wica.css' : './wica.css';
             link.media = 'all';
             head.appendChild(link);
         }
