@@ -15,7 +15,7 @@ install:
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
-  - npm run lint && npm run build && npm run docs
+  - npm run lint && npm run build && npm run docs && npm run zip
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
 script:
@@ -32,7 +32,7 @@ deploy:
     api_key:
       secure:  "Bge4uy7y+wAYie0MV8xuuvdReY5vWwJJNFTyvaNqkB2LcUq+zziVUoklV4Pqt1y5Z5COuZVSKwwwLlrnrluQB1sLxcYg910z9WJ7nl0aXekzQRKM5EpFfv/blDyNPQnBjeQCce/KBmhRyLMki9S7nVGGGLeY/U1a01CCQwl3DRzkAnnkbyyee5d1igia1uG8K+x7K65dnN+sdkuG/MCWs70H29D/Kii/zBQHdaomtbTplli+yaRJLhKeKd4yQCfi39IOFxkFRXmKxrw5AKKVuGPYWNlZV6Q9Ow+XW/q2jCqLnaGL6Km8PzijOCYBjPUgNHo3uSXPjj86CHttamGejRaF9oZaA2aH7vojNbR+0cR4x56KH/XxrKZJCYg+yIrHeksF0tmmd95tbFv2Nvh4iIdZ09jqSOWWB7GlELcjb2+D3yToIXj4benR5O2AHA1rnTIzprr7PchHhMb3Sm/YziGR6N8JdN8JfkAFpp00yoBiJchd9KLIPEiAiI1IoGlS6eV37PIGthR9Nm0JAT8xd/qhgnjsWfk022jh3KAJ1nUQ4S715C/D+DrHMSZfiLud89guCgDSd84xOroliTFJSjgVI9beD+a2QlRbuVJV0QG9EqTyqt7GujsXX9i7XJjhfma2R/0M0wQ8rhXUI2FJHn2GydYX/SniWDuANwTws0o="
     file_glob: true
-    file: dist/rel/wica.min.*
+    file: dist/wica-js.zip
     skip_cleanup: true
     draft: false
     on:
