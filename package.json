@@ -1,19 +1,19 @@
 {
   "name": "wica-js",
-  "version": "1.0.0",
+  "version": "1.0.2rc2",
   "description": "Wica Javascript Library",
   "main": "src/wica.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "version": "echo $npm_package_version",
     "clean": "rm -rf build dist",
     "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/api",
     "build": "rollup  -c",
-    "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
-    "push:latest": "git tag -f LATEST ; git push --tags -f origin"
+    "zip": "cd dist/rel && bestzip  ../wica-js.zip *"
   },
   "repository": {
     "type": "git",
