@@ -25,6 +25,12 @@ script:
   - docker push paulscherrerinstitute/wica-js:latest
   - echo -n "LIFECYCLE COMPLETED - 'script' ***************************************************************************"
 
+
+before_deploy:
+  - echo -n "*** LIFECYCLE STARTED - 'before_deploy' ******************************************************************"
+  - git tag LATEST
+  - echo -n "LIFECYCLE COMPLETED - 'before_deploy' ********************************************************************"
+
 # The deploy phase is optional and runs after the script.
 deploy:
   # Here we copy the release into the GitHub releases area.
@@ -34,8 +40,8 @@ deploy:
     file_glob: true
     file: dist/wica-js.zip
     skip_cleanup: true
-    tag_name: latest-draft
-    draft: true
+    draft: false
+    overwrite: true
     on:
       tags: true
       repo: paulscherrerinstitute/wica-js
