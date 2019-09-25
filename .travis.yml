@@ -15,7 +15,7 @@ install:
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
-  - npm run lint && npm run build && npm run docs && npm run zip
+  - npm run lint && npm run build && npm run docs && npm run zip && npm run tag:draft
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
 script:
@@ -40,6 +40,7 @@ deploy:
     skip_cleanup: true
     draft: false
     overwrite: true
+    tag: "DRAFT"
     on:
       tags: true
       repo: paulscherrerinstitute/wica-js
