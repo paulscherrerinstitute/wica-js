@@ -34,6 +34,7 @@ deploy:
     file_glob: true
     file: dist/wica-js.zip
     skip_cleanup: true
+    tag_name: latest_draft
     draft: true
     on:
       tags: false
