@@ -1,29 +1,27 @@
-// import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
-import multiEntry from "rollup-plugin-multi-entry";
+import { terser } from 'rollup-plugin-terser';
+import copy from "rollup-plugin-copy-assets";
 
 export default {
-    input: ['src/wica.js', 'src/wica.css' ],
+    input: 'src/wica.js',
     output: {
-        file: 'dist/rel/wica.min.js',
+        file: 'dist/rel/wica.js',
         format: 'esm',
         beautify: true,
-        sourceMap: 'inline'
+        sourcemap: true,
     },
     plugins: [
-        multiEntry(),
-        postcss({
-            modules: true,
-            extract: true,
-            extensions: [ '.css' ],
+        copy({
+            assets: [
+                "src/about.html",
+                "src/test.html",
+                "src/wica.css",
+            ],
         }),
-        // terser( {
-        //     mangle: {},
-        //     compress: {},
-        //     module: true,
-        //     output: {
-        //         comments: "all"
-        //     }
-        // } ),
+        terser( {
+            mangle: {},
+            compress: {},
+            module: false,
+            output: {},
+        } ),
     ]
 };
