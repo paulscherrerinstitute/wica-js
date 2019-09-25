@@ -17,11 +17,8 @@ export default {
                 "src/wica.css",
             ],
         }),
-        terser( {
-            mangle: {},
-            compress: {},
-            module: false,
-            output: {},
-        } ),
+        // Invoke terser but just use the default options until
+        // it is proved that we need something else.
+        terser(),
     ]
 };
