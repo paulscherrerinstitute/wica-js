@@ -11,7 +11,8 @@
     "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/api",
-    "build": "rollup  -c"
+    "build": "rollup  -c",
+    "zip": "cd dist/rel && bestzip  ../wica-js.zip *"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/paulscherrerinstitute/wica-js#readme",
   "devDependencies": {
+    "bestzip": "^2.1.4",
     "eslint": "^6.4.0",
     "jsdoc": "^3.6.3",
     "rollup": "^1.21.4",
