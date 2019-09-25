@@ -10,9 +10,8 @@
     "clean": "rm -rf build dist",
     "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "jsdoc src/  -c .jsdoc.conf.json -d dist/api",
-    "build": "rollup  -c",
-    "build:watch": "rollup -c -w"
+    "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/api",
+    "build": "rollup  -c"
   },
   "repository": {
     "type": "git",
@@ -28,8 +27,7 @@
     "eslint": "^6.4.0",
     "jsdoc": "^3.6.3",
     "rollup": "^1.21.4",
-    "rollup-plugin-multi-entry": "^2.1.0",
-    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-copy-assets": "^2.0.1",
     "rollup-plugin-terser": "^5.1.2"
   },
   "dependencies": {
