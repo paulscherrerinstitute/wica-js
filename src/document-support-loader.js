@@ -94,7 +94,7 @@ class DocumentSupportLoader
             link.id = 'wica-css-id';
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href =  prependStreamServerUrl ? this.streamServerUrl + '/wica.css' : './wica.css';
+            link.href =  prependStreamServerUrl ? this.streamServerUrl + '/wica/wica.css' : './wica.css';
             link.media = 'all';
             head.appendChild(link);
         }
