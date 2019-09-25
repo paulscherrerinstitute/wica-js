@@ -15,7 +15,7 @@ install:
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
-  - git tag -f LATEST
+  - git tag -f LATEST_RELEASE
   - npm run lint && npm run build && npm run docs && npm run zip
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
