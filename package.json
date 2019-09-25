@@ -13,7 +13,7 @@
     "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/api",
     "build": "rollup  -c",
     "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
-    "push:latest": "git tag -f LATEST ; git push --tags -f origin master"
+    "push:latest": "git tag -f LATEST ; git push --tags -f origin"
   },
   "repository": {
     "type": "git",
