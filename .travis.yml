@@ -16,10 +16,10 @@ install:
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
-  - export npm_package_version=`npm run version --silent`
-  - echo -n "Building Wica-JS Version $npm_package_version..."
+  - export release=`npm run version --silent`
+  - echo -n "Building Wica-JS Release release ..."
   - npm run lint && npm run build && npm run docs && npm run zip
-  - git tag -f $npm_package_version
+  - git tag -f $release
   #- git push --tags -f origin
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
@@ -44,7 +44,7 @@ deploy:
     file: dist/wica-js.zip                   # The asset to be deployed.
     draft: false                             # Create a GitHub Regular Release not a GitHub Draft.
     overwrite: true                          # Allow new LATEST releases to overwrite old ones.
-    tag: LATEST                              # The name of the tag with which to associate the release.
+    tag: $release                            # The name of the tag with which to associate the release.
     on:
       tags: true                             # Skip this deployment unless tagged.
       repo: paulscherrerinstitute/wica-js    # The GitHub Repository to operate on.
