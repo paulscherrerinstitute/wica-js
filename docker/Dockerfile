@@ -2,11 +2,33 @@
 # Dockerfile to support download of Wica-JS library in docker data container
 ###############################################################################
 
-FROM alpine:latest
+FROM alpine:latest as NVM_BUILD
+
+# If we need to look inside this image we will do it as root.
+USER root
+
+# Set the working directory
+WORKDIR /tmp
+
+RUN apk add --update npm
+
+COPY package.json .
+
+RUN npm install
+
+COPY .eslintrc.js .
+COPY rollup.config.js .
+COPY .jsdoc.conf.json .
+COPY ./src ./src
+
+RUN npm run lint && npm run build
+
 
 ################################################################################
 ## 1.0 Define the application
 ################################################################################
+
+FROM alpine:latest
 
 # If we need to look inside this image we will do it as root.
 USER root
@@ -14,11 +36,11 @@ USER root
 # Set the working directory
 WORKDIR /root
 
+
 ###############################################################################
 # 2.0 Install any additional applications
 ###############################################################################
 
-#RUN apk update && apk add --no-cache bash
 
 ###############################################################################
 # 3.0 Set up the application project structure
@@ -27,17 +49,15 @@ WORKDIR /root
 # Create the directories needed by this application
 RUN mkdir ./static ./static/wica
 
-# Perform a complete npm build cyle
-RUN npm run clean && npm run lint && npm run build && npm run docs
-
 # Populate the application directories as appropriate
-COPY ./dist/rel/* ./static/wica
+COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica/
 
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
 
 VOLUME /root/static/wica
+
 
 ###############################################################################
 # 5.0 Define the ENTRYPOINT
