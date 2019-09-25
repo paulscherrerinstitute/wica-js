@@ -34,10 +34,10 @@ deploy:
     file_glob: true
     file: dist/wica-js.zip
     skip_cleanup: true
-    tag_name: latest_draft
+    tag_name: latest-draft
     draft: true
     on:
-      tags: false
+      tags: true
       repo: paulscherrerinstitute/wica-js
 
   # Here we copy the latest Javadoc to the GitHub pages site.
