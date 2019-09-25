@@ -11,14 +11,16 @@ before_install:
 install:
   - echo "*** LIFECYCLE STARTED - 'install' ***************************************************************************"
   - npm install
-  - export npm_package_version=`npm run version --silent`
+
   - echo "*** LIFECYCLE COMPLETED - 'install' *************************************************************************"
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
+  - export npm_package_version=`npm run version --silent`
+  - echo -n "Building Wica-JS Version $npm_package_version..."
   - npm run lint && npm run build && npm run docs && npm run zip
-  - git tag -f $npm_package_version ;
-  - git push --tags -f origin
+  - git tag -f $npm_package_version
+  #- git push --tags -f origin
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
 script:
