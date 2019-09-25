@@ -1,5 +1,5 @@
 ###############################################################################
-# Dockerfile to support download of Wica-JS library in docker container
+# Dockerfile to support download of Wica-JS library in docker data container
 ###############################################################################
 
 FROM alpine:latest
@@ -25,19 +25,19 @@ WORKDIR /root
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir ./static ./static/wica-js
+RUN mkdir ./static ./static/wica
 
 # Perform a complete npm build cyle
-# RUN npm run clean && npm run lint && npm run build && npm run docs
+RUN npm run clean && npm run lint && npm run build && npm run docs
 
 # Populate the application directories as appropriate
-COPY ./dist/rel/wica.min.js ./static/wica-js
+COPY ./dist/rel/* ./static/wica
 
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
 
-VOLUME /root/static/wica-js
+VOLUME /root/static/wica
 
 ###############################################################################
 # 5.0 Define the ENTRYPOINT
