@@ -16,9 +16,10 @@ install:
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
-  - export release=`npm run version --silent` && echo -n "Building Wica-JS Release $release ..."
+  - export RELEASE=$(npm run version --silent)
+  - echo -n "Building Wica-JS Release RELEASE ..."
   - npm run lint && npm run build && npm run docs && npm run zip
-  - export release=`npm run version --silent` && git tag -f $release
+  - export git tag -f RELEASE
   #- git push --tags -f origin
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
