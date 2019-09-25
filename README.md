@@ -72,3 +72,4 @@ Coming Soon: the API documentation (ES6doc) will be available [here](https://pau
 # Contact
 
 If you have questions please contact: 'simon.rees@psi.ch'.
+
