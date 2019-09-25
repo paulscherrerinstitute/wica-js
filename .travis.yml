@@ -15,6 +15,7 @@ install:
 
 before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
+  - git tag -f LATEST
   - npm run lint && npm run build && npm run docs && npm run zip
   - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
@@ -25,10 +26,8 @@ script:
   - docker push paulscherrerinstitute/wica-js:latest
   - echo -n "LIFECYCLE COMPLETED - 'script' ***************************************************************************"
 
-
 before_deploy:
   - echo -n "*** LIFECYCLE STARTED - 'before_deploy' ******************************************************************"
-  - git tag LATEST
   - echo -n "LIFECYCLE COMPLETED - 'before_deploy' ********************************************************************"
 
 # The deploy phase is optional and runs after the script.
