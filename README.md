@@ -1,7 +1,7 @@
 # Overview [![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
 
 :construction:
-Note: this README is still **under construction** although hopefully, now, substantially correct. 
+Note: this README is still **under construction** (although hopefully, now, substantially correct). 
 
 This is the **Wica-JS** git repository, one component of PSI's WICA software suite. 
  
