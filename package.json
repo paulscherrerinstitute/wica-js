@@ -11,7 +11,7 @@
     "clean": "rm -rf build dist",
     "lint": "eslint src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/apidocs/$npm_package_version",
+    "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/apidocs/$npm_package_version && jsdoc src/*.js -c .jsdoc.conf.json -d dist/apidocs/latest",
     "build": "rollup  -c",
     "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
     "release": "git tag -f $npm_package_version && git push --tags -f origin master"

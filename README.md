@@ -62,12 +62,22 @@ documentation for the relevant URL.
 
 # Wica-JS API Documentation
 
-Coming Soon: the API documentation (ES6doc) will be available [here](https://paulscherrerinstitute.github.io/wica-js/)
+# Wica-HTTP API Documentation
+
+The API documentation for the **latest development** release is always available [here](https://paulscherrerinstitute.github.io/wica-js/latest).
+The API documentation for **previous releases** can be found as follows:
+```
+https://paulscherrerinstitute.github.io/wica-js/<rel>
+```
 
 # Project Changes and Tagged Releases
 
+* Project Releases are available in the [GitHub Release Area](https://github.com/paulscherrerinstitute/wica-js/releases) 
+and on [Docker Hub](https://cloud.docker.com/u/paulscherrerinstitute/repository/docker/paulscherrerinstitute/wica-js) .
+
 * See the [CHANGELOG](CHANGELOG.md) file for further information.
 * See also the project's [Issue Board](https://github.com/paulscherrerinstitute/wica-js/issues).
+
 
 # Contact
 
