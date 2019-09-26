@@ -14,6 +14,8 @@
     "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/apidocs/$npm_package_version && jsdoc src/*.js -c .jsdoc.conf.json -d dist/apidocs/latest",
     "build": "rollup  -c",
     "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
+    "docker:build": "docker build -t paulscherrerinstitute/wica-js:$npm_package_version -f docker/Dockerfile .",
+    "docker:push": "docker push paulscherrerinstitute/wica-js:$npm_package_version",
     "release": "git tag -f $npm_package_version && git push --tags -f origin master"
   },
   "repository": {
