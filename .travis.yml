@@ -75,6 +75,7 @@ deploy:
     on:
       tags: true                             # Skip this deployment unless tagged.
       repo: paulscherrerinstitute/wica-js    # The GitHub Repository to operate on.
+
   # Log into Docker and run build
 #  - provider: script
 #    skip_cleanup: false
