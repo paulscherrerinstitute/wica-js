@@ -73,7 +73,7 @@ deploy:
 
   # Copy the Wics-JS API documentation into the GitHub Pages Area.
   - provider: pages                          # Travis GitHub Pages Provider.
-    local_dir: dist/api                      # The asset to be deployed.
+    local_dir: dist/apidocs                  # The asset to be deployed.
     skip_cleanup: true                       # Set to true in accordance with Travis GitHub Pages Provider docs.
     github_token: $GITHUB_TOKEN              # Set in the settings page of your repository, as a secure variable.
     keep_history: true                       # Retain previous versions of the documentation.
