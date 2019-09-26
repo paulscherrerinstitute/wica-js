@@ -1,46 +1,60 @@
-language: java
+###############################################################################
+# Travis file to support automatic build and deployment of Wica-JS Artifacts
+###############################################################################
 
+#
+# This build recipe should be set up to trigger every time new TAGGED commits
+# are pushed to the Wica-JS repository in the PSI Organisational Area on the
+# GitHub Server.
+#
+# Currently the build recipe supports the following actions:
+#
+# - Builds Wica-JS API documentation and transfers asset to GitHub Pages Area.
+# - Builds Wica-JS Release Bundle and transfers asset to GitHub Releases Area.
+# - Builds Wica-JS Docker Image and transfers asset to Docker Hub.
+#
+
+# *******************************************
+# Build Environment Configuration Starts Here
+# *******************************************
+
+# The Node environment is required to perform the Wica-JS release bundling.
+language:
+  node_js
+
+# The Docker environment is required to run the Dockerfile and to push the release to Docker Hub.
 services:
   - docker
 
-before_install:
-  - echo -n "*** LIFECYCLE STARTED - 'before_install' *****************************************************************"
-  - npm run clean
-  - echo -n "*** LIFECYCLE COMPLETED - before_install *****************************************************************"
+# *******************************************
+# Build Lifecycle Handling Starts Here
+# *******************************************
+
+# before_install:
+#  - echo -n "*** LIFECYCLE STARTED - 'before_install' *****************************************************************"
+#  - echo -n "*** LIFECYCLE COMPLETED - before_install *****************************************************************"
 
 install:
   - echo "*** LIFECYCLE STARTED - 'install' ***************************************************************************"
-  - npm install
-
+  - npm install                               # Install the dependencies expressed in the node 'package.json' file.
   - echo "*** LIFECYCLE COMPLETED - 'install' *************************************************************************"
 
-before_script:
-  - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
-  - echo "export REL=$(npm run version --silent)" > env.sh
-  - source env.sh
-  - cat env.sh
-  - echo $REL
-  - echo -n "Building Wica-JS Release $REL ..."
-  - npm run lint && npm run build && npm run docs && npm run zip
-  - git tag -f ${REL}
-  - echo $REL
-  #- git push --tags -f origin
-  - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
+# before_script:
+#  - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
+#  - echo -n "*** LIFECYCLE COMPLETED - 'before_script' ****************************************************************"
 
 script:
   - echo -n "*** LIFECYCLE STARTED - 'script' *************************************************************************"
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
-  - docker push paulscherrerinstitute/wica-js:latest
+  - npm run clean && npm run lint && npm run build && npm run docs && npm run zip
   - echo -n "*** LIFECYCLE COMPLETED - 'script' ***********************************************************************"
 
 before_deploy:
   - echo -n "*** LIFECYCLE STARTED - 'before_deploy' ******************************************************************"
   - echo -n "LIFECYCLE COMPLETED - 'before_deploy' ********************************************************************"
 
-# The Travis Lifecycle deploy phase is optional and runs after the script.
+# The Travis Lifecycle 'deploy' phase is optional and runs after the Travis Lifecycle 'script' phase has completed.
 deploy:
-  # Copy the Wics-JS release into the GitHub Releases Area.
+  # Copy the Wics-JS release asset into the GitHub Releases Area.
   - provider: releases                       # Travis GitHub Release Area Provider.
     skip_cleanup: true                       # Set to true in accordance with Travis GitHub Releases Provider docs.
     api_key:                                 # See the Travis documnetation for how this key was created.
@@ -53,7 +67,7 @@ deploy:
       tags: true                             # Skip this deployment unless tagged.
       repo: paulscherrerinstitute/wica-js    # The GitHub Repository to operate on.
 
-  # Copy the Wics-JS api documentation into the GitHub Pages Area.
+  # Copy the Wics-JS API documentation into the GitHub Pages Area.
   - provider: pages                          # Travis GitHub Pages Area Provider.
     local_dir: dist/api                      # The asset to be deployed.
     skip_cleanup: true                       # Set to true in accordance with Travis GitHub Pages Provider docs.
@@ -62,7 +76,15 @@ deploy:
     on:
       branch: master                         # Set in accordance with Travis GitHub Provider docs.
 
-after_script:
-  - echo -n "*** LIFECYCLE STARTED - 'after_script' *******************************************************************"
-  - echo -n "*** LIFECYCLE COMPLETED - 'after_script' *****************************************************************"
+  # Log into Docker and run build
+  - provider: script
+    skip_cleanup: false
+    script:
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
+      docker push paulscherrerinstitute/wica-js:latest
+
+# after_script:
+#  - echo -n "*** LIFECYCLE STARTED - 'after_script' *******************************************************************"
+#  - echo -n "*** LIFECYCLE COMPLETED - 'after_script' *****************************************************************"
 
