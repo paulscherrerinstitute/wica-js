@@ -14,7 +14,8 @@
     "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/api",
     "build": "rollup  -c",
     "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
-    "tag:latest": "git tag -f $npm_package_version"
+    "tag:version": "git tag -f $npm_package_version",
+    "push:origin": "git push -f origin"
   },
   "repository": {
     "type": "git",
