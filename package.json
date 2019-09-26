@@ -15,7 +15,7 @@
     "build": "rollup  -c",
     "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
     "tag:version": "git tag -f $npm_package_version",
-    "push:origin": "git push -f origin"
+    "push:origin": "git push --tags -f origin"
   },
   "repository": {
     "type": "git",
