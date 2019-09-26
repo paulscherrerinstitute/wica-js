@@ -56,16 +56,16 @@ script:
 # The Travis Lifecycle 'deploy' phase is optional and runs after the Travis Lifecycle 'script' phase has completed.
 deploy:
   # Copy the Wics-JS release asset into the GitHub Releases Area.
-  - provider: releases                       # Travis GitHub Release Area Provider.
-    skip_cleanup: true                       # Set to true in accordance with Travis GitHub Releases Provider docs.
-    api_key:                                 # See the Travis documnetation for how this key was created.
-      secure:  "Bge4uy7y+wAYie0MV8xuuvdReY5vWwJJNFTyvaNqkB2LcUq+zziVUoklV4Pqt1y5Z5COuZVSKwwwLlrnrluQB1sLxcYg910z9WJ7nl0aXekzQRKM5EpFfv/blDyNPQnBjeQCce/KBmhRyLMki9S7nVGGGLeY/U1a01CCQwl3DRzkAnnkbyyee5d1igia1uG8K+x7K65dnN+sdkuG/MCWs70H29D/Kii/zBQHdaomtbTplli+yaRJLhKeKd4yQCfi39IOFxkFRXmKxrw5AKKVuGPYWNlZV6Q9Ow+XW/q2jCqLnaGL6Km8PzijOCYBjPUgNHo3uSXPjj86CHttamGejRaF9oZaA2aH7vojNbR+0cR4x56KH/XxrKZJCYg+yIrHeksF0tmmd95tbFv2Nvh4iIdZ09jqSOWWB7GlELcjb2+D3yToIXj4benR5O2AHA1rnTIzprr7PchHhMb3Sm/YziGR6N8JdN8JfkAFpp00yoBiJchd9KLIPEiAiI1IoGlS6eV37PIGthR9Nm0JAT8xd/qhgnjsWfk022jh3KAJ1nUQ4S715C/D+DrHMSZfiLud89guCgDSd84xOroliTFJSjgVI9beD+a2QlRbuVJV0QG9EqTyqt7GujsXX9i7XJjhfma2R/0M0wQ8rhXUI2FJHn2GydYX/SniWDuANwTws0o="
-    file: dist/wica-js.zip                   # The asset to be deployed.
-    draft: false                             # Create a GitHub Regular Release not a GitHub Draft.
-    overwrite: true                          # Allow new LATEST releases to overwrite old ones.
-    on:
-      tags: true                             # Skip this deployment unless tagged.
-      repo: paulscherrerinstitute/wica-js    # The GitHub Repository to operate on.
+#  - provider: releases                       # Travis GitHub Release Area Provider.
+#    skip_cleanup: true                       # Set to true in accordance with Travis GitHub Releases Provider docs.
+#    api_key:                                 # See the Travis documnetation for how this key was created.
+#      secure:  "Bge4uy7y+wAYie0MV8xuuvdReY5vWwJJNFTyvaNqkB2LcUq+zziVUoklV4Pqt1y5Z5COuZVSKwwwLlrnrluQB1sLxcYg910z9WJ7nl0aXekzQRKM5EpFfv/blDyNPQnBjeQCce/KBmhRyLMki9S7nVGGGLeY/U1a01CCQwl3DRzkAnnkbyyee5d1igia1uG8K+x7K65dnN+sdkuG/MCWs70H29D/Kii/zBQHdaomtbTplli+yaRJLhKeKd4yQCfi39IOFxkFRXmKxrw5AKKVuGPYWNlZV6Q9Ow+XW/q2jCqLnaGL6Km8PzijOCYBjPUgNHo3uSXPjj86CHttamGejRaF9oZaA2aH7vojNbR+0cR4x56KH/XxrKZJCYg+yIrHeksF0tmmd95tbFv2Nvh4iIdZ09jqSOWWB7GlELcjb2+D3yToIXj4benR5O2AHA1rnTIzprr7PchHhMb3Sm/YziGR6N8JdN8JfkAFpp00yoBiJchd9KLIPEiAiI1IoGlS6eV37PIGthR9Nm0JAT8xd/qhgnjsWfk022jh3KAJ1nUQ4S715C/D+DrHMSZfiLud89guCgDSd84xOroliTFJSjgVI9beD+a2QlRbuVJV0QG9EqTyqt7GujsXX9i7XJjhfma2R/0M0wQ8rhXUI2FJHn2GydYX/SniWDuANwTws0o="
+#    file: dist/wica-js.zip                   # The asset to be deployed.
+#    draft: false                             # Create a GitHub Regular Release not a GitHub Draft.
+#    overwrite: true                          # Allow new LATEST releases to overwrite old ones.
+#    on:
+#      tags: true                             # Skip this deployment unless tagged.
+#      repo: paulscherrerinstitute/wica-js    # The GitHub Repository to operate on.
   # Copy the Wics-JS API documentation into the GitHub Pages Area.
   - provider: pages                          # Travis GitHub Pages Area Provider.
     local_dir: dist/api                      # The asset to be deployed.
