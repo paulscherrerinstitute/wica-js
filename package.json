@@ -14,8 +14,7 @@
     "docs": "jsdoc src/*.js  -c .jsdoc.conf.json -d dist/apidocs/$npm_package_version",
     "build": "rollup  -c",
     "zip": "cd dist/rel && bestzip  ../wica-js.zip *",
-    "tag:version": "git tag -f $npm_package_version",
-    "push:origin": "git push --tags -f origin master"
+    "release": "git tag -f $npm_package_version && git push --tags -f origin master"
   },
   "repository": {
     "type": "git",
