@@ -87,7 +87,6 @@ deploy:
       docker build -t paulscherrerinstitute/wica-js:$TRAVIS_TAG -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile . &&
       docker push paulscherrerinstitute/wica-js:$TRAVIS_TAG &&
       docker push paulscherrerinstitute/wica-js:latest
-
     on:
       tags: true                              # Skip this deployment unless $TRAVIS_TAG is set.
 
