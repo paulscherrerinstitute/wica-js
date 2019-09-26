@@ -27,7 +27,7 @@ node_js:
 services:
   - docker
 
-if: tag IS present
+#if: tag IS present
 
 # *******************************************
 # Build Lifecycle Handling Starts Here
