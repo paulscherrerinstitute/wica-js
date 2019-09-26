@@ -18,6 +18,7 @@ before_script:
   - echo -n "*** LIFECYCLE STARTED - 'before_script' ******************************************************************"
   - echo "export RELEASE=$(npm run version --silent)" > env.sh
   - source env.sh
+  - cat env.sh
   - echo -n "Building Wica-JS Release $RELEASE ..."
   - npm run lint && npm run build && npm run docs && npm run zip
   - git tag -f $RELEASE
