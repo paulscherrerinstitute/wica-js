@@ -81,12 +81,12 @@ deploy:
       tags: true                              # Skip this deployment unless $TRAVIS_TAG is set.
 
   # Log into Docker and run build
-#  - provider: script
-#    skip_cleanup: false
-#    script:
-#      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#      docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
-#      docker push paulscherrerinstitute/wica-js:latest
+  - provider: script
+    skip_cleanup: false
+    script:
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && \
+      docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile . && \
+      docker push paulscherrerinstitute/wica-js:latest
 
 # after_script:
 #  - echo -n "*** LIFECYCLE STARTED - 'after_script' *******************************************************************"
