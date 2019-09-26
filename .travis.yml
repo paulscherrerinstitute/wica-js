@@ -72,8 +72,8 @@ deploy:
     skip_cleanup: true                       # Set to true in accordance with Travis GitHub Pages Provider docs.
     github_token: $GITHUB_TOKEN              # Set in the settings page of your repository, as a secure variable.
     keep_history: true                       # Retain previous versions of the documentation.
-    on:
-      branch: 1.0.2-rc2                      # Set in accordance with Travis GitHub Provider docs.
+#    on:
+#      branch: 1.0.2-rc2                      # Set in accordance with Travis GitHub Provider docs.
 
   # Log into Docker and run build
 #  - provider: script
