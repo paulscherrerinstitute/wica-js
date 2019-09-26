@@ -19,6 +19,7 @@ before_script:
   - echo "export RELEASE=$(npm run version --silent)" > env.sh
   - source env.sh
   - cat env.sh
+  - echo hey: $RELEASE
   - echo -n "Building Wica-JS Release $RELEASE ..."
   - npm run lint && npm run build && npm run docs && npm run zip
   - git tag -f $RELEASE
