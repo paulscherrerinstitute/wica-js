@@ -19,8 +19,9 @@
 # *******************************************
 
 # The Node environment is required to perform the Wica-JS release bundling.
-language:
-  node_js
+language: node_js
+node_js:
+  - "10"
 
 # The Docker environment is required to run the Dockerfile and to push the release to Docker Hub.
 services:
