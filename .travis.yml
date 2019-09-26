@@ -49,9 +49,9 @@ script:
   - npm run clean && npm run lint && npm run build && npm run docs && npm run zip
   - echo -n "*** LIFECYCLE COMPLETED - 'script' ***********************************************************************"
 
-before_deploy:
-  - echo -n "*** LIFECYCLE STARTED - 'before_deploy' ******************************************************************"
-  - echo -n "LIFECYCLE COMPLETED - 'before_deploy' ********************************************************************"
+# before_deploy:
+#  - echo -n "*** LIFECYCLE STARTED - 'before_deploy' ******************************************************************"
+#  - echo -n "LIFECYCLE COMPLETED - 'before_deploy' ********************************************************************"
 
 # The Travis Lifecycle 'deploy' phase is optional and runs after the Travis Lifecycle 'script' phase has completed.
 deploy:
@@ -78,12 +78,12 @@ deploy:
       branch: master                         # Set in accordance with Travis GitHub Provider docs.
 
   # Log into Docker and run build
-  - provider: script
-    skip_cleanup: false
-    script:
-      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
-      docker push paulscherrerinstitute/wica-js:latest
+#  - provider: script
+#    skip_cleanup: false
+#    script:
+#      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      docker build -t paulscherrerinstitute/wica-js:latest -f docker/Dockerfile .
+#      docker push paulscherrerinstitute/wica-js:latest
 
 # after_script:
 #  - echo -n "*** LIFECYCLE STARTED - 'after_script' *******************************************************************"
