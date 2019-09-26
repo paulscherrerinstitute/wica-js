@@ -1,5 +1,5 @@
 /**
- * Provides the main entry point for supporting a Wica-aware document.
+ * Provides the main entry point for supporting a  Wica-aware document.
  *
  * @module
  */
