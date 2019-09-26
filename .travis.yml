@@ -75,7 +75,6 @@ deploy:
     github_token: $GITHUB_TOKEN              # Set in the settings page of your repository, as a secure variable.
     keep_history: true                       # Retain previous versions of the documentation.
     on:
-      all_branches: false
       tags: true                              # Skip this deployment unless $TRAVIS_TAG is set.
 
   # Log into Docker and run build
