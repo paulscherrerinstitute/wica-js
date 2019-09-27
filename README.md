@@ -46,7 +46,7 @@ filtering (eg noise or rate limiting).
    
 # Installation
 
-The release names for this project follow the  [semantic versioning](https://semver.org/) naming convention
+The release names for this project follow the [semantic versioning](https://semver.org/) naming convention
 proposed on the GitHub site.
       
 Examples: wica-js-1.0.0, wica-js-1.1.0, wica-js-1.2.3.rc1, wica-js-1.2.3.rc2, wica-js-7.1.5.rc19
@@ -79,6 +79,9 @@ and on [Docker Hub](https://cloud.docker.com/u/paulscherrerinstitute/repository/
 * See the [CHANGELOG](CHANGELOG.md) file for further information.
 * See also the project's [Issue Board](https://github.com/paulscherrerinstitute/wica-js/issues).
 
+# Developer 
+
+See the [Developer](DEVELOPER.md) document.
 
 # Contact
 
