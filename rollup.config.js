@@ -13,7 +13,6 @@ export default {
         copy({
             assets: [
                 "src/about.html",
-                "src/test.html",
                 "src/wica.css",
             ],
         }),

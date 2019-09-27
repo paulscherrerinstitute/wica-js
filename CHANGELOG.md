@@ -17,4 +17,3 @@ This log describes the functionality of tagged versions within the repository.
   Uses Node Terser plugin to create minified library output.
   Upgraded Travis yaml build recipe to deploy API docs to GitHub Pages Area and 
   zipped release assets to GitHub Releases Area. Also builds image for Docker Hub.
-  Added 'test.html' page.
