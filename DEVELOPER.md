@@ -1,6 +1,6 @@
-# Overview
+# Wica-JS Developer Notes
 
-This page is intended to provide information of use to future software developers.
+This page is a random collection of notes intended to assist software developers.
 
 # How to Make a New Software Release
 

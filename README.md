@@ -7,8 +7,6 @@ This is the **Wica-JS** git repository, one component of PSI's WICA software sui
  
 WICA stands for *Web Interface for Controls Applications*. The basic idea is to support the streaming of live data 
 from a distributed control system to update a user's web pages in real-time.
- 
-Wica comprises two main components:
 
 Wica comprises two main components:
 
@@ -41,7 +39,7 @@ filtering (eg noise or rate limiting).
      for latest browser compatbility information.
    * Requires web browser which support Server-Sent-Events (SSE), also know as *EventSource* support. See 
      [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6)) for latest browser compatbility information.
-   * Requires [JSON 5 library](https://json5.org) 
+   * Has an internal dependence on the [JSON 5 library](https://json5.org) 
    
    
 # Installation
@@ -49,7 +47,7 @@ filtering (eg noise or rate limiting).
 The release names for this project follow the [semantic versioning](https://semver.org/) naming convention
 proposed on the GitHub site.
       
-Examples: wica-js-1.0.0, wica-js-1.1.0, wica-js-1.2.3.rc1, wica-js-1.2.3.rc2, wica-js-7.1.5.rc19
+Examples: wica-js-1.0.0, wica-js-1.1.0, wica-js-1.2.3-rc1, wica-js-1.2.3-rc2, wica-js-7.1.5-rc19
 
 The [Wica-JS](https://github.com/paulscherrerinstitute/wica-js) library is downloaded and bundled automatically 
 into the build of the [Wica-HTTP](https://github.com/paulscherrerinstitute/wica-http) server. Normally there is 
