@@ -55,8 +55,6 @@ documentation for the relevant URL.
 
 # Wica-JS API Documentation
 
-# Wica-HTTP API Documentation
-
 The API documentation for the **latest development** release is always available [here](https://paulscherrerinstitute.github.io/wica-js/latest).
 
 The API documentation for **previous releases** can be found as follows:
