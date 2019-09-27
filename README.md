@@ -1,8 +1,5 @@
 # Overview [![Build Status](https://travis-ci.org/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.org/paulscherrerinstitute/wica-js) 
 
-:construction:
-Note: this README is still **under construction** (although hopefully, now, substantially correct). 
-
 This is the **Wica-JS** git repository, one component of PSI's WICA software suite. 
  
 WICA stands for *Web Interface for Controls Applications*. The basic idea is to support the streaming of live data 
@@ -38,7 +35,7 @@ filtering (eg noise or rate limiting).
    * Requires web browser that supports Javascript ES6. See [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6))
      for latest browser compatbility information.
    * Requires web browser which support Server-Sent-Events (SSE), also know as *EventSource* support. See 
-     [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6)) for latest browser compatbility information.
+     [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6)) for latest browser compatibility information.
    * Has an internal dependence on the [JSON 5 library](https://json5.org) 
    
    

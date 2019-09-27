@@ -2,7 +2,7 @@
 
 This page is a random collection of notes intended to assist software developers.
 
-# How to Make a New Software Release
+## How to Make a New Software Release
 
 1. Use your favourite editor to set the project version string in the 'package.json' 
    file to the required release number. The release names for this project follow 
