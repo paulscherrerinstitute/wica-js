@@ -1,6 +1,6 @@
 {
   "name": "wica-js",
-  "version": "1.1.0",
+  "version": "1.1.1-rc1",
   "description": "Wica Javascript Library",
   "main": "src/wica.js",
   "directories": {
