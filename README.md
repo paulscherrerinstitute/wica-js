@@ -53,6 +53,97 @@ no need to obtain it separately.
 See the Wica-HTTP [endpoints](https://github.com/paulscherrerinstitute/wica-http/blob/master/README.md#server-endpoints) 
 documentation for the relevant URL.
 
+
+# A Simple Wica Webpage Example
+
+The simplest Wica web page looks something like this:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"/>
+   <title>My Awesome Epics Channel Viewer</title>
+   <script src="/wica/wica.js" type="module"></script>
+</head>
+
+<body>
+   <div data-wica-channel-name="abc:def"></div>
+</body>
+
+</html>
+```
+In this example a single channel named "abc:def" is being monitored. When the page is loaded the div element's 
+*text content* will be dynamically updated with the latest values obtained from the wica channel.  The div 
+element's *style* will be dynamically updated to reflect the state of the connection to the channel's data 
+source and/or the channel's alarm state.
+
+# How it Works
+
+The principle of operation is as follows. 
+
+| Wica-JS Library                                         | Wica-HTTP Server |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| The Wica-JS library is loaded (as a module) after <br>   
+the rest of the webpage. The library scans the  <br>   
+document from which it was loaded for elements whose  <br>   
+'data-wica-channel-name' attribute is set.  This  <br>   
+attribute is used as a means of indicating that the  <br>   
+element is *wica-awar     <br>   | |   
+
+
+
+
+The library then sends a stream create request to the Wica-HTTP server, giving it the *channel names* and
+ where necessary *channel properties* of all wica-aware elements
+
+ 
+ 
+ ; It then subscribes to the wica-stream which the Wica-HTTP 
+
+
+The Wica-HTTP server then obta
+
+
+
+
+
+
+
+sends the channel names associated with all wica-aware elements to the Wica-HTTP server (on the 
+backend) which obtains the current values from the underlying control syystem data sources. 
+
+
+associated data sources and streaming back the channel metadata 
+(eg alarm and display limits) and value information to the frontend.
+
+In response to the received data stream the Wica JS library module updates the text content and style of the
+specified elements.
+
+
+# Supported HTML Element Attributes
+
+## Attributes Set by the Web Page Developer
+
+| Attribute                   |Description                                                                  | Possible Values                         |  
+|-----------------------------|---------------------------------------------------------------------------- |-----------------------------------------| 
+| 'data-wica-channel-name'    |The name of the control system data source.                                  | Depends on underlying control system.   |
+| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the jsDoc for further information.  |
+| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for further information.  |
+
+
+## Attributes Set by the Wica-JS Library
+
+| Attribute                             |Description                                                             | Possible Values                                    |  
+|---------------------------------------|----------------------------------------------------------------------- | -------------------------------------------------- | 
+| 'data-wica-stream-state'              |Reflects the state of the connection to the Wica server's data stream.  | "connect-<attempt>", "opened-<id>", "closed-<id>"  |
+| 'data-wica-channel-connection-state'  |Reflects the state of the connection to the control system data source. | "connected", "disconnected"                        |
+| 'data-wica-channel-metadata'          |Reflects the metadata obtained most recently from the wica channel.     | Format depends on data-source (control system).    |
+| 'data-wica-channel-value-array'       |Reflects the most recently obtained values from the wica channel        | Format depends on data-source (control system).    |
+| 'data-wica-channel-value-latest'      |Reflects the latest value obtained from the wica channel.               | Format depends on data-source (ciontrol system).   |
+| 'data-wica-channel-alarm-state'       |Reflects the alarm status most recently obtained from the wica channel. | "0", "1", "2", "3"                                 |
+
+
+
 # Wica-JS API Documentation
 
 The API documentation for the **latest development** release is always available [here](https://paulscherrerinstitute.github.io/wica-js/latest).
