@@ -81,7 +81,7 @@ source and/or the channel's alarm state.
 
 The Wica-JS Library code executes after the rest of the web page has been loaded and communicates with the Wica-HTTP Server to update the user's web page. The sequence is as follows: 
 
-![Sequence](http://www.plantuml.com/plantuml/svg/5Sqn4W8n20NGtbFe0LnwgxqA9eoW2Pk1p-prrUgLRqzmeEQutCpRg2uLuwh0oWTHyBcz35hFIebsECInjMFIuXhPL28ap1E6Wj1fZU_lfCa92LBsdieVsTP_sCNxpoy0)
+![Sequence](https://tinyurl.com/y6ag2xgj)
 1.  The Wica-JS Library scans the document from which it was loaded for elements whose **'data-wica-channel-name'** attribute is set. This attribute is used as the means of indicating that the element is *wica-aware*. 
 
 1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names of the wica channels to be included in the new stream, together with the required *channel properties* (whose default values

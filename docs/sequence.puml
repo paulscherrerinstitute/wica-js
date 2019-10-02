@@ -1,0 +1,47 @@
+' This is a Plant UML Sequence Diagram that illustrates the basic Wica Page Update Sequence.
+' See here: http://plantuml.com/sequence-diagram for further information.
+@startuml
+
+participant "Browser"
+participant "Web Page HTML"
+participant "Web Page DOM"
+participant "Wica-JS-Library"
+participant "Wica-HTTP-Server"
+
+title Wica Page Update Sequence
+hide footbox
+skinparam sequenceMessageAlign center
+
+"Browser" -> "Web Page HTML" : load
+"Browser" -> "Wica-JS-Library" : load, then execute
+|||
+activate "Wica-JS-Library"
+"Wica-JS-Library" -> "Web Page HTML"  : analyse web page
+activate "Web Page HTML"
+return // wica channel names and properties//
+|||
+"Wica-JS-Library" -> "Wica-HTTP-Server" : create stream ( // config data// )
+activate "Wica-HTTP-Server"
+return //stream_id//
+deactivate "Wica-JS-Library"
+|||
+"Wica-JS-Library" -> "Wica-HTTP-Server" : subscribe stream  ( //stream_id// )
+activate "Wica-JS-Library"
+activate "Wica-HTTP-Server"
+group loop: process SSE messages
+    "Wica-HTTP-Server" -> "Wica-JS-Library" : SSE message stream ( //metadata, values...// )
+    "Wica-JS-Library" -> "Web Page DOM" : update wica element: //attributes//
+    "Wica-JS-Library" -> "Web Page DOM" : update wica element: //text content//
+    "Wica-JS-Library" -> "Web Page DOM" : update wica element: //generate events//
+|||
+end
+deactivate "Wica-JS-Library"
+deactivate "Wica-HTTP-Server"
+
+group loop: repaint
+    "Browser" -> "Web Page DOM" : read
+    "Browser" -> "Browser" : process  events
+    "Browser" -> "Browser" : repaint page
+end
+
+@enduml
