@@ -2,11 +2,13 @@
 ' See here: http://plantuml.com/sequence-diagram for further information.
 
 ' Publication procedure is as follows:
-' Copy and Paste contents of this page into the live editor here: http://plantuml.com/plantuml/uml/
-' Obtain the SVG Link to the rendered image and shorten it using the TinyUrl Service here: https://tinyurl.com/
+' (a) Copy and Paste contents of this page into the live editor here: http://plantuml.com/plantuml/uml/
+' (b) Obtain the SVG Link to the rendered image and shorten it using the TinyUrl Service here: https://tinyurl.com/
+' (c) Embed the resulting tiny link in the README.md file.
+
 @startuml
 
-participant "Browser"
+participant "Web Browser"
 participant "Web Page HTML"
 participant "Web Page DOM"
 participant "Wica-JS-Library"
@@ -15,11 +17,11 @@ participant "Control System"
 
 hide footbox
 skinparam sequenceMessageAlign center
-skinparam monochrome true
+' skinparam monochrome true
 
 group initialise
-"Browser" -> "Web Page HTML" : load
-"Browser" -> "Wica-JS-Library" : load, then execute
+"Web Browser" -> "Web Page HTML" : load
+"Web Browser" -> "Wica-JS-Library" : load, then execute
 |||
 activate "Wica-JS-Library"
 "Wica-JS-Library" -> "Web Page HTML"  : scan web page
@@ -51,17 +53,17 @@ group process: handle event stream messages
     "Wica-JS-Library" -> "Web Page DOM" : update wica element: //generate events//
 |||
 end
-note left: Messages are sent\nat configurable\nperiodic intervals
+note left: Messages are sent\nat configurable\nperiodic intervals.
 deactivate "Wica-JS-Library"
 deactivate "Wica-HTTP-Server"
 |||
 group process: repaint
-    "Browser" -> "Web Page DOM" : read
-    "Browser" -> "Web Page HTML" : process  events
+    "Web Browser" -> "Web Page DOM" : read
+    "Web Browser" -> "Web Page HTML" : process  events
     activate "Web Page HTML"
     return //done//
     note right: Run JS
-    "Browser" -> "Browser" : repaint page
+    "Web Browser" -> "Web Browser" : repaint page
 end
 
 @enduml
