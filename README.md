@@ -79,45 +79,22 @@ source and/or the channel's alarm state.
 
 # How it Works
 
-The principle of operation is as follows. 
+The principle of operation is as follows: 
 
-| Wica-JS Library                                         | Wica-HTTP Server |
-| ------------------------------------------------------- | ------------------------------------------------------- |
-| The Wica-JS library is loaded (as a module) after <br>   
-the rest of the webpage. The library scans the  <br>   
-document from which it was loaded for elements whose  <br>   
-'data-wica-channel-name' attribute is set.  This  <br>   
-attribute is used as a means of indicating that the  <br>   
-element is *wica-awar     <br>   | |   
+1. The Wica-JS Library code executes after the rest of the web page has been loaded. The library scans the document 
+from which it was loaded for elements whose 'data-wica-channel-name' attribute is set. This attribute is used as 
+the means of indicating that the element is *wica-aware*. 
 
+1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names of the wica channels to be included in the new stream together with the required channel properties (whose default values
+may be overridden via the 'data-wica-channel-props' attribute).
 
+1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It allocates a new *stream id* and sends it back to the caller.
 
+1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server.
 
-The library then sends a stream create request to the Wica-HTTP server, giving it the *channel names* and
- where necessary *channel properties* of all wica-aware elements
+1. The Wica-HTTP Server processes the subscribe stream request and sends back an HTTP response indicating that it is opening a Server-Sent-Event stream. Thereafter, it sends back firstly the initial values for the control points of interest, then subsequently the latest values when there are changes or after t
 
- 
- 
- ; It then subscribes to the wica-stream which the Wica-HTTP 
-
-
-The Wica-HTTP server then obta
-
-
-
-
-
-
-
-sends the channel names associated with all wica-aware elements to the Wica-HTTP server (on the 
-backend) which obtains the current values from the underlying control syystem data sources. 
-
-
-associated data sources and streaming back the channel metadata 
-(eg alarm and display limits) and value information to the frontend.
-
-In response to the received data stream the Wica JS library module updates the text content and style of the
-specified elements.
+1. The Wica JS library module updates the text content and style of the specified elements.
 
 
 # Supported HTML Element Attributes
