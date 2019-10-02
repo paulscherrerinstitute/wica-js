@@ -95,7 +95,7 @@ may be overridden via the **'data-wica-channel-props'** attribute).
 1. The Wica-HTTP Server processes the subscribe stream request and sends back a response indicating that it will hold open the communication channel and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back periodically SSE messages containing the channel metadata (for properties that rarely change), and the latest received values for the monitored or polled channels.
 
 1. The Wica JS Library uses the information received from the event stream to add and maintain 
-[additional attributes](## attributes-set-by-the-wica-js-library) to the wica-aware HTML elements that reflect the received information. 
+[additional attributes](##attributes-set-by-the-wica-js-library) to the wica-aware HTML elements that reflect the received information. 
 
 1. The Wica JS Library uses the latest values received from the event stream to update the textual content of the wica-aware HTML element. The rendering can be controlled by the  **'data-wica-rendering-props'** attribute.
 
