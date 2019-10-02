@@ -1,0 +1,10 @@
+@startuml
+Wica_JS_Library -> Wica_HTTP_Server : create_stream( stream config )
+Wica_HTTP_Server -> Wica_JS_Library : stream_id
+Wica_JS_Library -> Wica_HTTP_Server : subscribe_stream( stream_id )
+Wica_HTTP_Server -> Wica_JS_Library : sse_metadata
+Wica_HTTP_Server -> Wica_JS_Library : sse_monitored_values
+Wica_HTTP_Server -> Wica_JS_Library : sse_polled_values
+Wica_JS_Library -> Wica_JS_Library : update_html_elements
+Wica_JS_Library -> Wica_JS_Library : generate_events
+@enduml
