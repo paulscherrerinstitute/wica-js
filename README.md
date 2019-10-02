@@ -82,20 +82,24 @@ source and/or the channel's alarm state.
 The principle of operation is as follows: 
 
 1. The Wica-JS Library code executes after the rest of the web page has been loaded. The library scans the document 
-from which it was loaded for elements whose 'data-wica-channel-name' attribute is set. This attribute is used as 
+from which it was loaded for elements whose **'data-wica-channel-name'** attribute is set. This attribute is used as 
 the means of indicating that the element is *wica-aware*. 
 
-1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names of the wica channels to be included in the new stream together with the required channel properties (whose default values
-may be overridden via the 'data-wica-channel-props' attribute).
+1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names of the wica channels to be included in the new stream, together with the required *channel properties* (whose default values
+may be overridden via the **'data-wica-channel-props'** attribute).
 
-1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It allocates a new *stream id* and sends it back to the caller.
+1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates a new *stream-id* and returns it to the caller.
 
-1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server.
+1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
 
-1. The Wica-HTTP Server processes the subscribe stream request and sends back an HTTP response indicating that it is opening a Server-Sent-Event stream. Thereafter, it sends back firstly the initial values for the control points of interest, then subsequently the latest values when there are changes or after t
+1. The Wica-HTTP Server processes the subscribe stream request and sends back a response indicating that it will hold open the communication channel and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back periodically SSE messages containing the channel metadata (for properties that rarely change), and the latest received values for the monitored or polled channels.
 
-1. The Wica JS library module updates the text content and style of the specified elements.
+1. The Wica JS Library uses the information received from the event stream to add and maintain 
+[additional attributes](## attributes-set-by-the-wica-js-library) to the wica-aware HTML elements that reflect the received information. 
 
+1. The Wica JS Library uses the latest values received from the event stream to update the textual content of the wica-aware HTML element. The rendering can be controlled by the  **'data-wica-rendering-props'** attribute.
+
+1.  The Wica JS Library uses the information received from the event stream to generate HTML5 events which can be hooked by the user to perform custom javascript processing.
 
 # Supported HTML Element Attributes
 
