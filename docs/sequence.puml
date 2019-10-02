@@ -1,5 +1,9 @@
 ' This is a Plant UML Sequence Diagram that illustrates the basic Wica Page Update Sequence.
 ' See here: http://plantuml.com/sequence-diagram for further information.
+
+' Publication procedure is as follows:
+' Copy and Paste contents of this page into the live editor here: http://plantuml.com/plantuml/uml/
+' Obtain the SVG Link to the rendered image and shorten it using the TinyUrl Service here: https://tinyurl.com/
 @startuml
 
 participant "Browser"
@@ -47,7 +51,7 @@ group process: handle event stream messages
     "Wica-JS-Library" -> "Web Page DOM" : update wica element: //generate events//
 |||
 end
-note left: Messages are sent periodically\nat configurable intervals
+note left: Messages are sent\nat configurable\nperiodic intervals
 deactivate "Wica-JS-Library"
 deactivate "Wica-HTTP-Server"
 |||
