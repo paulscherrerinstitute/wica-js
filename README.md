@@ -80,41 +80,62 @@ source and/or the channel's alarm state.
 # How it Works
 
 The Wica-JS Library code executes after the rest of the web page has been loaded and communicates with the Wica-HTTP 
-Server to update the user's web page. 
+Server to continuously update the user's web page. 
 
 The sequence is illustrated below:
 
 ![Sequence](https://tinyurl.com/y29abfca)
-1.  The Wica-JS Library scans the document from which it was loaded for elements whose **'data-wica-channel-name'** attribute is set. This attribute is used as the means of indicating that the element is *wica-aware*. 
+1.  The Wica-JS Library scans the document from which it was loaded for elements whose **'data-wica-channel-name'** 
+attribute is set. This attribute is used as the means of indicating that the element is *wica-aware*. 
 
-1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names of the wica channels to be included in the new stream, together with the required *channel properties* (whose default values
-may be overridden via the **'data-wica-channel-props'** attribute).
+1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names 
+of the wica channels to be included in the new stream, together with the required *channel properties* (whose default 
+values may be overridden via the **'data-wica-channel-props'** attribute).
 
-1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates a new *stream-id* and returns it to the caller.
+1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their 
+associated properties to initiate communication with control points of interest in the backend control system. It 
+then allocates a new *stream-id* and returns it to the caller.
 
 1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
 
-1. The Wica-HTTP Server processes the subscribe stream request and sends back a response indicating that it will hold open the communication channel and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back periodically SSE messages containing the channel metadata (for properties that rarely change), and the latest received values for the monitored or polled channels.
+1. The Wica-HTTP Server processes the subscribe stream request and sends back a response indicating that it will 
+hold open the communication channel and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends 
+back periodically SSE messages containing the channel metadata (for properties that rarely change), and the latest 
+received values for the monitored or polled channels.
 
-1. The Wica JS Library uses the information received from the event stream to add and maintain 
-[additional attributes](#attributes-set-by-the-wica-js-library) to the wica-aware HTML elements that reflect the received information. 
-
-1. The Wica JS Library uses the latest values received from the event stream to update the textual content of the wica-aware HTML element. The rendering can be controlled by the  **'data-wica-rendering-props'** attribute.
-
-1.  The Wica JS Library uses the information received from the event stream to generate HTML5 events which can be hooked by the user to perform custom javascript processing.
+1. The Wica JS Library uses the information received from the event stream to:
+  * add and update additional [data attributes](#attributes-set-by-the-wica-js-library) to the wica-aware HTML 
+    elements that reflect the received information. 
+  * to update the **text content** of the wica-aware HTML elements. The rendering can be controlled by the 
+    **'data-wica-rendering-props'** attribute.
+  * to generate events which can be hooked by the user's web page to perform **custom javascript processing**.
 
 # Supported HTML Element Attributes
 
+The HTML 5 specification supported for the first time the concept of customisable **data-* attributes** which 
+provides a standard mechanism for associating additional, user-defined information with standard HTML elements. 
+
+The Wica-JS library uses this feature to support the custom attributes described further in this section.
+
 ## Attributes Set by the Web Page Developer
+
+These attributes are read by the Wica-JS library and used primarily for building the configuration data structure
+that is sent to the Wica-HTTP server when making requests to create new wica streams. 
+
+Additional attributes are provided to control the rendering of wica web pages.
 
 | Attribute                   |Description                                                                  | Possible Values                         |  
 |-----------------------------|---------------------------------------------------------------------------- |-----------------------------------------| 
 | 'data-wica-channel-name'    |The name of the control system data source.                                  | Depends on underlying control system.   |
-| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the jsDoc for further information.  |
-| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for further information.  |
+| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the [jsDoc](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#wica-channel-properties) for further information.  |
+| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the [jsDoc]() for further information.  |
 
 
 ## Attributes Set by the Wica-JS Library
+
+These attributes are continuously updated by the Wica-JS library to reflect the evolving state of the channels in
+a wica stream. They are used internally to support the CSS styling of wica elements but are also available 
+for the user's web page to perform custom javascript processing.
 
 | Attribute                             |Description                                                             | Possible Values                                    |  
 |---------------------------------------|----------------------------------------------------------------------- | -------------------------------------------------- | 
@@ -124,7 +145,6 @@ may be overridden via the **'data-wica-channel-props'** attribute).
 | 'data-wica-channel-value-array'       |Reflects the most recently obtained values from the wica channel        | Format depends on data-source (control system).    |
 | 'data-wica-channel-value-latest'      |Reflects the latest value obtained from the wica channel.               | Format depends on data-source (ciontrol system).   |
 | 'data-wica-channel-alarm-state'       |Reflects the alarm status most recently obtained from the wica channel. | "0", "1", "2", "3"                                 |
-
 
 
 # Wica-JS API Documentation

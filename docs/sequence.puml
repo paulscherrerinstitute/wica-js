@@ -48,7 +48,7 @@ activate "Wica-JS-Library"
 activate "Wica-HTTP-Server"
 group process: handle event stream messages
     "Wica-HTTP-Server" -> "Wica-JS-Library" : SSE message stream ( //metadata, values, heartbeat...// )
-    "Wica-JS-Library" -> "Web Page DOM" : update wica element: //attributes//
+    "Wica-JS-Library" -> "Web Page DOM" : update wica element: //data attributes//
     "Wica-JS-Library" -> "Web Page DOM" : update wica element: //text content//
     "Wica-JS-Library" -> "Web Page DOM" : update wica element: //generate events//
 |||
@@ -62,7 +62,7 @@ group process: repaint
     "Web Browser" -> "Web Page HTML" : process  events
     activate "Web Page HTML"
     return //done//
-    note right: Run JS
+    note right: Run Web Page JS
     "Web Browser" -> "Web Browser" : repaint page
 end
 
