@@ -130,7 +130,10 @@ Additional attributes are provided to control the wica element's **tooltip** and
 | 'data-wica-channel-name'    |The name of the control system data source.                                  | Depends on the underlying control system. eg MMAC3:STR:2, ca://abc:def  |
 | 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the jsDoc for [WicaChannelProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaChannelProperties) for further information.  |
 | 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for [WicaRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties) for further information.  |
-| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for [WicaRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties) for further information.  |
+| 'data-wica-tooltip' | Specifies the tooltip to be displayed when the browser's cursor hovers over the element. When not explicitly set the wica channel name will be assigned to this attribute instead. | ""My Tooltip"  |
+
+The name of the attribute which specifies the tooltip to be displayed when the browser's cursor hovers over the element. When not explicitly set by the developer the wica channel name will be assigned to this attribute instead. Format: JS string literal.
+
 
 ## Attributes Set by the Wica-JS Library
 
