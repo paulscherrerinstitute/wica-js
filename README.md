@@ -128,10 +128,10 @@ Additional attributes are provided to control the wica **web page rendering**.
 | Attribute                   |Description                                                                  | Possible Values                         |  
 |-----------------------------|---------------------------------------------------------------------------- |-----------------------------------------| 
 | 'data-wica-channel-name'    |The name of the control system data source.                                  | Depends on underlying control system.   |
-| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the [jsDoc](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#wica-channel-properties) for further information.  |
-| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the [jsDoc](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#wica-connection-properties) for further information.  |
+| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the jsDoc for [WicaChannelProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaChannelProperties) for further information.  |
+| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for [WicaRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties) for further information.  |
 
-
+https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties
 ## Attributes Set by the Wica-JS Library
 
 These attributes are **continuously updated** by the Wica-JS library to reflect the evolving state of the channels in
