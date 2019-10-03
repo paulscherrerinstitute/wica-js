@@ -93,8 +93,8 @@ The main steps are as follows:
 attribute is set. This attribute is used as the means of indicating that the element is *wica-aware*. 
 
 1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names 
-of the wica channels to be included in the new stream, together with the required *channel properties* (whose default 
-values may be overridden via the **'data-wica-channel-props'** attribute).
+of the wica channels to be included in the new stream, together with the required *wica channel properties* (whose 
+default values may be overridden via the **'data-wica-channel-props'** attribute).
 
 1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their 
 associated properties to initiate communication with control points of interest in the backend control system. It 
