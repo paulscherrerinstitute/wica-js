@@ -112,32 +112,35 @@ types at configurable periodic intervals. These include messages which contain:
     * it updates the elements' **text content**. The rendering can be controlled by the **'data-wica-rendering-props'** attribute.
     * it **generates events** which can be hooked by the user's web page to perform *custom javascript processing*.
 
-# Supported HTML Element Attributes
+# Wica-Specific HTML Element Attributes
 
-The HTML 5 specification supports the concept of customisable **data-\* attributes** which provides a standard 
-mechanism for associating additional, user-defined information with standard HTML elements. 
+The HTML specification now supports the concept of customisable **data-\* attributes** which provides a standard 
+extension mechanism for associating user-defined information with standard HTML elements. 
 
-The Wica-JS library uses this feature to support the custom attributes described further in this section.
+The Wica-JS library uses this feature to support the wica-specific attributes described further in this section.
 
 ## Attributes Set by the Web Page Developer
 
-These attributes are read by the Wica-JS library and used primarily for building the configuration data structure
-that is sent to the Wica-HTTP server when making requests to create new wica streams. 
+These attributes provide **configuration information** which are used by the Wica-JS library when sending create stream requests.
 
-Additional attributes are provided to control the rendering of wica web pages.
+Additional attributes are provided to control the wica **web page rendering**.
 
 | Attribute                   |Description                                                                  | Possible Values                         |  
 |-----------------------------|---------------------------------------------------------------------------- |-----------------------------------------| 
 | 'data-wica-channel-name'    |The name of the control system data source.                                  | Depends on underlying control system.   |
 | 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the [jsDoc](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#wica-channel-properties) for further information.  |
-| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the [jsDoc]() for further information.  |
+| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the [jsDoc](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#wica-connection-properties) for further information.  |
 
 
 ## Attributes Set by the Wica-JS Library
 
-These attributes are continuously updated by the Wica-JS library to reflect the evolving state of the channels in
-a wica stream. They are used internally to support the CSS styling of wica elements but are also available 
-for the user's web page to perform custom javascript processing.
+These attributes are **continuously updated** by the Wica-JS library to reflect the evolving state of the channels in
+the wica stream. 
+
+The attributes are used internally to support the **CSS styling** (for example the background and forerground colors) 
+of wica elements.
+
+The attributes are available to the user's web page who may use it to perform **custom javascript processing**.
 
 | Attribute                             |Description                                                             | Possible Values                                    |  
 |---------------------------------------|----------------------------------------------------------------------- | -------------------------------------------------- | 
