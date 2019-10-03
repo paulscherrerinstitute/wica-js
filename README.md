@@ -123,15 +123,15 @@ The Wica-JS library uses this feature to support the wica-specific attributes de
 
 These attributes provide **configuration information** which are used by the Wica-JS library when sending create stream requests.
 
-Additional attributes are provided to control the wica **web page rendering**.
+Additional attributes are provided to control the wica element's **tooltip** and the wica element's **text rendering**.
 
 | Attribute                   |Description                                                                  | Possible Values                         |  
 |-----------------------------|---------------------------------------------------------------------------- |-----------------------------------------| 
 | 'data-wica-channel-name'    |The name of the control system data source.                                  | Depends on the underlying control system. eg MMAC3:STR:2, ca://abc:def  |
 | 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.     | See the jsDoc for [WicaChannelProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaChannelProperties) for further information.  |
 | 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for [WicaRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties) for further information.  |
+| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content. | See the jsDoc for [WicaRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties) for further information.  |
 
-https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties
 ## Attributes Set by the Wica-JS Library
 
 These attributes are **continuously updated** by the Wica-JS library to reflect the evolving state of the channels in
