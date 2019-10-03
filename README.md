@@ -90,7 +90,7 @@ The communication sequence is as shown below:
 The main steps are as follows:
 
 1.  The **Wica-JS Library** scans the document from which it was loaded for elements whose **'data-wica-channel-name'** 
-attribute is set. This attribute is used as the means of indicating that the element is *wica-aware*. 
+attribute is set. This attribute is used as the means of indicating that an element is *wica-aware*. 
 
 1. The **Wica-JS Library** sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names 
 of the wica channels to be included in the new stream, together with the required *wica channel properties* (whose 
