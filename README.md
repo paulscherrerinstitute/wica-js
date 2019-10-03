@@ -96,7 +96,8 @@ attribute is set. This attribute is used as the means of indicating that an elem
 of the wica channels to be included in the new stream, together with the required *wica channel properties* (whose 
 default values may be overridden via the **'data-wica-channel-props'** attribute).
 
-1. The **Wica-HTTP Server** processes the request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates a new *stream-id* and returns it to the caller.
+1. The **Wica-HTTP Server** processes the request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates and returns
+to the caller a new *stream-id*.
 
 1. The **Wica-JS Library** sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
 
