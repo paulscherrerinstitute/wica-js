@@ -114,7 +114,7 @@ types at configurable periodic intervals. These include messages which contain:
 
 # Supported HTML Element Attributes
 
-The HTML 5 specification supported for the first time the concept of customisable **data-* attributes** which 
+The HTML 5 specification supprts the concept of customisable **data-\* attributes** which 
 provides a standard mechanism for associating additional, user-defined information with standard HTML elements. 
 
 The Wica-JS library uses this feature to support the custom attributes described further in this section.
