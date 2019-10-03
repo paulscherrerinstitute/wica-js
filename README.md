@@ -56,7 +56,7 @@ documentation for the relevant URL.
 
 # A Simple Wica Webpage Example
 
-The simplest Wica web page looks something like this:
+The simplest Wica web page looks like this:
 ```
 <!DOCTYPE html>
 <html lang="en">
