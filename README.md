@@ -107,12 +107,10 @@ types at configurable periodic intervals. These include messages which contain:
     * the channel *received values* (including both the *monitored* and *polled* channels).
     * the stream's *heartbeat* (a timestamp which indicates that the stream is still alive). 
 
-1. The **Wica JS Library** uses the information received from the event stream to:
-  * add and update additional [data attributes](#attributes-set-by-the-wica-js-library) to the wica-aware HTML 
-    elements that reflect the received information. 
-  * to update the **text content** of the wica-aware HTML elements. The rendering can be controlled by the 
-    **'data-wica-rendering-props'** attribute.
-  * to generate events which can be hooked by the user's web page to perform **custom javascript processing**.
+1. The **Wica JS Library** uses the information received from the event stream to update the wica-aware HTML elements as follows:
+    * it adds/updates the elements' [custom data attributes](#attributes-set-by-the-wica-js-library). 
+    * to updates the elements' **text content**. The rendering can be controlled by the **'data-wica-rendering-props'** attribute.
+    * it generates events which can be hooked by the user's web page to perform **custom javascript processing**.
 
 # Supported HTML Element Attributes
 
