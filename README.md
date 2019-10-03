@@ -79,10 +79,12 @@ source and/or the channel's alarm state.
 
 # How it Works
 
-The Wica-JS Library code executes after the rest of the web page has been loaded and communicates with the Wica-HTTP 
-Server to continuously update the user's web page. 
+The Wica-JS library code is executed immediately after the rest of the web page has been loaded. It then 
+communicates with the Wica-HTTP server to set up a stream of data containing the evolving values obtained 
+from to points of interest in the backend control system. Using the received data the library updates the 
+user's web page in real-time.
 
-The sequence is illustrated below:
+The communication sequence is illustrated below:
 
 ![Sequence](https://tinyurl.com/y29abfca)
 1.  The Wica-JS Library scans the document from which it was loaded for elements whose **'data-wica-channel-name'** 
