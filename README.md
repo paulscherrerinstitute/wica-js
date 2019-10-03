@@ -100,7 +100,11 @@ default values may be overridden via the **'data-wica-channel-props'** attribute
 
 1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
 
-1. The Wica-HTTP Server processes the request and sends back a response indicating that it will hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back periodically SSE messages containing the channel *metadata* (for properties that rarely change), and the latest received values for the *monitored* and/or *polled* channels.
+1. The Wica-HTTP Server processes the request and sends back a response indicating that it will hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back SSE messages of various
+types at configurable periodic intervals. These include messages which contain:
+    * the channel *metadata* (these are the properties that rarely change), 
+    * the channel *received values* (including both the *monitored* and *polled* channels).
+    * the stream's *heartbeat* (a timestamp which indicates that the stream is still alive). 
 
 1. The Wica JS Library uses the information received from the event stream to:
   * add and update additional [data attributes](#attributes-set-by-the-wica-js-library) to the wica-aware HTML 
