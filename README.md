@@ -99,7 +99,7 @@ default values may be overridden via the **'data-wica-channel-props'** attribute
 1. The **Wica-HTTP Server** processes the request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates and returns
 to the caller a new *stream-id*.
 
-1. The **Wica-JS Library** sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
+1. The **Wica-JS Library** sends a *subscribe stream* request to the Wica-HTTP Server using the received stream-id.
 
 1. The **Wica-HTTP Server** processes the request and sends back a response indicating that it will hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back SSE messages of various
 types at configurable periodic intervals. These include messages which contain:
