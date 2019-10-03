@@ -96,16 +96,11 @@ attribute is set. This attribute is used as the means of indicating that the ele
 of the wica channels to be included in the new stream, together with the required *wica channel properties* (whose 
 default values may be overridden via the **'data-wica-channel-props'** attribute).
 
-1. The Wica-HTTP Server processes the create stream request. It uses the supplied wica channels names and their 
-associated properties to initiate communication with control points of interest in the backend control system. It 
-then allocates a new *stream-id* and returns it to the caller.
+1. The Wica-HTTP Server processes the request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates a new *stream-id* and returns it to the caller.
 
 1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
 
-1. The Wica-HTTP Server processes the subscribe stream request and sends back a response indicating that it will 
-hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends 
-back periodically SSE messages containing the channel *metadata* (for properties that rarely change), and the latest 
-received values for the *monitored* and/or *polled* channels.
+1. The Wica-HTTP Server processes the request and sends back a response indicating that it will hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back periodically SSE messages containing the channel *metadata* (for properties that rarely change), and the latest received values for the *monitored* and/or *polled* channels.
 
 1. The Wica JS Library uses the information received from the event stream to:
   * add and update additional [data attributes](#attributes-set-by-the-wica-js-library) to the wica-aware HTML 
