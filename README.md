@@ -117,8 +117,7 @@ types at configurable periodic intervals. These include messages which contain:
 The HTML 5 specification supports the concept of customisable **data-\* attributes** which provides a standard 
 mechanism for associating additional, user-defined information with standard HTML elements. 
 
-The Wica-JS library uses this feature to support the custom attributes (which all beging with the 
-prefix **data-wica-\***) described further in this section.
+The Wica-JS library uses this feature to support the custom attributes described further in this section.
 
 ## Attributes Set by the Web Page Developer
 
