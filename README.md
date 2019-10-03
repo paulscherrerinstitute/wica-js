@@ -109,7 +109,7 @@ types at configurable periodic intervals. These include messages which contain:
 
 1. The **Wica JS Library** uses the information received from the event stream to update the wica-aware HTML elements as follows:
     * it adds/updates the elements' [custom data attributes](#attributes-set-by-the-wica-js-library). 
-    * to updates the elements' **text content**. The rendering can be controlled by the **'data-wica-rendering-props'** attribute.
+    * it updates the elements' **text content**. The rendering can be controlled by the **'data-wica-rendering-props'** attribute.
     * it **generates events** which can be hooked by the user's web page to perform *custom javascript processing*.
 
 # Supported HTML Element Attributes
