@@ -33,8 +33,8 @@ filtering (eg noise or rate limiting).
 # Requirements
 
    * Requires web browser that supports Javascript ES6. See [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6))
-     for latest browser compatbility information.
-   * Requires web browser which support Server-Sent-Events (SSE), also know as *EventSource* support. See 
+     for latest browser compatibility information.
+   * Requires web browser which support Server-Sent-Events (SSE), also known as *EventSource* support. See 
      [here](https://caniuse.com/#search=ECMAScript%202015%20(ES6)) for latest browser compatibility information.
    * Has an internal dependence on the [JSON 5 library](https://json5.org) 
    
