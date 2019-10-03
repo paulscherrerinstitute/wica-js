@@ -89,24 +89,24 @@ The communication sequence is as shown below:
 
 The main steps are as follows:
 
-1.  The Wica-JS Library scans the document from which it was loaded for elements whose **'data-wica-channel-name'** 
+1.  The **Wica-JS Library** scans the document from which it was loaded for elements whose **'data-wica-channel-name'** 
 attribute is set. This attribute is used as the means of indicating that the element is *wica-aware*. 
 
-1. The Wica-JS Library sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names 
+1. The **Wica-JS Library** sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names 
 of the wica channels to be included in the new stream, together with the required *wica channel properties* (whose 
 default values may be overridden via the **'data-wica-channel-props'** attribute).
 
-1. The Wica-HTTP Server processes the request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates a new *stream-id* and returns it to the caller.
+1. The **Wica-HTTP Server** processes the request. It uses the supplied wica channels names and their associated properties to initiate communication with control points of interest in the backend control system. It then allocates a new *stream-id* and returns it to the caller.
 
-1. The Wica-JS Library sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
+1. The **Wica-JS Library** sends a *subscribe stream* request to the Wica-HTTP Server using the allocated stream-id.
 
-1. The Wica-HTTP Server processes the request and sends back a response indicating that it will hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back SSE messages of various
+1. The **Wica-HTTP Server** processes the request and sends back a response indicating that it will hold open the HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back SSE messages of various
 types at configurable periodic intervals. These include messages which contain:
     * the channel *metadata* (these are the properties that rarely change), 
     * the channel *received values* (including both the *monitored* and *polled* channels).
     * the stream's *heartbeat* (a timestamp which indicates that the stream is still alive). 
 
-1. The Wica JS Library uses the information received from the event stream to:
+1. The **Wica JS Library** uses the information received from the event stream to:
   * add and update additional [data attributes](#attributes-set-by-the-wica-js-library) to the wica-aware HTML 
     elements that reflect the received information. 
   * to update the **text content** of the wica-aware HTML elements. The rendering can be controlled by the 
