@@ -226,7 +226,7 @@ elements in a user's web page.
 The name of the custom event is **'wica'**. The wica-specific information is included in the 'detail' field of 
 the message.
 
-See the [OnWicaEvent](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager.html#.OnWicaEvent
+See the [OnWicaEvent](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager.html#.OnWicaEvent)
 documentation for further details.
 
 
