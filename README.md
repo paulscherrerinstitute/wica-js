@@ -185,8 +185,8 @@ Whilst nowadays the web community somewhat discourages this practise the Wica-JS
 [onchange](https://www.w3schools.com/tags/ev_onchange.asp) event attribute which allows the user's script 
 to be directly embedded in the HTML tags inside a web page.
 
-In addition to the standard event fields (eg ev.target), the dispatched event object includes the following 
-wica-specific information:
+In addition to the fields generally defined in the [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event) 
+specification (eg ev.target), the dispatched event object includes the following wica-specific information:
 
 | Attribute             |Type         | Description                                                        |
 |-----------------------|-------------|--------------------------------------------------------------------|
