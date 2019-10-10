@@ -162,15 +162,19 @@ See the [WicaElementConnectionAttributes](https://paulscherrerinstitute.github.i
 
 # Wica-specific HTML Event Support
 
+The most performant, lowest-latency technique for receiving programmatic notification of the arrival of new data from 
+the wica stream is to attach a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 
+to directly watch the [attributes of interest](#wica-specific-html-element-attributes) described in the section above.
+
+An alternative approach is to take advantage of the Wica-JS library's inbuilt event generation facility described
+in this section.
+
 The Wica-JS library periodically scans the current document for wica-aware elements with attached event handlers 
 and/or event listeners, firing events to reflect the latest information obtained from the underlying control system.
  
 The default scan rate is specified in the Jsdoc
-[documentation](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager-DocumentEventManager.html#activate) 
+[documentation](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager-DocumentEventManager.html#activate).
 
-(Note: the most performant, lowest-latency technique for receiving programmatic notification of new data received
-from the wica stream is to attach a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 
-to directly watch the attributes of interest - see section above).
 
 The following events are generated:
 
