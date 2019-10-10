@@ -78,7 +78,7 @@ class DocumentEventManager
      *
      * The event that will be published is a 'onwica'
      *
-     * @param {number} [refreshRateInMilliseconds=100] - The period to wait after each document scan before
+     * @param {number} [refreshRateInMilliseconds=200] - The period to wait after each document scan before
      *     starting the next one.
      *
      * @param {boolean} [supportEventListeners=false] - Determines whether events are fired ONLY on elements which
@@ -208,7 +208,7 @@ class DocumentEventManager
 
             // Events are fired unconditionally if event listener support is required.
             if ( supportEventListeners ) {
-                const customEvent = new CustomEvent('wica', {
+                const customEvent = new CustomEvent( 'wica', {
                     detail: {
                         "channelName": channelName,
                         "channelMetadata": channelMetadata,
