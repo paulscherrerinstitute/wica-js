@@ -168,6 +168,10 @@ and/or event listeners, firing events to reflect the latest information obtained
 The default scan rate is specified in the Jsdoc
 [documentation](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager-DocumentEventManager.html#activate) 
 
+(Note: the most performant, lowest-latency technique for receiving programmatic notification of new data received
+from the wica stream is to attach a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 
+to directly watch the attributes of interest - see section above).
+
 The following events are generated:
 
 ## HTML 'onchange' Standard Event Support
