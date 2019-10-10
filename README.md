@@ -164,7 +164,7 @@ See the [WicaElementConnectionAttributes](https://paulscherrerinstitute.github.i
 
 The most performant, lowest-latency technique for receiving programmatic notification of the arrival of new data from 
 the wica stream is to attach a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 
-to directly watch the [attributes of interest](#wica-specific-html-element-attributes) described in the section above.
+to directly watch the [attributes of interest](#attributes-set-by-the-wica-js-library) described in the section above.
 
 An alternative approach is to take advantage of the Wica-JS library's inbuilt event generation facility described
 in this section.
