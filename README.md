@@ -12,11 +12,11 @@ Wica comprises two main components:
   for the control system points of interest.
 
 * [Wica-JS](https://github.com/paulscherrerinstitute/wica-js) - this is a frontend Javascript library 
-  which scans a user's web pages for HTML5 tags defining points of interest in the control system. The 
-  library then generates requests to the backend server to obtain the necessary data and to update the 
-  user's web pages in real-time.
+  which scans a user's [web page](#a-simple-wica-webpage-example) for HTML5 tags defining points of interest 
+  in the control system. The library then generates requests to the backend server to obtain the necessary 
+  data and to update the user's web pages in real-time. 
 
-Currently WICA interoperates with the EPICS Control Systems using its well established Channel Access (CA) protocol. 
+Further details about how these components interoperate is provided in the [how it works](#how-it-works) documentation.
 
 # Main Features
 
