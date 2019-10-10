@@ -175,7 +175,6 @@ and/or event listeners, firing events to reflect the latest information obtained
 The default scan rate is specified in the Jsdoc
 [documentation](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager-DocumentEventManager.html#activate).
 
-
 The following events are generated:
 
 ## HTML 'onchange' Standard Event Support
