@@ -20,3 +20,8 @@ This log describes the functionality of tagged versions within the repository.
   
 * [1.1.1]
   Documentation improvements.
+  
+* [1.1.2]
+  Now exports client API classes.
+  Suppressed terse JS output to ease debugging.
+  Added bare modules support.
