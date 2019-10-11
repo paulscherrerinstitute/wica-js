@@ -20,7 +20,7 @@ This page is a miscellaneous collection of notes intended to assist software dev
 
 1. Use the npm 'release' target to create a tag and to push it to the GitHub Server.
     ```
-    nvm run release
+    npm run release
     ```
 1. Verify that the Travis automatic build worked and/or that the expected artifacts 
    are available on GitHub and on Docker Hub sites.

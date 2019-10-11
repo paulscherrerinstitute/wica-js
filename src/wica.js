@@ -7,8 +7,9 @@
 /*- Import/Export Declarations -----------------------------------------------*/
 
 import * as log from "./logger.js"
-import * as ClientAPI from "./client-api.js"
-export { ClientAPI }
+
+import { DocumentSupportLoader, StreamManager, PlotBuffer } from "./client-api.js"
+export { DocumentSupportLoader, StreamManager, PlotBuffer }
 
 /*- Script Execution Starts Here ---------------------------------------------*/
 
@@ -22,7 +23,7 @@ const WICA_OWN_HOST = location.origin;
 
 // Create and activate a document support loader for the document
 // which loads this library.
-const documentSupportLoader = new ClientAPI.DocumentSupportLoader( WICA_OWN_HOST );
+const documentSupportLoader = new DocumentSupportLoader( WICA_OWN_HOST );
 documentSupportLoader.activate( 200, 200 );
 
 // Attach a handler to shut things down when the browser navigates away.
