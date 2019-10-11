@@ -8,7 +8,7 @@
 
 import * as log from "./logger.js"
 import * as ClientAPI from "./client-api.js"
-
+export { ClientAPI }
 
 /*- Script Execution Starts Here ---------------------------------------------*/
 
