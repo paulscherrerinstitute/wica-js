@@ -15,7 +15,16 @@
 
 /*- Import/Export Declarations -----------------------------------------------*/
 
-import JSON5 from '../node_modules/json5/dist/index.min.mjs';
+/*----------------------------------------------------------------------------*/
+// NOTE ON SWITCH TO BARE MODULE IMPORTS:
+// This is a so-called 'bare' module import. To handle it the node rollup
+// plugins 'rollup-plugin-commonjs' and 'rollup-plugin-node-resolve' need to be
+// available in the project. When NOT available the following import form could
+// be used:
+// import JSON5 from '../node_modules/json5/dist/index.min.mjs';
+/*----------------------------------------------------------------------------*/
+
+import JSON5 from 'json5';
 import * as log from "./logger.js";
 
 export { load, parse, stringify };
