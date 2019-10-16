@@ -202,7 +202,7 @@ class DocumentTextRenderer
 
             case "REAL": {
                 const useExponentialFormat = {}.hasOwnProperty.call(renderingProperties, "exp") ? renderingProperties.exp : false;
-                const precision = Math.min({}.hasOwnProperty.call(renderingProperties, "pred") ? renderingProperties.prec : channelMetadata.prec, DEFAULT_PRECISION);
+                const precision = Math.min({}.hasOwnProperty.call(renderingProperties, "prec") ? renderingProperties.prec : channelMetadata.prec, DEFAULT_PRECISION);
                 // TODO: Look at improved deserialisation of NaN's, Infinity etc
                 // TODO: The backend serialiser has been changed (2019-02-02) to the more rigorous implementation of
                 // TODO: sending Nan and Infinity as numbers not strings. Need to check whether the implementation
