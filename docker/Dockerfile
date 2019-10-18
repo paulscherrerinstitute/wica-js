@@ -52,6 +52,8 @@ RUN mkdir ./static ./static/wica
 # Populate the application directories as appropriate
 COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica/
 
+RUN ls ./static/wica/
+
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
