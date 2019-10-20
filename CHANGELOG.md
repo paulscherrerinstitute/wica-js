@@ -25,3 +25,9 @@ This log describes the functionality of tagged versions within the repository.
   Now exports client API classes.
   Suppressed terse JS output to ease debugging.
   Added bare modules support.
+  
+* [1.1.3]
+  Fixed bug which affected precisiom. Now builds and exports separate wica/client-api.js 
+  classes.
+  #6 Precision ('prec') field has no effect when specified in wica-rendering-props object 
+  #7 Create Wica-JS 1.1.3 Release
