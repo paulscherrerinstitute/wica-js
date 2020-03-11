@@ -47,6 +47,8 @@ class DocumentStreamConnector
         this.lastOpenedStreamId = 0;
         this.streamConnectionHandlers = {};
         this.streamMessageHandlers = {};
+        this.wicaElementsInDocument = [];
+        this.wicaElementsForChannelWithName = {};
     }
 
     /**
@@ -95,13 +97,13 @@ class DocumentStreamConnector
         this.streamConnectionHandlers.streamConnect = (count) => {
             log.log( "Event stream connect: " + count );
             log.log( "Setting wica stream state on all html elements to: 'connect-" + count + "'" );
-            DocumentUtilities.findWicaElements().forEach(element => element.setAttribute( streamConnectionStateAttribute, "connect-" + count ) );
+            this.findWicaElements_().forEach(element => element.setAttribute( streamConnectionStateAttribute, "connect-" + count ) );
         };
 
         this.streamConnectionHandlers.streamOpened = (id) => {
             log.log( "Event stream opened: " + id);
             log.log( "Setting wica stream state on all html elements to: 'opened-" + id + "'" );
-            DocumentUtilities.findWicaElements().forEach(element => element.setAttribute( streamConnectionStateAttribute, "opened-" + id));
+            this.findWicaElements_().forEach(element => element.setAttribute( streamConnectionStateAttribute, "opened-" + id));
             this.lastOpenedStreamId = id;
         };
 
@@ -109,7 +111,7 @@ class DocumentStreamConnector
             log.log("Event stream closed: " + id);
             if ( id === this.lastOpenedStreamId ) {
                 log.log("Setting wica stream state on all html elements to: 'closed'");
-                DocumentUtilities.findWicaElements().forEach(element => element.setAttribute( streamConnectionStateAttribute, "closed-" + id));
+                this.findWicaElements_().forEach(element => element.setAttribute( streamConnectionStateAttribute, "closed-" + id));
             } else {
                 log.log("Wica stream state on all html elements will be left unchanged as a newer event source is already open !");
             }
@@ -168,12 +170,12 @@ class DocumentStreamConnector
     buildStreamConfiguration_( channelNameAttribute, channelPropertiesAttribute )
     {
         // Look for all wica-aware elements in the current page
-        const wicaElements = DocumentUtilities.findWicaElements();
+        const wicaElements = this.findWicaElements_();
         log.info( "Number of wica-aware elements found in document: ", wicaElements.length );
 
         // Create an array of the associated channel names
         const channels = [];
-        wicaElements.forEach(function (widget)
+        wicaElements.forEach( (widget) =>
         {
             const channelName = widget.getAttribute( channelNameAttribute );
             if ( widget.hasAttribute( channelPropertiesAttribute ) )
@@ -187,6 +189,11 @@ class DocumentStreamConnector
                 const channelConfiguration = { "name": channelName };
                 channels.push( channelConfiguration );
             }
+
+            // Add the widget to the list of widgets whose attributes are to be
+            // updated if the wica stream provides new information.
+            this.saveWicaElementForChannelWithName_( channelName, widget )
+
         });
 
         this.streamConfiguration = { "channels": channels, "props": this.streamProperties };
@@ -209,7 +216,7 @@ class DocumentStreamConnector
         Object.keys( metadataMap ).forEach((key) => {
             const channelName = key;
             const channelMetadata = metadataMap[key];
-            const elements = DocumentUtilities.findWicaElementsWithChannelName( channelName );
+            const elements = this.findWicaElementsForChannelWithName_( channelName );
             const metadataAsString = JsonUtilities.stringify(channelMetadata);
             elements.forEach(ele => {
                 ele.setAttribute( channelMetadataAttribute, metadataAsString);
@@ -238,7 +245,7 @@ class DocumentStreamConnector
         Object.keys( valueMap).forEach((key) => {
             const channelName = key;
             const channelValueArray = valueMap[key];
-            const elements = DocumentUtilities.findWicaElementsWithChannelName( channelName );
+            const elements = this.findWicaElementsForChannelWithName_( channelName );
             const channelValueArrayAsString = JsonUtilities.stringify( channelValueArray );
 
             if (!Array.isArray( channelValueArray )
@@ -257,6 +264,31 @@ class DocumentStreamConnector
                 log.log( "Value updated on channel: '" + key + "', new value: '" + channelValueLatestAsString + "'" );
             });
         });
+    }
+
+
+    findWicaElements_()
+    {
+        if ( this.wicaElementsInDocument === null ) {
+            this.wicaElementsInDocument = DocumentUtilities.findWicaElements();
+        }
+        return this.wicaElementsInDocument;
+    }
+
+    findWicaElementsForChannelWithName_( channelName )
+    {
+        return Object.hasOwnProperty.call( this.wicaElementsForChannelWithName, channelName ) ?
+            this.wicaElementsForChannelWithName[ channelName ] : [];
+    }
+
+    saveWicaElementForChannelWithName_( channelName, wicaElement )
+    {
+        if ( ! Array.isArray( this.wicaElementsForChannelWithName[ channelName ] ) ) {
+            this.wicaElementsForChannelWithName[ channelName ] = [];
+        }
+        // Add the widget to the list of widgets whose attributes are to be
+        // updated if the wica stream provides new information.
+        this.wicaElementsForChannelWithName[ channelName ].push( wicaElement );
     }
 
 }
