@@ -31,3 +31,12 @@ This log describes the functionality of tagged versions within the repository.
   classes.
   #6 Precision ('prec') field has no effect when specified in wica-rendering-props object 
   #7 Create Wica-JS 1.1.3 Release
+  
+* [1.2.0] 
+#8 Create Wica-JS 1.2.0 Release
+#9 ENHANCEMENT: When navigating away from wica pages send delete stream request asynchronously.
+#10 ENHANCEMENT: Optimise document-stream-connector to used html element cache enhancement.
+#12 ENHANCEMENT: Add support for publishing on PSI's local NPM server.
+#13 ENHANCEMENT: Add support for defining Wica-JS library startup behaviour in script tag.
+#14 Create license.
+#15 Update packages after NPM audit. 
