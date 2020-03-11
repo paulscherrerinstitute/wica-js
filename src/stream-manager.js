@@ -162,12 +162,40 @@ class StreamManager
         // Cancel the most recently established stream (if one has been established).
         if ( this.activeStreamId !== undefined )
         {
-            this.deleteStream_( this.activeStreamId );
+            this.deleteStreamAsync_( this.activeStreamId );
         }
     }
 
+
     /**
-     * Sends a DELETE request to the Wica Server to delete an existing stream.
+     * Sends an HTTP POST request to the Wica Server to delete an existing
+     * stream.
+     *
+     * This version does not block and in theory does not impair the
+     * user's web experience.
+     *
+     * The implmentation here make use of the navigator.sendBeacon
+     * function which is provided specifically for the purpose of
+     * sending short messages before unloading a page.
+     *
+     * @private
+     * @param {string} streamId the ID of the stream to be deleted.
+     */
+    deleteStreamAsync_( streamId )
+    {
+        log.info( "Asynchronously deleting stream with id: ", streamId );
+        const deleteUrl = this.serverUrl + "/ca/streams/";
+        navigator.sendBeacon( deleteUrl, streamId );
+    }
+
+    /**
+     * Sends an HTTP DELETE request to the Wica Server to delete an
+     * existing stream.
+     *
+     * This version blocks waiting for the response from the Wica server.
+     * This approach is now disallowed by modern browsers such as Chrome.
+     * See the information here:
+     * https://www.chromestatus.com/feature/4664843055398912
      *
      * @private
      * @param {string} streamId the ID of the stream to be deleted.
