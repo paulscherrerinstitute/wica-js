@@ -35,7 +35,7 @@ This log describes the functionality of tagged versions within the repository.
 * [1.2.0] 
   * Issue #8 Create Wica-JS 1.2.0 Release
   * Issue #9 ENHANCEMENT: When navigating away from wica pages send delete stream request asynchronously.
-  * Issue #10 ENHANCEMENT: Optimise document-stream-connector to used html element cache enhancement.
+  * Issue #10 ENHANCEMENT: Optimise document-stream-connector to used html element cache.
   * Issue #12 ENHANCEMENT: Add support for publishing on PSI's local NPM server.
   * Issue #13 ENHANCEMENT: Add support for defining Wica-JS library startup behaviour in script tag.
   * Issue #14 Create license.
