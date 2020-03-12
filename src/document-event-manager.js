@@ -89,6 +89,10 @@ class DocumentEventManager
      */
     activate( refreshRateInMilliseconds = 100, supportEventListeners = true )
     {
+        // Search the current document for all wica-aware elements.
+        // Optimisation: cache the retrieved information for use during future scanning.
+        this.wicaElements = DocumentUtilities.findWicaElements();
+
         // Start update process if not already active. Otherwise do nothing.
         if ( this.intervalTimer === undefined )
         {
@@ -166,7 +170,7 @@ class DocumentEventManager
     fireEvents_( channelNameAttribute, channelMetadataAttribute, channelValueArrayAttribute,
                  eventHandlerAttribute, supportEventListeners )
     {
-        DocumentUtilities.findWicaElements().forEach((element) => {
+        this.wicaElements.forEach((element) => {
 
             // If we have no information about the channel's current value or the channel's metadata
             // then there is nothing useful that can be done so bail out.

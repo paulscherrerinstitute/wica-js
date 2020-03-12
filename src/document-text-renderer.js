@@ -55,6 +55,10 @@ class DocumentTextRenderer
      */
     activate( refreshRateInMilliseconds = 100 )
     {
+        // Search the current document for all wica-aware elements.
+        // Optimisation: cache the retrieved information for use during future scanning.
+        this.wicaElements = DocumentUtilities.findWicaElements();
+
         // Start update process if not already active. Otherwise do nothing.
         if ( this.intervalTimer === undefined )
         {
@@ -120,7 +124,7 @@ class DocumentTextRenderer
      */
     renderWicaElements_( channelNameAttribute, channelMetadataAttribute, channelValueArrayAttribute, tooltipAttribute, renderingPropertiesAttribute )
     {
-        DocumentUtilities.findWicaElements().forEach((element) =>
+        this.wicaElements.forEach((element) =>
         {
             // Always ensure the element's tooltips are available for rendering.
             DocumentTextRenderer.configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute );

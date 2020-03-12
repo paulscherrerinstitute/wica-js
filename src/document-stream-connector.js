@@ -47,8 +47,8 @@ class DocumentStreamConnector
         this.lastOpenedStreamId = 0;
         this.streamConnectionHandlers = {};
         this.streamMessageHandlers = {};
-        this.wicaElementsInDocument = [];
-        this.wicaElementsForChannelWithName = {};
+        this.wicaElements = [];
+        this.wicaElementLookupTable = {};
     }
 
     /**
@@ -60,6 +60,10 @@ class DocumentStreamConnector
      */
     activate()
     {
+        // Search the current document for all wica-aware elements.
+        // Optimisation: cache the retrieved information for use during future scanning.
+        this.wicaElements = DocumentUtilities.findWicaElements();
+
         this.configureStreamConnectionHandlers_( this.wicaElementConnectionAttributes.streamState );
 
         this.configureStreamMessageHandlers_( this.wicaElementConnectionAttributes.channelMetadata,
@@ -69,6 +73,7 @@ class DocumentStreamConnector
                                               this.wicaElementConnectionAttributes.channelAlarmState );
 
         this.buildStreamConfiguration_( this.wicaElementConnectionAttributes.channelName, this.wicaElementConnectionAttributes.channelProperties );
+        this.buildWicaElementLookupTable_( this.wicaElementConnectionAttributes.channelName );
         this.createStream_();
 
         JsonUtilities.load(() => this.streamManager.activate() );
@@ -97,13 +102,13 @@ class DocumentStreamConnector
         this.streamConnectionHandlers.streamConnect = (count) => {
             log.log( "Event stream connect: " + count );
             log.log( "Setting wica stream state on all html elements to: 'connect-" + count + "'" );
-            this.findWicaElements_().forEach(element => element.setAttribute( streamConnectionStateAttribute, "connect-" + count ) );
+            this.wicaElements.forEach(element => element.setAttribute( streamConnectionStateAttribute, "connect-" + count ) );
         };
 
         this.streamConnectionHandlers.streamOpened = (id) => {
             log.log( "Event stream opened: " + id);
             log.log( "Setting wica stream state on all html elements to: 'opened-" + id + "'" );
-            this.findWicaElements_().forEach(element => element.setAttribute( streamConnectionStateAttribute, "opened-" + id));
+            this.wicaElements.forEach(element => element.setAttribute( streamConnectionStateAttribute, "opened-" + id));
             this.lastOpenedStreamId = id;
         };
 
@@ -111,7 +116,7 @@ class DocumentStreamConnector
             log.log("Event stream closed: " + id);
             if ( id === this.lastOpenedStreamId ) {
                 log.log("Setting wica stream state on all html elements to: 'closed'");
-                this.findWicaElements_().forEach(element => element.setAttribute( streamConnectionStateAttribute, "closed-" + id));
+                this.wicaElements.forEach(element => element.setAttribute( streamConnectionStateAttribute, "closed-" + id));
             } else {
                 log.log("Wica stream state on all html elements will be left unchanged as a newer event source is already open !");
             }
@@ -169,13 +174,12 @@ class DocumentStreamConnector
      */
     buildStreamConfiguration_( channelNameAttribute, channelPropertiesAttribute )
     {
-        // Look for all wica-aware elements in the current page
-        const wicaElements = this.findWicaElements_();
-        log.info( "Number of wica-aware elements found in document: ", wicaElements.length );
+        // Provide some diagnostics on the number of elements that will be incorporated into the stream.
+        log.info( "Building new stream configuration. Number of wica-aware elements found in document: ", this.wicaElements.length );
 
         // Create an array of the associated channel names
         const channels = [];
-        wicaElements.forEach( (widget) =>
+        this.wicaElements.forEach( (widget) =>
         {
             const channelName = widget.getAttribute( channelNameAttribute );
             if ( widget.hasAttribute( channelPropertiesAttribute ) )
@@ -189,16 +193,9 @@ class DocumentStreamConnector
                 const channelConfiguration = { "name": channelName };
                 channels.push( channelConfiguration );
             }
-
-            // Add the widget to the list of widgets whose attributes are to be
-            // updated if the wica stream provides new information.
-            this.saveWicaElementForChannelWithName_( channelName, widget )
-
         });
-
         this.streamConfiguration = { "channels": channels, "props": this.streamProperties };
     }
-
 
     /**
      * Handles the arrival of a new metadata map from the stream-manager.
@@ -266,29 +263,53 @@ class DocumentStreamConnector
         });
     }
 
-
-    findWicaElements_()
+    /**
+     * Create a lookup table of the HTML elements associated with each wica
+     * channel in the current document.
+     *
+     * @param {!string} channelNameAttribute - the
+     * @private
+     */
+    buildWicaElementLookupTable_( channelNameAttribute )
     {
-        if ( this.wicaElementsInDocument === null ) {
-            this.wicaElementsInDocument = DocumentUtilities.findWicaElements();
-        }
-        return this.wicaElementsInDocument;
+        this.wicaElements.forEach( (widget) =>
+        {
+            const channelName = widget.getAttribute( channelNameAttribute );
+            this.saveLookupTableEntry_( channelName, widget )
+        });
     }
 
-    findWicaElementsForChannelWithName_( channelName )
+    /**
+     * Saves the association between the specified channel name and a wica element
+     * with which it is associated (that's to say which needs to be updated should
+     * its value or metadata changes).
+     *
+     * @param {!string} channelName - the name of the wica channel.
+     * @param {!HTMLElement} wicaElement - an element with which it is associated.
+     * @private
+     */
+    saveLookupTableEntry_( channelName, wicaElement )
     {
-        return Object.hasOwnProperty.call( this.wicaElementsForChannelWithName, channelName ) ?
-            this.wicaElementsForChannelWithName[ channelName ] : [];
-    }
-
-    saveWicaElementForChannelWithName_( channelName, wicaElement )
-    {
-        if ( ! Array.isArray( this.wicaElementsForChannelWithName[ channelName ] ) ) {
-            this.wicaElementsForChannelWithName[ channelName ] = [];
+        if ( ! Array.isArray( this.wicaElementLookupTable[ channelName ] ) ) {
+            this.wicaElementLookupTable[ channelName ] = [];
         }
         // Add the widget to the list of widgets whose attributes are to be
         // updated if the wica stream provides new information.
-        this.wicaElementsForChannelWithName[ channelName ].push( wicaElement );
+        this.wicaElementLookupTable[ channelName ].push( wicaElement );
     }
+
+    /**
+     * Retrieves an array of all wica elements associated with the specified channel.
+     * @param channelName
+     * @return {!HTMLElement[]} array of HTML elements with which the specified wica
+     *    channel name is associated.
+     * @private
+     */
+    findWicaElementsForChannelWithName_( channelName )
+    {
+        return Object.hasOwnProperty.call( this.wicaElementLookupTable, channelName ) ?
+            this.wicaElementLookupTable[ channelName ] : [];
+    }
+
 
 }
