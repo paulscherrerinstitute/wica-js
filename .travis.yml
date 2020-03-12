@@ -75,10 +75,10 @@ deploy:
   - provider: pages                          # Travis GitHub Pages Provider.
     local_dir: dist/apidocs                  # The asset to be deployed.
     skip_cleanup: true                       # Set to true in accordance with Travis GitHub Pages Provider docs.
-    github_token: $GITHUB_TOKEN              # Set in the settings page of your repository, as a secure variable.
+    token: "$GITHUB_TOKEN"                   # Set in the settings page of your repository, as a secure variable.
     keep_history: true                       # Retain previous versions of the documentation.
     on:
-      tags: true                              # Skip this deployment unless $TRAVIS_TAG is set.
+      tags: true                             # Skip this deployment unless $TRAVIS_TAG is set.
 
   # Log into Docker and run build
   - provider: script
