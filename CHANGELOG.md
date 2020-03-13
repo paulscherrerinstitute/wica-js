@@ -40,3 +40,10 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #13 ENHANCEMENT: Add support for defining Wica-JS library startup behaviour in script tag.
   * Issue #14 Create license.
   * Issue #15 Update packages after NPM audit. 
+
+* [1.2.1] 
+  * Issue #9 ENHANCEMENT: When navigating away from wica pages send delete stream request asynchronously.
+    Adjusted feature for compatibility with Wica-HTTP Release 1.4.0. POST and DELETE HTTP requests now 
+    go to the same endpoint. POST requests must additionally contain 'DELETE'  string literal in 
+    content body. 
+  * Issue #16 Create Wica-JS 1.2.0 Release.  
