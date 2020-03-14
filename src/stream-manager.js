@@ -193,8 +193,8 @@ class StreamManager
     deleteStreamAsync_( streamId )
     {
         log.info( "Asynchronously deleting stream with id: ", streamId );
-        const deleteUrl = this.serverUrl + "/ca/streams/";
-        navigator.sendBeacon( deleteUrl, streamId );
+        const deleteUrl = this.serverUrl + "/ca/streams/" + streamId;
+        navigator.sendBeacon( deleteUrl, "DELETE" );
     }
 
     /**
