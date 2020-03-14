@@ -160,7 +160,8 @@ class DocumentStreamConnector
         const streamManagerOptions = {
             streamReconnectIntervalInSeconds: 25,
             streamTimeoutIntervalInSeconds: 20,
-            crossOriginCheckEnabled: false,
+            crossOriginCheckEnable: false,
+            asyncStreamDeleteEnable: true
         };
         this.streamManager = new StreamManager( this.streamServerUrl, this.streamConfiguration, this.streamConnectionHandlers, this.streamMessageHandlers, streamManagerOptions );
     }

@@ -103,9 +103,13 @@ class StreamManager
      *     message needs to be received before the manager will conclude that a communication outage has occurred.
      * @param {number} [options.streamReconnectIntervalInSeconds] - Period between successive reconnection
      *     attempts following a communication outage.
-     * @param {boolean} [options.crossOriginCheckEnabled] - Whether this manager should perform a CORS check
+     * @param {boolean} [options.crossOriginCheckEnable] - Whether this manager should perform a CORS check
      *     to verify that the origin of the event stream is the same as the origin from which this manager
      *     was loaded.
+     * @param {string} [options.asyncStreamDeleteEnable] - Defines how this manager will send
+     *     stream delete requests to the wica stream server when the manager is shutdown.  Set true to
+     *     enable the modern navigator.sendBeacon based approach. Set false to use a conventional
+     *     blocking HTTP DELETE approach.
      */
     constructor( serverUrl, streamConfiguration, connectionHandlers, messageHandlers, options )
     {
@@ -118,7 +122,8 @@ class StreamManager
         this.channelValuesUpdated = messageHandlers.channelValuesUpdated;
         this.streamReconnectIntervalInSeconds = options.streamReconnectIntervalInSeconds;
         this.streamTimeoutIntervalInSeconds = options.streamTimeoutIntervalInSeconds;
-        this.crossOriginCheckEnabled = options.crossOriginCheckEnabled;
+        this.crossOriginCheckEnable = options.crossOriginCheckEnable;
+        this.asyncStreamDeleteEnable = options.asyncStreamDeleteEnable;
         this.countdownInSeconds = 0;
         this.connectionRequestCounter = 1;
         this.activeStreamId = undefined;
@@ -162,10 +167,14 @@ class StreamManager
         // Cancel the most recently established stream (if one has been established).
         if ( this.activeStreamId !== undefined )
         {
-            this.deleteStreamAsync_( this.activeStreamId );
+            if ( this.asyncStreamDeleteEnable ) {
+                this.deleteStreamAsync_( this.activeStreamId );
+            }
+            else {
+                this.deleteStream_(this.activeStreamId );
+            }
         }
     }
-
 
     /**
      * Sends an HTTP POST request to the Wica Server to delete an existing
@@ -174,7 +183,7 @@ class StreamManager
      * This version does not block and in theory does not impair the
      * user's web experience.
      *
-     * The implmentation here make use of the navigator.sendBeacon
+     * The implementation here make use of the navigator.sendBeacon
      * function which is provided specifically for the purpose of
      * sending short messages before unloading a page.
      *
@@ -193,8 +202,8 @@ class StreamManager
      * existing stream.
      *
      * This version blocks waiting for the response from the Wica server.
-     * This approach is now disallowed by modern browsers such as Chrome.
-     * See the information here:
+     * This approach is now (2020-03-130 disallowed by modern browsers such
+     * as Chrome. See the information here:
      * https://www.chromestatus.com/feature/4664843055398912
      *
      * @private
@@ -362,7 +371,7 @@ class StreamManager
      */
     crossOriginCheckOk_( event )
     {
-        if ( ! this.crossOriginCheckEnabled ) {
+        if ( ! this.crossOriginCheckEnable ) {
             return true;
         }
 
