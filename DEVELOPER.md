@@ -78,7 +78,7 @@ Example: Target requests to the PSI's Wica Development Server.
 
 1. Use the npm 'release' target to create a tag and to push it to the GitHub Server.
     ```
-    npm run release
+    npm run github-release
     ```
 1. Verify that the Travis automatic build worked and/or that the expected artifacts 
    are available on GitHub and on Docker Hub sites.
