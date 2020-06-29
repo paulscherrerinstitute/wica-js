@@ -48,6 +48,6 @@
     "npm-auto-snapshot": "^0.5.3"
   },
   "dependencies": {
-    "json5": "^2.1.0"
+    "json5": "^2.1.3"
   }
 }
