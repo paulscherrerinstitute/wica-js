@@ -53,3 +53,9 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #19 DEPENDENCIES: Create Wica-JS 1.2.2 Release.
   
 * [1.3.0-RC1] Released 2020-08-02
+  Fixed many IntelliJ warnings and added initial support for 'wica-stream-props' attribute.
+  * Issue #20 DEPENDENCIES: Bump lodash from 4.17.15 to 4.17.19.
+  * Issue #21 ENHANCEMENT: Create release 1.3.0-RC1.
+  * Issue #22 ENHANCEMENT: Miscellaneous small improvements.
+  * Issue #23 ENHANCEMENT: Make JsDoc improvements to remove IntelliJ warning messages.
+  * Issue #24 ENHANCEMENT: Add support for wica-stream-props attribute.
