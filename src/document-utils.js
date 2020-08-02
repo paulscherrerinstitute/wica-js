@@ -8,46 +8,45 @@
 import * as log from "./logger.js"
 import {WicaElementConnectionAttributes} from './shared-definitions.js';
 
-export { findWicaElements,
-         findWicaElementsWithAttributeName,
-         findWicaElementsWithChannelName,
-         findWicaElementsWithAttributeValue }
+export { findWicaStreamElements,
+         findWicaChannelElements,
+    }
 
 /*- Script Execution Starts Here ---------------------------------------------*/
 
 log.log( "Executing script in document-utils.js module...");
 
 /**
- * Finds all "wica-aware" HTML elements in the current document. That's to say, all elements
+ * Finds all wica-stream-related HTML elements in the current document. That's to say, all elements
+ * which include an attribute which defines the name or properties of a stream.
+ *
+ * @returns {Array<Element>} - The result list.
+ */
+function findWicaStreamElements()
+{
+    return findWicaElementsWithAttributeNameAlsoInShadowDom( document, WicaElementConnectionAttributes.streamName );
+}
+
+/**
+ * Finds all wica-channel-related HTML elements in the current document. That's to say, all elements
  * which include an attribute which defines the name of the wica channel.
  *
- * @returns {NodeListOf<Element>} - The result list.
+ * @param {Element} rootElement - the document element at which to start searching.
+ * @returns {Array<Element>} - The result list.
  */
-function findWicaElements()
+function findWicaChannelElements( rootElement )
 {
-    return findWicaElementsWithAttributeNameAlsoInShadowDom( document, WicaElementConnectionAttributes.channelName );
+    return findWicaElementsWithAttributeNameAlsoInShadowDom( rootElement, WicaElementConnectionAttributes.channelName );
 }
 
 /**
- * Finds all wica-aware HTML elements in the current document with the given attribute name.
+ * Finds all HTML elements in the current document whose attribute name matches the specified value.
+ * Continue search into subtrees that are DOM shadow roots.
  *
- * @param {!string} attributeName - The attribute name to search for.
- * @returns {NodeListOf<Element>} - The result list.
+ * @param {!ParentNode} parentNode - the node at which to start searching.
+ * @param {!string} attributeName - The attribute name to target.
+ * @returns {Array<Element>} - The result list.
  */
-function findWicaElementsWithAttributeName( attributeName )
-{
-    const selector = "[" + attributeName + "]";
-    return document.querySelectorAll( selector );
-}
-
-/**
-* Finds all wica-aware HTML elements in the current document whose attribute name
-* matches the specified value.
-*
-* @param {ParentNode} parentNode - the node at which to start searching.
-* @param {!string} attributeName - The attribute name to target.
-* @returns {NodeListOf<Element>} - The result list.
-*/
 function findWicaElementsWithAttributeNameAlsoInShadowDom( parentNode, attributeName )
 {
     const selector = "[" + attributeName + "]";
@@ -63,52 +62,4 @@ function findWicaElementsWithAttributeNameAlsoInShadowDom( parentNode, attribute
 
     return [ ...nodesInParent, ...nodesInChildren ];
 }
-/**
- * Finds all wica-aware HTML elements in the current document with the specified wica channel name.
- *
- * @param {!string} channelName - The channel name to search for.
- * @returns {NodeListOf<Element>} - The result list.
- */
-function findWicaElementsWithChannelName( channelName )
-{
-    return findWicaElementsWithAttributeValueAlsoInShadowDom( document, WicaElementConnectionAttributes.channelName, channelName );
-}
 
-/**
- * Finds all wica-aware HTML elements in the current document whose attribute name matches the specified value.
- *
- * @param {!string} attributeName - The attribute name to target.
- * @param {!string} attributeValue - The attribute value to target.
- * @returns {NodeListOf<Element>} - The result list.
- */
-function findWicaElementsWithAttributeValue( attributeName, attributeValue )
-{
-    const selector = "*[" + attributeName + " = \"" + attributeValue + "\"]";
-    return document.querySelectorAll( selector );
-}
-
-/**
- * Finds all wica-aware HTML elements in the current document whose attribute name
- * matches the specified value.
- *
- * @param {ParentNode} parentNode - the node at which to start searching.
- * @param {!string} attributeName - The attribute name to target.
- * @param {!string} attributeValue - The attribute value to target.
- * @returns {Array<Element>} - The result list.
- */
-function findWicaElementsWithAttributeValueAlsoInShadowDom( parentNode, attributeName, attributeValue )
-{
-    const selector = "*[" + attributeName + " = \"" + attributeValue + "\"]";
-    const nodesInParent = parentNode.querySelectorAll( selector );
-
-    let nodesInChildren = [];
-    Array.from( parentNode.querySelectorAll('*') )
-        .filter( element => element.shadowRoot)
-        .forEach( element => {
-            const nodesInChild = findWicaElementsWithAttributeValueAlsoInShadowDom( element.shadowRoot, attributeName, attributeValue );
-            const nodesInChildAsArray = Array.from( nodesInChild );
-            nodesInChildren = nodesInChildren.concat( nodesInChildAsArray );
-        });
-
-    return  [ ...nodesInParent, ...nodesInChildren ];
-}
