@@ -9,11 +9,11 @@ import * as log from "./logger.js"
 import {
     WicaElementConnectionAttributes,
     WicaElementEventAttributes,
-    WicaElementRenderingAttributes,
-    WicaStreamProperties
+    WicaElementTextRenderingAttributes,
+    WicaStreamPropertyDefaults
 } from './shared-definitions.js';
 
-import {DocumentStreamConnector} from "./document-stream-connector.js";
+import {DocumentStreamBuilder} from "./document-stream-builder.js";
 import {DocumentTextRenderer} from "./document-text-renderer.js";
 import {DocumentEventManager} from "./document-event-manager.js";
 import * as JsonUtilities from "./json5-wrapper.js";
@@ -38,8 +38,8 @@ class DocumentSupportLoader
     constructor( streamServerUrl )
     {
         this.streamServerUrl = streamServerUrl;
-        this.documentStreamConnector = new DocumentStreamConnector( streamServerUrl, WicaStreamProperties, WicaElementConnectionAttributes );
-        this.documentTextRenderer = new DocumentTextRenderer( WicaElementConnectionAttributes, WicaElementRenderingAttributes );
+        this.documentStreamBuilder = new DocumentStreamBuilder( streamServerUrl, WicaStreamPropertyDefaults, WicaElementConnectionAttributes );
+        this.documentTextRenderer = new DocumentTextRenderer( WicaElementConnectionAttributes, WicaElementTextRenderingAttributes );
         this.documentEventManager = new DocumentEventManager( WicaElementConnectionAttributes, WicaElementEventAttributes );
     }
 
@@ -57,7 +57,7 @@ class DocumentSupportLoader
         this.loadWicaCSS_();
 
         JsonUtilities.load(() => {
-            this.documentStreamConnector.activate();
+            this.documentStreamBuilder.activate();
             this.documentTextRenderer.activate( textRendererRefreshRate );
             this.documentEventManager.activate( eventManagerRefreshRate );
         });
@@ -68,7 +68,7 @@ class DocumentSupportLoader
      */
     shutdown()
     {
-        this.documentStreamConnector.shutdown();
+        this.documentStreamBuilder.shutdown();
         this.documentTextRenderer.shutdown();
         this.documentEventManager.shutdown();
     }

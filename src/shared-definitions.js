@@ -7,9 +7,12 @@
 
 import * as log from "./logger.js"
 
-export { WicaElementEventAttributes, WicaElementConnectionAttributes,
-         WicaElementRenderingAttributes, WicaRenderingProperties,
-         WicaStreamProperties, WicaChannelProperties }
+export { WicaElementEventAttributes,
+         WicaElementConnectionAttributes,
+         WicaElementTextRenderingAttributes,
+         WicaTextRenderingPropertyDefaults,
+         WicaStreamPropertyDefaults,
+         WicaChannelPropertyDefaults }
 
 
 /*- Script Execution Starts Here ---------------------------------------------*/
@@ -43,7 +46,7 @@ log.log( "Executing script in shared-definitions.js module...");
  * channel's data source.
  *
  * @typedef module:shared-definitions.WicaChannelFilterTypeAllValueSampler
- * @property {string} filterType - "all-value" - the string literal that configures this type of filter.
+ * @property {string} filter - "all-value" - the string literal that configures this type of filter.
  */
 
 /**
@@ -51,7 +54,7 @@ log.log( "Executing script in shared-definitions.js module...");
  * channel during the wica server's previous value update sampling time window.
  *
  * @typedef module:shared-definitions.WicaChannelFilterTypeLatestValueSampler
- * @property {string} filterType - "last-n" - the string literal that configures this type of filter.
+ * @property {string} filter - "last-n" - the string literal that configures this type of filter.
  * @property {number} n - The maximum number of values to pass through the filter on each update cycle.
  */
 
@@ -60,7 +63,7 @@ log.log( "Executing script in shared-definitions.js module...");
  * on a fixed one-in-N sampling basis.
  *
  * @typedef module:shared-definitions.WicaChannelFilterTypeFixedCycleSampler
- * @property {string} filterType - "one-in-m" - the string literal that configures this type of filter.
+ * @property {string} filter - "one-in-m" - the string literal that configures this type of filter.
  * @property {number} m - The sampling cycle length.
  */
 
@@ -69,7 +72,7 @@ log.log( "Executing script in shared-definitions.js module...");
  * on a minimum time interval between successive samples.
  *
  * @typedef module:shared-definitions.WicaChannelFilterTypeRateLimitingSampler
- * @property {string} filterType - "rate-limiter" - the string literal that configures this type of filter.
+ * @property {string} filter - "rate-limiter" - the string literal that configures this type of filter.
  * @property {number} interval - The minimum time duration between samples in milliseconds.
  */
 
@@ -79,7 +82,7 @@ log.log( "Executing script in shared-definitions.js module...");
  *  underlying type is numeric; the information for all other channel types passes through unchanged.
  *
  * @typedef module:shared-definitions.WicaChannelFilterTypeChangeFilteringSampler
- * @property {string} filterType - "changes" - the string literal that configures this type of filter.
+ * @property {string} filter - "changes" - the string literal that configures this type of filter.
  * @property {number} deadband - Defines the absolute change which must occur in the input value in order for
  *     the new value to be passed through the filter.
  */
@@ -110,7 +113,7 @@ log.log( "Executing script in shared-definitions.js module...");
  *
  * @typedef module:shared-definitions.WicaChannelMetadataEpics
  * @property type {string} - One of: "REAL", "INTEGER", "STRING", "REAL_ARRAY", "INTEGER_ARRAY", "STRING_ARRAY".
- * @property egu {string} -  Engineering Units in which the channel's value will be expressed.
+ * @property egu  {string} -  Engineering Units in which the channel's value will be expressed.
  * @property prec {number} - The precision in which the channel's value will be expressed. Applies only to numeric types.
  * @property hopr {number} - High Operating Range.
  * @property lopr {number} - Low Operating Range.
@@ -119,11 +122,12 @@ log.log( "Executing script in shared-definitions.js module...");
  * @property hihi {number} - Upper Alarm Limit.
  * @property lolo {number} - Lower Alarm Limit.
  * @property high {number} - Upper Warning Limit.
- * @property low {number} - Lower Warning Limit.
+ * @property low  {number} - Lower Warning Limit.
  */
 
+
 /**
- * Provides a type definition for a JS Object that provides channel value information.
+ * Provides a type definition for a JS Object that specifies the instantaneous value of a Wica Channel.
  *
  * The value information includes the raw channel value, the timestamp at which the value was obtained, and the
  * channel alarm status.
@@ -140,6 +144,159 @@ log.log( "Executing script in shared-definitions.js module...");
  */
 
 
+/**
+ * Provides a type definition for a JS Object that defines the HTML element attributes used by the
+ * {@link module:document-event-manager.DocumentEventManager DocumentEventManager} in its mission to
+ * fire events on wica channel elements.
+ *
+ * @typedef module:shared-definitions.WicaElementEventAttributes
+ *
+ * @property {string} [eventHandler] - The name of the attribute which will be examined to look for a
+ *    wica custom event handler.
+ */
+
+/**
+ * Provides a type definition for a JS Object that defines the HTML element attributes used by the
+ * {@link module:document-stream-connector.DocumentStreamConnector DocumentStreamConnector} when communicating
+ * with the Wica server.
+ *
+ * @typedef module:shared-definitions.WicaElementConnectionAttributes
+ *
+ * @property {string} streamName - The name of the element attribute which specifies the wica stream name.
+ *    Format: JS string literal.
+ *
+ * @property {string} streamProperties - The name of the element attribute which
+ *     specifies the wica stream properties. Format: JSON string literal, representing JS
+ *     {@link module:shared-definitions.WicaStreamProperties WicaStreamProperties} object.
+ *
+ * @property {string} streamState - The name of the element attribute which reflects
+ *     the state of the connection to the wica server's data stream. Format: JS string literal with possible
+ *     values: [ "connect-CCC", "opened-XXX", "closed-XXX" ], where CCC represents the incrementing connection
+ *     request counter and XXX the id of the last stream that was opened.
+ *
+ * @property {string} channelName - The name of the element attribute which specifies the wica channel name.
+ *     This is the minimum information that must be present for an element to be considered a wica channel.
+ *     Format: JS string literal.
+ *
+ * @property {string} channelProperties - The name of the element attribute which specifies the wica channel
+ *     properties. Format: JSON string literal, representing JS
+ *     {@link module:shared-definitions.WicaChannelProperties WicaChannelProperties} object.
+ *
+ * @property {string} channelConnectionState - The name of the element attribute which reflects the state of
+ *     the connection between the wica server and the wica channel's data source. Format: JS string literal
+ *     with possible values: ["connecting-N", "opened-X", "closed-X"], where N represents the incrementing
+ *     count of connection attempts and X represents the stream ID assigned by the server.
+ *
+ * @property {string} channelMetadata - The name of the element attribute which reflects the metadata obtained
+ *     most recently from the wica channel. Format: JSON string literal, representing
+ *     JS {@link module:shared-definitions.WicaChannelMetadata WicaChannelMetadata} object.
+ *
+ * @property {string} channelValueArray - The name of the attribute which reflects the most recently obtained
+ *     values from the wica channel. Format: JSON string literal, representing JS Array
+ *     of {@link module:shared-definitions.WicaChannelValue WicaChannelValue} objects.
+ *
+ * @property {string} channelValueLatest - The name of the attribute which is set to reflect the last value
+ *     obtained from the channel. Format: JSON string literal, representing JS
+ *     {@link module:shared-definitions.WicaChannelValue WicaChannelValue} object.
+ *
+ * @property {string} channelAlarmState - The name of the attribute which reflects the alarm status most
+ *     recently obtained from the channel. Format: JS number literal with possible values:
+ *     [ 0 (= "NO_ALARM"), 1 (= "MINOR_ALARM"), 2 (= "MAJOR_ALARM"), 3 (= "INVALID_ALARM") ].
+ */
+
+/**
+ * Provides a type definition for a JS Object that defines the HTML element attributes used by the
+ * {@link module:document-text-renderer.DocumentTextRenderer DocumentTextRenderer} when rendering the
+ * element's visual state.
+ *
+ * @typedef module:shared-definitions.WicaElementTextRenderingAttributes
+ *
+ * @property {string} tooltip - The name of the attribute which specifies the tooltip to be displayed
+ *     when the browser's cursor hovers over the element. When not explicitly set by the developer
+ *     the wica channel name will be assigned to this attribute instead. Format: JS string literal.
+ *
+ * @property {string} renderingProperties - The name of the attribute which provides other miscellaneous
+ *     properties which affect the way the element is rendered. Format: JSON string literal
+ *     representing JS {@link module:shared-definitions.WicaRenderingProperties WicaRenderingProperties}
+ *     object.
+ */
+
+/**
+ * Provides a type definition for a JS Object that specifies the properties to be used when rendering
+ * a Wica element's textual content.
+ *
+ * When not specified the property values will be taken from the
+ * {@link module:shared-definitions.WicaTextRenderingPropertyDefaults WicaTextRenderingPropertyDefaults}.
+ *
+ * @typedef module:shared-definitions.WicaTextRenderingProperties
+ *
+ * @property {boolean} [disable] - Disables rendering for this channel.
+ * @property {string} [units] - The units to be displayed when rendering numeric information. When this
+ *     property is specified it will be used. When not specified an attempt will be made to obtain the units
+ *     from the metadata.
+ * @property {boolean} [exp] - Sets the rendering format for channels which return numeric data. Possible
+ *     values: [true (use exponential format, eg 1.27E-1), false (use fixed decimal point format, eg 0.127)].
+ * @property {number} [prec] - The precision (= number of digits after the decimal point) to be used for
+ *     channels which return numeric data.
+ */
+
+/**
+ * Provides a type definition for a JS Object that specifies the properties of a Wica Stream.
+ *
+ * When not specified the property values will be taken from the
+ * {@link module:shared-definitions.WicaStreamPropertyDefaults WicaStreamPropertyDefaults}.
+ *
+ * @typedef module:shared-definitions.WicaStreamProperties
+ *
+ * @property {number} [hbflux] - The interval in milliseconds between heartbeat messages.
+ * @property {number} [metaflux] - The interval in milliseconds between transmitting successive
+ *    Server-Sent-Event (SSE) messages with the latest wica channel metadata.
+ * @property {number} [monflux] - The interval in milliseconds between transmitting successive
+ *    Server-Sent-Event (SSE) messages with the latest wica channel monitored values.
+ * @property {number} [pollflux] - The interval in milliseconds between transmitting successive
+ *    Server-Sent-Event (SSE) messages with the latest wica channel polled values.
+ * @property {string} [daqmode] - The default data acquisition mode.
+ * @property {number} [pollint] - The default polling interval in milliseconds.
+ * @property {number} [prec] - The precision (= number of digits after the decimal point) to be used when
+ *     sending numeric information.
+ * @property {string} [fields] - A semicolon delimited list defining the data fields that
+ *    should be included by default in the stream of WicaChannelValues.
+ */
+
+/**
+ * Provides a type definition for a JS Object that specifies the properties of a Wica Channel.
+ *
+ * When not specified the property values will be taken from the
+ * {@link module:shared-definitions.WicaChannelPropertyDefaults WicaChannelPropertyDefaults}.
+ *
+ * @typedef module:shared-definitions.WicaChannelProperties
+ *
+ * @property {string|null} [daqmode] - The data acquisition mode.
+ *
+ * @property {number|null} [pollint] - The interval between successive polls of the channel value.
+ *
+ * @property {string|null} [fields] - A semicolon delimited list defining the data fields that
+ *    should be included when sending value information for this channel.
+ *
+ * @property {number|null} [prec] - The precision (= number of digits after the decimal point) to be
+ *     used when sending numeric information.
+ *
+ * @property {module:shared-definitions.WicaChannelFilterType} [filter] - The type of filtering to be used on the channel.
+ *     See {@link module:shared-definitions.WicaChannelFilterType WicaChannelFilterType}.
+ *
+ * @property {number} [n] - The filter number of samples.
+ *     See {@link module:shared-definitions.WicaChannelFilterTypeLatestValueSampler WicaChannelFilterTypeLatestValueSampler}.
+ *
+ * @property {number} [m] - The filter cycle length.
+ *     See {@link module:shared-definitions.WicaChannelFilterTypeFixedCycleSampler WicaChannelFilterTypeFixedCycleSampler}.
+ *
+ * @property {number} [interval] - The filter sampling interval.
+ *     See {@link module:shared-definitions.WicaChannelFilterTypeRateLimitingSampler WicaChannelFilterTypeRateLimitingSampler}.
+ *
+ * @property {number} [deadband] - The filter deadband.
+ *     See {@link module:shared-definitions.WicaChannelFilterTypeChangeFilteringSampler WicaChannelFilterTypeChangeFilteringSampler}.
+ */
+
 /*---------------------------------------------------------------------------*/
 /* 2.0 SHARED OBJECT LITERALS                                                */
 /*---------------------------------------------------------------------------*/
@@ -149,8 +306,12 @@ log.log( "Executing script in shared-definitions.js module...");
  * {@link module:document-event-manager.DocumentEventManager DocumentEventManager} in its mission to fire
  * events on wica-aware elements.
  *
- * @property {string} eventHandler="onchange" - The name of the attribute which will be
- *     examined to look for a wica custom event handler.
+ * @type {module:shared-definitions.WicaElementEventAttributes}
+ *
+ * @property {string} eventHandler="onchange" - The name of the attribute which will be examined to look for a
+ *    wica custom event handler.
+ *
+ * @static
  */
 const WicaElementEventAttributes = Object.freeze ({
     eventHandler: "onchange"
@@ -160,6 +321,15 @@ const WicaElementEventAttributes = Object.freeze ({
  * JS Object that defines the HTML element attributes used by the
  * {@link module:document-stream-connector.DocumentStreamConnector DocumentStreamConnector} when communicating
  * with the Wica server.
+ *
+ * @type {module:shared-definitions.WicaElementConnectionAttributes}
+ *
+ * @property {string} streamName="data-wica-stream-name" - The name of the element attribute which specifies
+ *     the wica stream name. Format: JS string literal.
+
+ * @property {string} streamProperties="data-wica-stream-properties" - The name of the element attribute which
+ *     specifies the wica stream properties. Format: JSON string literal, representing JS
+ *     {@link module:shared-definitions.WicaStreamProperties WicaStreamProperties} object.
  *
  * @property {string} streamState="data-wica-stream-state" - The name of the element attribute which reflects
  *     the state of the connection to the wica server's data stream. Format: JS string literal with possible
@@ -172,7 +342,7 @@ const WicaElementEventAttributes = Object.freeze ({
  *
  * @property {string} channelProperties="data-wica-channel-properties" - The name of the element attribute which
  *     specifies the wica channel properties. Format: JSON string literal, representing JS
- *     {@link module:shared-definitions~WicaChannelProperties WicaChannelProperties} object.
+ *     {@link module:shared-definitions.WicaChannelProperties WicaChannelProperties} object.
  *
  * @property {string} channelConnectionState="data-wica-channel-connection-state" - The name of the element
  *     attribute which reflects the state of the connection between the wica server and the wica
@@ -195,8 +365,12 @@ const WicaElementEventAttributes = Object.freeze ({
  * @property {string} channelAlarmState="data-wica-channel-alarm-state" - The name of the attribute which reflects
  *     the alarm status most recently obtained from the channel. Format: JS number literal with possible values:
  *     [ 0 (= "NO_ALARM"), 1 (= "MINOR_ALARM"), 2 (= "MAJOR_ALARM"), 3 (= "INVALID_ALARM") ].
+ *
+ * @static
  */
 const WicaElementConnectionAttributes = Object.freeze ({
+    streamName:             "data-wica-stream-name",
+    streamProperties:       "data-wica-stream-props",
     streamState:            "data-wica-stream-state",
     channelName:            "data-wica-channel-name",
     channelProperties:      "data-wica-channel-props",
@@ -212,35 +386,41 @@ const WicaElementConnectionAttributes = Object.freeze ({
  * {@link module:document-text-renderer.DocumentTextRenderer DocumentTextRenderer} when rendering the element's
  * visual state.
  *
+ * @type {module:shared-definitions.WicaElementTextRenderingAttributes}
+ *
  * @property {string} tooltip="data-wica-tooltip" - The name of the attribute which specifies the tooltip to
  *     be displayed when the browser's cursor hovers over the element. When not explicitly set by the developer
  *     the wica channel name will be assigned to this attribute instead. Format: JS string literal.
  *
  * @property {string} renderingProperties="data-wica-rendering-props" - The name of the attribute which provides
  *     other miscellaneous properties which affect the way the element is rendered. Format: JSON string literal
- *     representing JS {@link module:shared-definitions~WicaRenderingProperties WicaRenderingProperties}
+ *     representing JS {@link module:shared-definitions.WicaRenderingProperties WicaRenderingProperties}
  *     object.
+ *
+ * @static
  */
-const WicaElementRenderingAttributes = Object.freeze ({
+const WicaElementTextRenderingAttributes = Object.freeze ({
     tooltip:             "data-wica-tooltip",
     renderingProperties: "data-wica-rendering-props"
 } );
 
 /**
- * JS Object that defines the properties and default values used by the
- * {@link module:document-text-renderer.DocumentTextRenderer DocumentTextRenderer} when rendering the element's
- * visual state.
+ * JS Object that defines the default values for the properties of the Wica Text Renderer.
  *
- * @property {boolean} [disable=false] - Disables rendering for this channel.
- * @property {string} [units=""] - The units to be displayed when rendering numeric information. When this
+ * @type {module:shared-definitions.WicaTextRenderingProperties}
+ *
+ * @property {boolean} WicaTextRenderingProperties.disable=false - Disables rendering for this channel.
+ * @property {string} WicaTextRenderingProperties.units="" - The units to be displayed when rendering numeric information. When this
  *     property is specified it will be used. When not specified an attempt will be made to obtain the units
  *     from the metadata.
- * @property {boolean} [exp=false] - Sets the rendering format for channels which return numeric data. Possible
+ * @property {boolean} WicaTextRenderingProperties.exp=false - Sets the rendering format for channels which return numeric data. Possible
  *     values: [true (use exponential format, eg 1.27E-1), false (use fixed decimal point format, eg 0.127)].
- * @property {number} [prec=8] - The precision (= number of digits after the decimal point) to be used for
+ * @property {number} WicaTextRenderingProperties.prec=8 - The precision (= number of digits after the decimal point) to be used for
  *     channels which return numeric data.
+ *
+ * @static
  */
-const WicaRenderingProperties = Object.freeze ({
+const WicaTextRenderingPropertyDefaults = Object.freeze ({
     disable: false,
     exp: false,
     prec: 8,
@@ -248,23 +428,27 @@ const WicaRenderingProperties = Object.freeze ({
 } );
 
 /**
- * JS Object that defines the properties and default values supported by a WicaStream.
+ * JS Object that defines the default values for the properties of a Wica Stream.
  *
- * @property {number} [hbflux=15000] - The interval in milliseconds between heartbeat messages.
- * @property {number} [metaflux=100] The interval in milliseconds between transmitting successive
+ * @type {module:shared-definitions.WicaStreamProperties}
+ *
+ * @property {number} WicaStreamProperties.hbflux=15000 - The interval in milliseconds between heartbeat messages.
+ * @property {number} WicaStreamProperties.metaflux=100 The interval in milliseconds between transmitting successive
  *    Server-Sent-Event (SSE) messages with the latest wica channel metadata.
- * @property {number} [monflux=100] The interval in milliseconds between transmitting successive
+ * @property {number} WicaStreamProperties.monflux=100 The interval in milliseconds between transmitting successive
  *    Server-Sent-Event (SSE) messages with the latest wica channel monitored values.
- * @property {number} [pollflux=1000] The interval in milliseconds between transmitting successive
+ * @property {number} WicaStreamProperties.pollflux=1000 The interval in milliseconds between transmitting successive
  *    Server-Sent-Event (SSE) messages with the latest wica channel polled values.
- * @property {number} [daqmode=monitor] - The default data acquisition mode.
- * @property {number} [pollint=1000] - The default polling interval in milliseconds.
- * @property {number} [prec=6] - The precision (= number of digits after the decimal point) to be used when
+ * @property {string} WicaStreamProperties.daqmode=monitor - The default data acquisition mode.
+ * @property {number} WicaStreamProperties.pollint=1000 - The default polling interval in milliseconds.
+ * @property {number} WicaStreamProperties.prec=6 - The precision (= number of digits after the decimal point) to be used when
  *     sending numeric information.
- * @property {string} [fields=val;sevr] - A semicolon delimited list defining the data fields that
+ * @property {string} WicaStreamProperties.fields=val;sevr - A semicolon delimited list defining the data fields that
  *    should be included by default in the stream of WicaChannelValues.
+ *
+ * @static
  */
-const WicaStreamProperties = Object.freeze ({
+const WicaStreamPropertyDefaults = Object.freeze ({
     hbflux: 15000,
     metaflux: 100,
     monflux: 200,
@@ -272,31 +456,43 @@ const WicaStreamProperties = Object.freeze ({
     daqmode: "monitor",
     pollint: 1000,
     prec: 3,
-    fields: "val;sevr"
+    fields: "val;sevr",
 } );
 
 /**
- * JS Object that defines the properties supported by a WicaChannel and their default values.
+ * JS Object that defines the default values for the properties of a Wica Channel.
  *
- * @property {number} [daqmode] - The data acquisition mode. Optional parameter which overrides
- *     property set on the stream.
- * @property {number} [pollint] - The interval between successive polls of the channel value.
- * @property {string} [fields] - A semicolon delimited list defining the data fields that
- *    should be included when sending value information for this channel.
- * @property {number} [prec] - The precision (= number of digits after the decimal point) to be
- *     used when sending numeric information.
- * @property {WicaChannelFilterType} [filter=WicaChannelFilterTypeLatestValueSampler] - The type of filtering to be
- *     used on the channel. See {@link module:shared-definitions.WicaChannelFilterType WicaChannelFilterType}.
- * @property {string} [n=1] - The filter number of samples.
+ * @type {module:shared-definitions.WicaChannelProperties}
+ *
+ * @property {string} WicaChannelProperties.daqmode=(=stream-property-default) - The data acquisition mode.
+ *
+ * @property {number} WicaChannelProperties.pollint=(=stream-property-default) - The interval between successive polls
+ *     of the channel value.
+ *
+ * @property {string} WicaChannelProperties.fields=(=stream-property-default) - A semicolon delimited list defining
+ *     the data fields that should be included when sending the value information for this channel.
+ *
+ * @property {number} WicaChannelProperties.prec=(=stream-property-default) - The precision (= number of digits after
+ *     the decimal point) to be used when sending the numeric information for this channel.
+ *
+ * @property {module:shared-definitions.WicaChannelFilterType} WicaChannelProperties.filter="last-n" - The type of filtering to be used on the channel. See
+ *     {@link module:shared-definitions.WicaChannelFilterType WicaChannelFilterType}.
+ *
+ * @property {number} WicaChannelProperties.n=1 - The filter number of samples.
  *     See {@link module:shared-definitions.WicaChannelFilterTypeLatestValueSampler WicaChannelFilterTypeLatestValueSampler}.
- * @property {string} [m=1] - The filter cycle length.
+ *
+ * @property {number} WicaChannelProperties.m=1 - The filter cycle length.
  *     See {@link module:shared-definitions.WicaChannelFilterTypeFixedCycleSampler WicaChannelFilterTypeFixedCycleSampler}.
- * @property {string} [interval=1] - The filter sampling interval.
+ *
+ * @property {number} WicaChannelProperties.interval=1 - The filter sampling interval.
  *     See {@link module:shared-definitions.WicaChannelFilterTypeRateLimitingSampler WicaChannelFilterTypeRateLimitingSampler}.
- * @property {string} [deadband=1.0] - The filter deadband.
+ *
+ * @property {number} WicaChannelProperties.deadband=1.0 - The filter deadband.
  *     See {@link module:shared-definitions.WicaChannelFilterTypeChangeFilteringSampler WicaChannelFilterTypeChangeFilteringSampler}.
+ *
+ * @static
  */
-const WicaChannelProperties = Object.freeze ({
+const WicaChannelPropertyDefaults = Object.freeze ({
     daqmode: null,
     pollint: null,
     fields: null,
