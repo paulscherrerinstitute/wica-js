@@ -51,3 +51,5 @@ This log describes the functionality of tagged versions within the repository.
 * [1.2.2] Released 2020-06-29
   * Issue #18 DEPENDENCIES: Upgrade JSON5 version from 2.1.0 -> 2.1.3 to address GitHub security alert. 
   * Issue #19 DEPENDENCIES: Create Wica-JS 1.2.2 Release.
+  
+* [1.3.0-RC1] Released 2020-08-02
