@@ -1,5 +1,6 @@
 /**
- * Provides support for rendering the textual content of wica-aware elements in the current document.
+ * Provides support for rendering the textual content of all wica channel elements in the
+ * current document.
  * @module
  */
 
@@ -17,35 +18,37 @@ export { DocumentTextRenderer}
 log.log( "Executing script in document-text-renderer.js module...");
 
 /**
- * The default precision to be used when rendering a wica-aware widget's text content with a numeric value.
+ * The default precision to be used when rendering a wica channel element's text content with a numeric value.
  */
 const DEFAULT_PRECISION = 8;
 
 /**
- * Renders the visual state of wica-aware elements in the current document based on attribute information
+ * Renders the visual state of wica channel elements in the current document based on attribute information
  * obtained from the Wica server on the backend.
+ *
+ * @static
  */
 class DocumentTextRenderer
 {
     /**
      * Constructs a new instance.
      *
-     * @param {!WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names of the wica-aware
-     *     element attributes that are to be used in the communication process.
-     *     See {@link module:shared-definitions~WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The
+     *     names of the HTML element attributes that are to be used in the wica communication process.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
      *
-     * @param {!WicaElementRenderingAttributes} wicaElementRenderingAttributes - The names of the wica-aware
-     *     element attributes that are to be used in the rendering process.
-     *     See {@link module:shared-definitions~WicaElementRenderingAttributes WicaElementRenderingAttributes}.
+     * @param {!module:shared-definitions.WicaElementTextRenderingAttributes} wicaElementTextRenderingAttributes - The
+     *     names of the HTML element attributes that are to be used in the wica text rendering process.
+     *     See {@link module:shared-definitions.WicaElementRenderingAttributes WicaElementRenderingAttributes}.
      */
-    constructor( wicaElementConnectionAttributes, wicaElementRenderingAttributes,  )
+    constructor( wicaElementConnectionAttributes, wicaElementTextRenderingAttributes,  )
     {
         this.wicaElementConnectionAttributes= wicaElementConnectionAttributes;
-        this.wicaElementRenderingAttributes = wicaElementRenderingAttributes;
+        this.wicaElementTextRenderingAttributes = wicaElementTextRenderingAttributes;
     }
 
     /**
-     * Starts periodically scanning the current document and updating the text content of all wica-aware
+     * Starts periodically scanning the current document and updating the text content of all wica channel
      * elements to match the information obtained from the wica server.
      *
      * @param {number} [refreshRateInMilliseconds=100] - The period to wait after each update scan before
@@ -55,9 +58,9 @@ class DocumentTextRenderer
      */
     activate( refreshRateInMilliseconds = 100 )
     {
-        // Search the current document for all wica-aware elements.
+        // Search the entire document for all wica channel elements.
         // Optimisation: cache the retrieved information for use during future scanning.
-        this.wicaElements = DocumentUtilities.findWicaElements();
+        this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( document.documentElement );
 
         // Start update process if not already active. Otherwise do nothing.
         if ( this.intervalTimer === undefined )
@@ -85,11 +88,9 @@ class DocumentTextRenderer
     /**
      * Performs a single update cycle, then schedules the next one.
      *
-     * @private
      * @param {number} refreshRateInMilliseconds - The period to wait after every update scan before starting
      *     the next one.
-     *
-
+     * @private
      */
     doScan_( refreshRateInMilliseconds )
     {
@@ -98,8 +99,8 @@ class DocumentTextRenderer
             this.renderWicaElements_( this.wicaElementConnectionAttributes.channelName,
                                       this.wicaElementConnectionAttributes.channelMetadata,
                                       this.wicaElementConnectionAttributes.channelValueArray,
-                                      this.wicaElementRenderingAttributes.tooltip,
-                                      this.wicaElementRenderingAttributes.renderingProperties );
+                                      this.wicaElementTextRenderingAttributes.tooltip,
+                                      this.wicaElementTextRenderingAttributes.renderingProperties );
         }
         catch( err )
         {
@@ -112,19 +113,19 @@ class DocumentTextRenderer
 
 
     /**
-     * Renders all wica-aware html elements in the current document.
+     * Renders all HTML elements in the current document that include wica-channel definitions.
      *
-     * @private
      * @param {string} channelNameAttribute - The name of the attribute which holds the channel name.
      * @param {string} channelMetadataAttribute - The name of the attribute which holds the channel metadata.
      * @param {string} channelValueArrayAttribute - The name of the attribute which holds channel value array.
      * @param {string} tooltipAttribute - The name of the attribute which holds the tooltip.
      * @param {string} renderingPropertiesAttribute - The name of the attribute which holds the properties
      *     needed for rendering.
+     * @private
      */
     renderWicaElements_( channelNameAttribute, channelMetadataAttribute, channelValueArrayAttribute, tooltipAttribute, renderingPropertiesAttribute )
     {
-        this.wicaElements.forEach((element) =>
+        this.wicaChannelElements.forEach( (element) =>
         {
             // Always ensure the element's tooltips are available for rendering.
             DocumentTextRenderer.configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute );
@@ -181,11 +182,11 @@ class DocumentTextRenderer
     /**
      * Renders the element's textual content.
      *
-     * @private
      * @param {Element} element - The element.
-     * @param {WicaChannelMetadata} channelMetadata - the channel's metadata.
-     * @param {WicaChannelValue} channelValueLatest - the channel's latest value.
-     * @param {WicaRenderingProperties} renderingProperties - the channel's rendering properties.
+     * @param {module:shared-definitions.WicaChannelMetadata} channelMetadata - the channel's metadata.
+     * @param {module:shared-definitions.WicaChannelValue} channelValueLatest - the channel's latest value.
+     * @param {module:shared-definitions.WicaTextRenderingProperties} renderingProperties - the channel's rendering properties.
+     * @private
      */
     static renderWicaElementTextContent_( element, channelMetadata, channelValueLatest, renderingProperties )
     {
@@ -217,7 +218,7 @@ class DocumentTextRenderer
                     log.warn("Programming error: unexpected JSON String format for numeric value of NaN or Infinity.");
                     element.textContent = rawValue;
                 } else if (useExponentialFormat) {
-                    element.textContent = rawValue.toExponential(useExponentialFormat) + " " + units;
+                    element.textContent = rawValue.toExponential(precision) + " " + units;
                 } else {
                     element.textContent = rawValue.toFixed(precision) + " " + units;
                 }
@@ -250,7 +251,6 @@ class DocumentTextRenderer
                 element.textContent = rawValue;
                 break;
         }
-
     }
 
     /**
@@ -289,7 +289,7 @@ class DocumentTextRenderer
      * @param {string} renderingPropertiesAttribute - The name of the element's HTML attribute which
      *      contains the rendering properties.
      * @param {string} channelNameAttribute - The name of the attribute which contains the channel name.
-     * @return {WicaRenderingProperties} - the object, or {} if for any reason it cannot be obtained
+     * @return {module:shared-definitions.WicaTextRenderingProperties} - the object, or {} if for any reason it cannot be obtained
      *     from the element's HTML attribute.
      */
     static getRenderingProperties( element, renderingPropertiesAttribute, channelNameAttribute )
@@ -310,9 +310,9 @@ class DocumentTextRenderer
     /**
      * Log any error data generated in this class.
      *
-     * @private
      * @param {string} msg - custom error message.
      * @param {Error} err - the Error object
+     * @private
      */
     static logExceptionData_( msg, err )
     {
