@@ -43,9 +43,9 @@ log.log( "Executing script in json5-wrapper.js module...");
  * An optional reviver function can be provided to perform a transformation on the resulting
  * object before it is returned.
  *
- * @param {String} text - The string to parse as JSON5.
+ * @param {!String} text - The string to parse as JSON5.
  *
- * @param {Object} [reviver] - If a function, this prescribes how the value originally produced
+ * @param {!Object} [reviver] - If a function, this prescribes how the value originally produced
  *     by parsing is transformed, before being returned.
  *
  * @return {*} the object corresponding to the given JSON5 text.
