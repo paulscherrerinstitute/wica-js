@@ -46,19 +46,21 @@ log.log( "Executing script in document-event-manager.js module...");
  * event handlers or event listeners. Fires a custom {@link module:document-event-manager.OnWicaEvent
  * OnWicaEvent} to inform the attached observers of the latest status received from the wica event
  * stream.
+ *
+ * @static
  */
 class DocumentEventManager
 {
     /**
      * Constructs a new instance.
      *
-     * @param {!WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names of the wica-aware
+     * @param {module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names of the wica-aware
      *     element attributes that can be examined to determine the name of the channel and its current status.
-     *     See {@link module:shared-definitions~WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
      *
-     * @param {!WicaElementEventAttributes} wicaElementEventAttributes - The names of the wica-aware
+     * @param {module:shared-definitions.WicaElementEventAttributes} wicaElementEventAttributes - The names of the wica-aware
      *     element attributes that can be examined to determine whether a wica-aware element has any attached handlers.
-     *     See {@link module:shared-definitions~WicaElementEventAttributes WicaElementEventAttributes}.
+     *     See {@link module:shared-definitions.WicaElementEventAttributes WicaElementEventAttributes}.
      *
      * @implNote
      *
@@ -73,10 +75,10 @@ class DocumentEventManager
     }
 
     /**
-     * Starts periodically scanning the current document and firing events on all wica-aware elements
+     * Starts periodically scanning the current document and firing events on all wica channel elements
      * to publish their current state.
      *
-     * The event that will be published is a 'onwica'
+     * The event that will be published is called 'onwica'.
      *
      * @param {number} [refreshRateInMilliseconds=200] - The period to wait after each document scan before
      *     starting the next one.
@@ -89,9 +91,9 @@ class DocumentEventManager
      */
     activate( refreshRateInMilliseconds = 100, supportEventListeners = true )
     {
-        // Search the current document for all wica-aware elements.
+        // Search the current document for all wica channel elements.
         // Optimisation: cache the retrieved information for use during future scanning.
-        this.wicaElements = DocumentUtilities.findWicaElements();
+        this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( document.documentElement );
 
         // Start update process if not already active. Otherwise do nothing.
         if ( this.intervalTimer === undefined )
@@ -126,8 +128,8 @@ class DocumentEventManager
     /**
      * Performs a single update cycle, then schedules the next one.
      *
-     * @private
      * @param {number} refreshRateInMilliseconds - The period to wait after every update scan before starting the next one.
+     * @private
      */
     doScan_( refreshRateInMilliseconds )
     {
@@ -157,8 +159,6 @@ class DocumentEventManager
      *
      * No events will be fired until both the channel's metadata and value have been obtained.
      *
-     * @private
-     *
      * @param {string} channelNameAttribute - The name of the attribute which holds the channel name.
      * @param {string} channelMetadataAttribute - The name of the attribute which holds the channel metadata.
      * @param {string} channelValueArrayAttribute - The name of the attribute which holds the channel value array.
@@ -166,11 +166,12 @@ class DocumentEventManager
      *    a defined event handler.
      * @param {boolean} supportEventListeners - Whether events are to be fired unconditionally to support event
      *     listeners or in a more optimised way which supports event handlers only.
+     * @private
      */
     fireEvents_( channelNameAttribute, channelMetadataAttribute, channelValueArrayAttribute,
                  eventHandlerAttribute, supportEventListeners )
     {
-        this.wicaElements.forEach((element) => {
+        this.wicaChannelElements.forEach((element) => {
 
             // If we have no information about the channel's current value or the channel's metadata
             // then there is nothing useful that can be done so bail out.
@@ -228,9 +229,9 @@ class DocumentEventManager
     /**
      * Log any error data generated in this class.
      *
-     * @private
      * @param {string} msg - custom error message.
      * @param {Error} err - the Error object
+     * @private
      */
     static logExceptionData_( msg, err )
     {
