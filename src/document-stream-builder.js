@@ -56,7 +56,7 @@ class DocumentStreamBuilder
     activate()
     {
         // Search the current document for all wica stream elements.
-        const wicaStreamElements = DocumentUtilities.findWicaStreamElements( document );
+        const wicaStreamElements = DocumentUtilities.findWicaStreamElements();
 
         // Provide some diagnostics of stream elements that have been found in the document.
         log.info( "Building new document stream connector. Number of wica stream elements found in document: ", wicaStreamElements.length );
@@ -97,7 +97,8 @@ class DocumentStreamBuilder
      */
     buildStreamProperties_( streamPropertyOverrideObject )
     {
-        const result = Object.assign( this.wicaStreamPropertyDefaults, streamPropertyOverrideObject )
-        return result;
+        let assignableStreamProperties = Object.assign( {}, this.wicaStreamPropertyDefaults );
+        const result = Object.assign( assignableStreamProperties, streamPropertyOverrideObject );
+        return Object.freeze( result );
     }
 }
