@@ -57,7 +57,8 @@ class DocumentStreamBuilder
     activate()
     {
         // Search the current document for all wica stream elements.
-        const wicaStreamElements = DocumentUtilities.findWicaStreamElements();
+        const discoveredWicaStreamElements = DocumentUtilities.findWicaStreamElements();
+        const wicaStreamElements = ( discoveredWicaStreamElements.length === 0 ) ? [ ...document.documentElement  ] : discoveredWicaStreamElements;
 
         // Provide some diagnostics of stream elements that have been found in the document.
         log.info( "Building new document stream connector. Number of wica stream elements found in document: ", wicaStreamElements.length );
