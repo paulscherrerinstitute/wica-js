@@ -68,7 +68,7 @@ class DocumentStreamBuilder
         wicaStreamElements.forEach( (widget) =>
         {
             const streamPropertiesAttribute = this.wicaElementConnectionAttributes.streamProperties;
-            const streamPropertyAsString = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : {};
+            const streamPropertyAsString = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : "{}";
             const streamPropertyOverrideObject = JsonUtilities.parse( streamPropertyAsString )
             const streamProperties = this.buildStreamProperties_( streamPropertyOverrideObject );
             const documentStreamConnector = new DocumentStreamConnector( widget, this.streamServerUrl, streamProperties, this.wicaElementConnectionAttributes );
