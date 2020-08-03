@@ -8,6 +8,7 @@
 import * as log from "./logger.js"
 import * as DocumentUtilities from './document-utils.js'
 import {DocumentStreamConnector} from "./document-stream-connector";
+import * as JsonUtilities from "./json5-wrapper";
 export { DocumentStreamBuilder }
 
 
@@ -66,7 +67,8 @@ class DocumentStreamBuilder
         wicaStreamElements.forEach( (widget) =>
         {
             const streamPropertiesAttribute = this.wicaElementConnectionAttributes.streamProperties;
-            const streamPropertyOverrideObject = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : {};
+            const streamPropertyAsString = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : {};
+            const streamPropertyOverrideObject = JsonUtilities.parse( streamPropertyAsString )
             const streamProperties = this.buildStreamProperties_( streamPropertyOverrideObject );
             const documentStreamConnector = new DocumentStreamConnector( widget, this.streamServerUrl, streamProperties, this.wicaElementConnectionAttributes );
             this.documentStreamConnectors.push( documentStreamConnector );
