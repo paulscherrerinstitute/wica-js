@@ -18,8 +18,8 @@ export { DocumentStreamConnector }
 log.log( "Executing script in document-stream-connector.js module...");
 
 /**
- * Provides real-time updates to wica-aware elements in the current document based on information streamed
- * from the Wica server on the backend.
+ * Provides real-time updates to wica channel elements in the supplied document tree based on
+ * information streamed from the Wica server on the backend.
  *
  * @static
  */
@@ -31,7 +31,8 @@ class DocumentStreamConnector
      * The returned object will remain in a dormant state until triggered by a call to the
      *     {@link module:document-stream-connector.DocumentStreamConnector#activate activate} method.
      *
-     * @param {!Element} rootElement - the root element to be searched when looking for wica channel elements.
+     * @param {!Element} rootElement - the root of the document tree to be searched when looking for wica
+     *    channel elements.
      *
      * @param {!string} streamServerUrl - The URL of the backend server from whom information is to be obtained.
      *
@@ -57,8 +58,8 @@ class DocumentStreamConnector
     }
 
     /**
-     * Scans the current document for wica channel elements, creates a stream on the Wica backend server to obtain
-     * information from each element's data source, sets up handlers to update each element's attributes on
+     * Scans the specified document tree for wica channel elements, creates a stream on the Wica backend server to
+     * obtain information from each element's data source, sets up handlers to update each element's attributes on
      * as fresh information is received .
      *
      * See also: {@link module:document-stream-connector.DocumentStreamConnector#shutdown shutdown}.
@@ -154,7 +155,7 @@ class DocumentStreamConnector
     }
 
     /**
-     * Creates the stream based on the wica-aware elements in the current document.
+     * Creates the stream based on the wica channel elements in the document tree specified during construction.
      *
      * @private
      */
@@ -177,7 +178,7 @@ class DocumentStreamConnector
     }
 
     /**
-     * Builds the stream configuration based on the wica-aware elements in the current document.
+     * Builds the stream configuration based on the wica channel elements in the current document tree.
      *
      * @param channelNameAttribute
      * @param channelPropertiesAttribute
@@ -186,7 +187,7 @@ class DocumentStreamConnector
     buildStreamConfiguration_( channelNameAttribute, channelPropertiesAttribute )
     {
         // Provide some diagnostics on the number of elements that will be incorporated into the stream.
-        log.info( "Building new stream configuration. Number of wica-aware elements found in document: ", this.wicaChannelElements.length );
+        log.info( "Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length );
 
         // Create an array of the associated channel names
         const channels = [];
