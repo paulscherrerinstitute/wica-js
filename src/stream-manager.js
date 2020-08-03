@@ -334,7 +334,9 @@ class StreamManager
         // and subscription cycle.
         eventSource.addEventListener( 'ev-wica-server-heartbeat', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const id = StreamManager.extractEventSourceStreamIdFromUrl_( ev.url );
+                const evTarget = ev.target;
+                const evTargetUrl = evTarget.url;
+                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evTargetUrl );
                 log.log( "Event source: 'wica stream' - heartbeat event on stream with id: " + id );
                 this.countdownInSeconds = this.streamTimeoutIntervalInSeconds;
             }
@@ -342,7 +344,9 @@ class StreamManager
 
         eventSource.addEventListener( 'ev-wica-channel-metadata',ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const metadataArrayObject = JsonUtilities.parse( ev.data );
+                const evTarget = ev.target;
+                const evTargetData = evTarget.target.data;
+                const metadataArrayObject = JsonUtilities.parse( evTargetData );
                 this.channelMetadataUpdated( metadataArrayObject );
             }
 
@@ -350,14 +354,18 @@ class StreamManager
 
         eventSource.addEventListener( 'ev-wica-channel-value', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const valueArrayObject = JsonUtilities.parse( ev.data );
+                const evTarget = ev.target;
+                const evTargetData = evTarget.target.data;
+                const valueArrayObject = JsonUtilities.parse( evTargetData );
                 this.channelValuesUpdated( valueArrayObject );
             }
         }, false);
 
         eventSource.addEventListener( 'open', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const id = StreamManager.extractEventSourceStreamIdFromUrl_( ev.url );
+                const evTarget = ev.target;
+                const evTargetUrl = evTarget.url;
+                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evTargetUrl );
                 this.streamOpened( id );
                 log.log( "Event source: 'wica stream' - open event on stream with id: " + id );
                 this.activeStreamId = id;
@@ -366,7 +374,9 @@ class StreamManager
 
         eventSource.addEventListener( 'error', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const id = StreamManager.extractEventSourceStreamIdFromUrl_( ev.url );
+                const evTarget = ev.target;
+                const evTargetUrl = evTarget.url;
+                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evTargetUrl );
                 log.warn("Event source: 'wica stream'  - error event on stream with id: " + id );
                 ev.close();  // close the event source that triggered this message
                 this.streamClosed( id );
