@@ -344,9 +344,7 @@ class StreamManager
 
         eventSource.addEventListener( 'ev-wica-channel-metadata',ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const evTarget = ev.target;
-                const evTargetData = evTarget.data;
-                const metadataArrayObject = JsonUtilities.parse( evTargetData );
+                const metadataArrayObject = JsonUtilities.parse( ev.data );
                 this.channelMetadataUpdated( metadataArrayObject );
             }
 
@@ -354,9 +352,7 @@ class StreamManager
 
         eventSource.addEventListener( 'ev-wica-channel-value', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const evTarget = ev.target;
-                const evTargetData = evTarget.data;
-                const valueArrayObject = JsonUtilities.parse( evTargetData );
+                const valueArrayObject = JsonUtilities.parse( ev.data );
                 this.channelValuesUpdated( valueArrayObject );
             }
         }, false);
