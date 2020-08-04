@@ -334,9 +334,9 @@ class StreamManager
         // and subscription cycle.
         eventSource.addEventListener( 'ev-wica-server-heartbeat', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const evTarget = ev.target;
-                const evTargetUrl = evTarget.url;
-                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evTargetUrl );
+                const evSrc = ev.target;
+                const evSrcUrl = evSrc.url;
+                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evSrcUrl );
                 log.log( "Event source: 'wica stream' - heartbeat event on stream with id: " + id );
                 this.countdownInSeconds = this.streamTimeoutIntervalInSeconds;
             }
@@ -359,9 +359,9 @@ class StreamManager
 
         eventSource.addEventListener( 'open', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const evTarget = ev.target;
-                const evTargetUrl = evTarget.url;
-                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evTargetUrl );
+                const evSrc = ev.target;
+                const evSrcUrl = evSrc.url;
+                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evSrcUrl );
                 this.streamOpened( id );
                 log.log( "Event source: 'wica stream' - open event on stream with id: " + id );
                 this.activeStreamId = id;
@@ -370,11 +370,11 @@ class StreamManager
 
         eventSource.addEventListener( 'error', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
-                const evTarget = ev.target;
-                const evTargetUrl = evTarget.url;
-                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evTargetUrl );
+                const evSrc = ev.target;
+                const evSrcUrl = evSrc.url;
+                const id = StreamManager.extractEventSourceStreamIdFromUrl_( evSrcUrl );
                 log.warn("Event source: 'wica stream'  - error event on stream with id: " + id );
-                ev.close();  // close the event source that triggered this message
+                evSrc.close();  // close the event source that triggered this message
                 this.streamClosed( id );
             }
 
