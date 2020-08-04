@@ -31,6 +31,8 @@ class DocumentStreamConnector
      * The returned object will remain in a dormant state until triggered by a call to the
      *     {@link module:document-stream-connector.DocumentStreamConnector#activate activate} method.
      *
+     * @param  {!string} streamName - The name of this stream (which will be reflected on the
+     *
      * @param {!Element} rootElement - the root of the document tree to be searched when looking for wica
      *    channel elements.
      *
@@ -40,12 +42,13 @@ class DocumentStreamConnector
      *     will be created to obtain the required information from the data sources.
      *     See {@link module:shared-definitions.WicaStreamProperties WicaStreamProperties}.
      *
-     * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names of the wica-aware
-     *     element attributes that are to be used in the communication process.
+     * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names
+     *     of the wica html element attributes that are to be used in the wica communication process.
      *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
      */
-    constructor( rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes )
+    constructor( streamName, rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes )
     {
+        this.streamName = streamName;
         this.rootElement = rootElement;
         this.streamServerUrl = streamServerUrl;
         this.wicaStreamProperties = wicaStreamProperties;
@@ -69,6 +72,8 @@ class DocumentStreamConnector
         // Search the current document starting at the specified root element for all wica channel elements.
         // Optimisation: cache the retrieved information for use during future scanning.
         this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( this.rootElement );
+
+        this.configureStreamNameAttributes_( this.wicaElementConnectionAttributes.streamName );
 
         this.configureStreamConnectionHandlers_( this.wicaElementConnectionAttributes.streamState );
 
@@ -96,6 +101,18 @@ class DocumentStreamConnector
     }
 
     /**
+     * Configures the stream name attributes on all wica channel elements.
+     *
+     * @private
+     * @param {string} streamNameAttribute - The attribute whose value is to be updated with the stream name.
+     */
+    configureStreamNameAttributes_( streamNameAttribute )
+    {
+        log.log("Setting wica stream name attribute on all html elements to: '" + this.streamName + "'" );
+        this.wicaChannelElements.forEach( element => element.setAttribute( streamNameAttribute, this.streamName ) );
+    }
+
+    /**
      * Configures the document stream connection handling object to deal with the connection-related events generated
      * by the stream manager.
      *
@@ -107,13 +124,13 @@ class DocumentStreamConnector
     {
         this.streamConnectionHandlers.streamConnect = (count) => {
             log.log( "Event stream connect: " + count );
-            log.log( "Setting wica stream state on all html elements to: 'connect-" + count + "'" );
+            log.log( "Setting wica stream state on all html channel elements to: 'connect-" + count + "'" );
             this.wicaChannelElements.forEach( element => element.setAttribute( streamConnectionStateAttribute, "connect-" + count ) );
         };
 
         this.streamConnectionHandlers.streamOpened = (id) => {
             log.log( "Event stream opened: " + id);
-            log.log( "Setting wica stream state on all html elements to: 'opened-" + id + "'" );
+            log.log( "Setting wica stream state on all html channel elements to: 'opened-" + id + "'" );
             this.wicaChannelElements.forEach( element => element.setAttribute( streamConnectionStateAttribute, "opened-" + id));
             this.lastOpenedStreamId = id;
         };
@@ -121,10 +138,10 @@ class DocumentStreamConnector
         this.streamConnectionHandlers.streamClosed = (id) => {
             log.log("Event stream closed: " + id);
             if ( id === this.lastOpenedStreamId ) {
-                log.log("Setting wica stream state on all html elements to: 'closed'");
+                log.log("Setting wica stream state on all html channel elements to: 'closed'");
                 this.wicaChannelElements.forEach( element => element.setAttribute( streamConnectionStateAttribute, "closed-" + id));
             } else {
-                log.log("Wica stream state on all html elements will be left unchanged as a newer event source is already open !");
+                log.log("Wica stream state on all html channel elements will be left unchanged as a newer event source is already open !");
             }
         };
     }
@@ -257,8 +274,7 @@ class DocumentStreamConnector
             const elements = this.findWicaElementsForChannelWithName_( channelName );
             const channelValueArrayAsString = JsonUtilities.stringify( channelValueArray );
 
-            if (!Array.isArray( channelValueArray )
-            ) {
+            if (!Array.isArray( channelValueArray ) ) {
                 log.warn("Stream Error: not an array !");
                 return;
             }

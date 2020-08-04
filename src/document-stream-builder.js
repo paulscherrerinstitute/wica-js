@@ -67,11 +67,13 @@ class DocumentStreamBuilder
         // If a wica stream properties attribute is available use the values to override the default stream properties
         wicaStreamElements.forEach( (widget) =>
         {
+            const streamNameAttribute = this.wicaElementConnectionAttributes.streamName;
+            const streamName = widget.hasAttribute( streamNameAttribute ) ? widget.getAttribute( streamNameAttribute ) : "default";
             const streamPropertiesAttribute = this.wicaElementConnectionAttributes.streamProperties;
             const streamPropertyAsString = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : "{}";
             const streamPropertyOverrideObject = JsonUtilities.parse( streamPropertyAsString )
             const streamProperties = this.buildStreamProperties_( streamPropertyOverrideObject );
-            const documentStreamConnector = new DocumentStreamConnector( widget, this.streamServerUrl, streamProperties, this.wicaElementConnectionAttributes );
+            const documentStreamConnector = new DocumentStreamConnector( streamName, widget, this.streamServerUrl, streamProperties, this.wicaElementConnectionAttributes );
             this.documentStreamConnectors.push( documentStreamConnector );
             documentStreamConnector.activate();
         });
