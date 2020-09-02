@@ -37,7 +37,7 @@
     "registry": "http://npm.psi.ch"
   },
   "devDependencies": {
-    "bestzip": "^2.1.4",
+    "bestzip": "^2.1.7",
     "eslint": "^6.4.0",
     "jsdoc": "^3.6.3",
     "rollup": "^1.21.4",
