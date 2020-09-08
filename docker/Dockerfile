@@ -50,7 +50,7 @@ WORKDIR /root
 RUN mkdir ./static ./static/wica-mount-point ./static/wica-mount-point/wica
 
 # Populate the application directories as appropriate
-COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica-mount-point/wica
+COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica-mount-point/wica/
 
 RUN ls ./static/wica-mount-point/
 
