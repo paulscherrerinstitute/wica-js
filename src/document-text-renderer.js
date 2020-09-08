@@ -23,8 +23,8 @@ log.log( "Executing script in document-text-renderer.js module...");
 const DEFAULT_PRECISION = 8;
 
 /**
- * Renders the visual state of wica channel elements in the current document based on attribute information
- * obtained from the Wica server on the backend.
+ * Renders the textual content of all wica channel elements in the current document based on Wica attribute
+ * information obtained from the Wica server on the backend.
  *
  * @static
  */
@@ -113,7 +113,7 @@ class DocumentTextRenderer
 
 
     /**
-     * Renders all HTML elements in the current document that include wica-channel definitions.
+     * Renders the textual content of all HTML elements in the current document that include wica-channel definitions.
      *
      * @param {string} channelNameAttribute - The name of the attribute which holds the channel name.
      * @param {string} channelMetadataAttribute - The name of the attribute which holds the channel metadata.
@@ -128,7 +128,7 @@ class DocumentTextRenderer
         this.wicaChannelElements.forEach( (element) =>
         {
             // Always ensure the element's tooltips are available for rendering.
-            DocumentTextRenderer.configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute );
+            // DocumentTextRenderer.configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute );
 
             // Get the element's rendering properties object if available
             // Note: since this attribute is configured by the user as a JSON string it's important
@@ -274,10 +274,18 @@ class DocumentTextRenderer
     static configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute )
     {
         const channelName = element.getAttribute( channelNameAttribute );
-        if ( ( ! element.hasAttribute( tooltipAttribute ) ) || ( element.getAttribute( tooltipAttribute ) !== channelName ) )
+        if (  ! element.hasAttribute( tooltipAttribute ) )
         {
             element.setAttribute( tooltipAttribute, channelName );
+            return;
         }
+
+        if (  element.getAttribute( tooltipAttribute ) !== channelName  )
+        {
+            element.setAttribute( tooltipAttribute, channelName );
+            return;
+        }
+
     }
 
     /**

@@ -55,7 +55,20 @@
 
 /*- Wica General Purpose Styling Rules ---------------------------------------*/
 
-/* Styling for tooltip popup on hover */
+/* Styling for popup of channel name on hover */
+[data-wica-channel-name]:hover:before {
+    content: attr( data-wica-channel-name );
+    background-color: yellow;
+    color: black;
+    font-size: 0.75rem;
+    display: block;
+    position:absolute;
+    border: 0.05rem solid black;
+    padding: 0.1rem 0.25rem;
+    z-index: 999;
+}
+
+/* Styling for popup of tooltip on hover. Overrides styling for popup of channel name. */
 [data-wica-tooltip]:hover:before {
     content: attr( data-wica-tooltip );
     background-color: yellow;
