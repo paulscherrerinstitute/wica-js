@@ -47,7 +47,7 @@ WORKDIR /root
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir ./static ./static/wica ./static/wica-mount-point/wica
+RUN mkdir ./static ./static/wica ./static/wica/wica
 
 # Populate the application directories as appropriate
 COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica/wica/
