@@ -127,9 +127,6 @@ class DocumentTextRenderer
     {
         this.wicaChannelElements.forEach( (element) =>
         {
-            // Always ensure the element's tooltips are available for rendering.
-            // DocumentTextRenderer.configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute );
-
             // Get the element's rendering properties object if available
             // Note: since this attribute is configured by the user as a JSON string it's important
             // to validate the data and to output some diagnostic message if there is a problem.
