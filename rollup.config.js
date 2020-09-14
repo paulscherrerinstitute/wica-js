@@ -1,6 +1,6 @@
 import { terser } from 'rollup-plugin-terser';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import copy from "rollup-plugin-copy-assets";
 
 export default [ {
@@ -8,7 +8,6 @@ export default [ {
         output: {
             dir: 'dist/rel',
             format: 'esm',
-            beautify: true,
             sourcemap: true,
         },
         plugins: [
@@ -22,16 +21,13 @@ export default [ {
             commonjs(),
             // Invoke terser but just use the default options until
             // it is proved that we need something else.
-            terser( {
-                exclude: [ '*' ]
-            }),
+            terser( {}),
         ]
     }, {
         input: 'src/client-api.js',
         output: {
             dir: 'dist/rel',
             format: 'esm',
-            beautify: true,
             sourcemap: true,
         },
         plugins: [
@@ -39,9 +35,7 @@ export default [ {
             commonjs(),
             // Invoke terser but just use the default options until
             // it is proved that we need something else.
-            terser({
-                exclude: ['*']
-            }),
+            terser({}),
         ]
     }
 ];
