@@ -47,18 +47,18 @@ WORKDIR /root
 ###############################################################################
 
 # Create the directories needed by this application
-RUN mkdir ./static ./static/wicaroot ./static/wicaroot/wica
+RUN mkdir ./static ./static/wica_js_root ./static/wica_js_root/wica
 
 # Populate the application directories as appropriate
-COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wicaroot/wica/
+COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica_js_root/wica/
 
-RUN ls ./static/wicaroot/
+RUN ls ./static/wica_js_root/
 
 ###############################################################################
 # 4.0 Define the exposed volumes
 ###############################################################################
 
-VOLUME /root/static/wicaroot
+VOLUME /root/static/wica_js_root
 
 
 ###############################################################################
