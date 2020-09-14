@@ -251,41 +251,6 @@ class DocumentTextRenderer
     }
 
     /**
-     * Configure the element's tooltip attribute.
-     *
-     * @implNote
-     *
-     * The wica CSS rules ensure that when the browser's cursor hovers over the element of interest a
-     * a window will be automatically popped up to display the contents of the string specified by the
-     * element's tooltip attribute.
-     *
-     * The implementation here does nothing if the tooltip attribute has already been set explicitly in
-     * the HTML document and if the set value matches the channel name. If this condition is not met
-     * then the tooltipAttribute value is copied from the channelNameAttribute.
-     *
-     * @param {Element} element - The element.
-     * @param {string} tooltipAttribute - The name of the attribute which contains the tooltip.
-     * @param {string} channelNameAttribute - The name of the attribute which contains the channel name.
-     * @private
-     */
-    static configureWicaElementToolTip_( element, tooltipAttribute, channelNameAttribute )
-    {
-        const channelName = element.getAttribute( channelNameAttribute );
-        if (  ! element.hasAttribute( tooltipAttribute ) )
-        {
-            element.setAttribute( tooltipAttribute, channelName );
-            return;
-        }
-
-        if (  element.getAttribute( tooltipAttribute ) !== channelName  )
-        {
-            element.setAttribute( tooltipAttribute, channelName );
-            return;
-        }
-
-    }
-
-    /**
      * Attempts to return a JS WicaRenderingProperties object using the JSON string that may optionally
      * be present in the element's rendering properties attribute.
      *
