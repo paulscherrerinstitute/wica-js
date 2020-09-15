@@ -28,32 +28,37 @@ filtering (eg noise or rate limiting).
 * Supports HTML element text rendering (including visualisation of alarm and connection status).
 * Supports JS event generation to enable custom calculations or rendering.
 * Implemented as Javascript ES6-module with few external dependencies.
-* Works out-of-the-box: no complicated build chain (currently no build chain at all).
+* Tooling and dependency management handled by Node.Js/NPM. 
 
-# Requirements
+Works out-of-the-box: no complicated build chain (currently no build chain at all).
+
+# Installation
+
+The Wica-JS library release consists of the following files:
+
+| File          | Description           | 
+|---------------|-----------------------| 
+| wica.js       | Provides an ES6 module for loading directly into wica-aware HTML web pages. | 
+| wica.css      | Provides CSS definitions for styling wica-aware HTML elements.  Loaded automatically.  |
+| about.html    | Provides release information.  | 
+| client-api.js | Provides a standalone API for leveraging the library's functionality directly from JS applications. | 
+
+These files are downloaded from the GitHub release area and bundled automatically into each build of the 
+[Wica-HTTP](https://github.com/paulscherrerinstitute/wica-http) server.
+
+Note: in standalone Wica deployment configurations **there is no need** to obtain the Wica-JS library separately
+since the release files may be obtained from the Wica-HTTP server's **'/wica'** endpoint. See the 
+Wica-HTTP [Server Endpoints](https://github.com/paulscherrerinstitute/wica-http/blob/master/README.md#server-endpoints) 
+documentation for further information.
+
+# Runtime Requirements
 
    * Requires web browser that supports Javascript ES6. See [here](https://caniuse.com/#search=ES6)
      for latest browser compatibility information.
    * Requires web browser which support Server-Sent-Events (SSE), also known as *EventSource* support. See 
      [here](https://caniuse.com/#feat=eventsource) for latest browser compatibility information.
-   * Has an internal dependence on the [JSON 5 library](https://json5.org) 
-   
-   
-# Installation
-
-The release names for this project follow the [semantic versioning](https://semver.org/) naming convention
-proposed on the GitHub site.
-      
-Examples: wica-js-1.0.0, wica-js-1.1.0, wica-js-1.2.3-rc1, wica-js-1.2.3-rc2, wica-js-7.1.5-rc19
-
-The [Wica-JS](https://github.com/paulscherrerinstitute/wica-js) library is downloaded and bundled automatically 
-into the build of the [Wica-HTTP](https://github.com/paulscherrerinstitute/wica-http) server. Normally there is 
-no need to obtain it separately.
-
-See the Wica-HTTP [endpoints](https://github.com/paulscherrerinstitute/wica-http/blob/master/README.md#server-endpoints) 
-documentation for the relevant URL.
-
-
+   * Has an internal dependence on the [JSON 5 library](https://json5.org) (which comes bundled with the library).
+ 
 # A Simple Wica Webpage Example
 
 The simplest Wica web page looks like this:
@@ -73,7 +78,7 @@ The simplest Wica web page looks like this:
 </html>
 ```
 In this example a single channel named "abc:def" is being monitored. When the page is loaded the div element's 
-*text content* will be dynamically updated with the latest values obtained from the wica channel.  The div 
+*text content* will be dynamically updated with the latest values obtained from the wica server.  The div 
 element's *style* will be dynamically updated to reflect the state of the connection to the channel's data 
 source and/or the channel's alarm state.
 
@@ -81,8 +86,8 @@ source and/or the channel's alarm state.
 
 The Wica-JS library code is executed immediately after the rest of the web page has been loaded. 
 
-It communicates with the Wica-HTTP server to set up a stream of data containing the evolving values from points of 
-interest in the backend control system. Using the received data the library updates the user's web page in real-time.
+It communicates with the Wica-HTTP server to set up one or more data streams containing the evolving values of points
+of interest in the backend control system. Using the received data the library updates the user's web page in real-time.
 
 The communication sequence is as shown below:
 
@@ -90,27 +95,42 @@ The communication sequence is as shown below:
 
 The main steps are as follows:
 
-1.  The **Wica-JS Library** scans the document from which it was loaded for elements whose **'data-wica-channel-name'** 
-attribute is set. This attribute is used as the means of indicating that an element is *wica-aware*. 
+1.  The **Wica-JS Library** scans the document from which it was loaded for the presence of HTML elements whose
+**'data-wica-stream-name'** attribute is specified.  This attribute determines the names of the streams to be
+created in collaboration with the **Wica HTTP Server**. If no such elements are discovered a single stream - named
+**'default'** - will be created and associated with the document's root element. 
 
-1. The **Wica-JS Library** sends a *create stream* request to the Wica-HTTP Server. Included in the request are the names 
-of the wica channels to be included in the new stream, together with the required *wica channel properties* (whose 
-default values may be overridden via the **'data-wica-channel-props'** attribute).
+1. For each **'data-wica-stream-name'** element, the library checks for the presence of a corresponding
+**'data-wica-stream-props'** attribute. This attribute can be used to configure the properties of the stream. 
+When not specified the values from the
+[WicaStreamPropertyDefaults](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaStreamPropertyDefaults)
+are used.
 
-1. The **Wica-HTTP Server** processes the request. It uses the supplied wica channels names and their associated 
-properties to initiate communication with control points of interest in the backend control system. It then allocates 
-and returns to the caller a new *stream-id*.
+1. For each **'data-wica-stream-name'** element, the library scans the descendant document tree for any contained
+elements whose **'data-wica-channel-name'** attribute is specified. This attribute is used to indicate that an element
+is *wica-aware*, that's to say that it provides information about a channel to be included in the parent stream.
+For each discovered element the library checks for the presence of a corresponding **'data-wica-channel-props'**
+attribute. This is used to specify the properties of the channel. When not provided the values from
+the [WicaChannelPropertyDefaults](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaChannelPropertyDefaults)
+are used.
 
-1. The **Wica-JS Library** sends a *subscribe stream* request to the Wica-HTTP Server using the received stream-id.
+1. The **Wica-JS Library** sends one or more *create stream* requests to the Wica-HTTP Server using the information
+   captured in the previous steps. Each request specifies the names and properties of the wica channels to be included.
 
-1. The **Wica-HTTP Server** processes the request and sends back a response indicating that it will hold open the 
+1. The **Wica-HTTP Server** processes each create stream request, using the supplied wica channels names and their
+associated  properties to initiate communication with control points of interest in the backend control system. For
+each request the server returns to the caller an associated *stream-id*.
+
+1. The **Wica-JS Library** sends *subscribe stream* requests to the Wica-HTTP Server using the received stream-ids.
+
+1. The **Wica-HTTP Server** processes each request and sends back a response indicating that it will hold open the 
 HTTP connection and return a stream of Server-Sent-Event (SSE) messages. Thereafter, it sends back SSE messages of 
 various types at configurable periodic intervals. These include messages which contain:
     * the channel *metadata* (these are the properties that rarely change), 
     * the channel *received values* (including both the *monitored* and *polled* channels).
     * the stream's *heartbeat* (a timestamp which indicates that the stream is still alive). 
 
-1. The **Wica JS Library** uses the information received from the event stream to update the wica-aware HTML 
+1. The **Wica JS Library** uses the information received from the SSE message streams to update the wica-aware HTML 
 elements as follows:
     * it adds/updates the elements' [custom data attributes](#attributes-set-by-the-wica-js-library). 
     * it updates the elements' **text content**. The rendering can be controlled by the **'data-wica-rendering-props'** 
@@ -119,24 +139,40 @@ elements as follows:
 
 # Wica-specific HTML Element Attributes
 
-The HTML specification now supports the concept of customisable **data-\* attributes** which provides a standard 
-extension mechanism for associating user-defined information with standard HTML elements. 
+The HTML specification supports the concept of customisable **data-\* attributes** which provides a standard extension
+mechanism for associating user-defined information with standard HTML elements. The Wica-JS library leverages of this
+functionality to support the wica-specific attributes described further in this
+section.
 
-The Wica-JS library uses this feature to support the wica-specific attributes described further in this section.
+## Attributes Set by the Wica Webpage Developer
 
-## Attributes Set by the Web Page Developer
+### Wica Stream Configuration Attributes
 
-These attributes provide **configuration information** which are used by the Wica-JS library when sending 
-create stream requests.
+This feature is supported since Wica-JS release **1.3.0**.
 
-Additional attributes are provided to control the wica element's **tooltip** and the wica element's **text rendering**.
+The following optional attributes provide the information needed to configure the wica streams that will be created
+to obtain the information for the webpage.
 
-| Attribute                   |Description                                                                    | Possible Values                         |  
-|-----------------------------|------------------------------------------------------------------------------ |-----------------------------------------| 
-| 'data-wica-channel-name'    |The name of the control system data source.                                    | Depends on the underlying control system. Example: MMAC3:STR:2, ca://abc:def  |
-| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.       | See the [WicaChannelProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaChannelProperties) jsDoc for further information.  |
-| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content.   | See the [WicaRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaRenderingProperties) jsDoc for further information.  |
-| 'data-wica-tooltip'         |The tooltip to be displayed when the browser's cursor hovers over the element. | See the [WicaElementRenderingAttributes](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaElementRenderingAttributes) jsDoc for further information.  |
+Note: 'data-wica-stream-props' attribute is only evaluated on HTML elements that have the 'data-wica-stream-name' 
+attribute explicitly configured.
+
+| Attribute                   |Description                                                                                                   | Default    |Possible Values                |  
+|-----------------------------|--------------------------------------------------------------------------------------------------------------|------------|-------------------------------| 
+| 'data-wica-stream-name'     |The name of the stream that will be created to obtain the information for all nested wica channel elements.   | "default"  | Must be non-blank. Must be unique. Examples: "stream1", "stream2"  | 
+| 'data-wica-stream-props'    |The properties of the stream that will be created for all nested wica channel elements.                       | See [WicaStreamPropertyDefaults](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaChannelPropertyDefaults) | See [WicaStreamProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaStreamProperties) | 
+
+
+### Wica Channel Configuration Attributes
+
+The following attributes provide the information needed to configure the channels within each wica stream.
+
+| Attribute                   |Description                                                                    | Default                 | Possible Values                         |  
+|-----------------------------|------------------------------------------------------------------------------ |-------------------------|--------------------------------|
+| 'data-wica-channel-name'    |The name of the control system data source.                                    | N/A - must be specified | Depends on the underlying control system. Example: MMAC3:STR:2, ca://abc:def  |
+| 'data-wica-channel-props'   |The properties to be used when accessing the HTML element's data source.       | See [WicaChannelPropertyDefaults](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaChannelPropertyDefaults) | See [WicaChannelProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaChannelProperties) |
+| 'data-wica-rendering-props' |The properties to be used when rendering the HTML element's textual content.   | See [WicaTextRenderingPropertyDefaults](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaTextRenderingPropertyDefaults) | See [WicaTextRenderingProperties](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaTextRenderingProperties) |
+| 'data-wica-tooltip'         |The tooltip to be displayed when the browser's cursor hovers over the element. | When not specified the 'data-wica-channel-name' content will be used. | Example "some useful message." |
+
 
 ## Attributes Set by the Wica-JS Library
 
@@ -235,7 +271,13 @@ the message.
 
 See the [OnWicaEvent](https://paulscherrerinstitute.github.io/wica-js/latest/module-document-event-manager.html#.OnWicaEvent)
 documentation for further details.
+  
+# Library Versioning
 
+The release names for this project follow the [semantic versioning](https://semver.org/) naming convention
+proposed on the GitHub site.
+      
+Examples: wica-js-1.0.0, wica-js-1.1.0, wica-js-1.2.3-rc1, wica-js-1.2.3-rc2, wica-js-7.1.5-rc19
 
 # Wica-JS API Documentation
 
