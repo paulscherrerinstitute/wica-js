@@ -1,5 +1,8 @@
 /**
- * Provides the main entry point for supporting a Wica-aware document.
+ * Provides the main entry point for supporting a Wica-aware HTML document.
+ *
+ * Normally Wica-JS library support should be loaded using the following definition:
+ * <script src="/wica/wica.js" type="module"></script>
  *
  * @module
  */
@@ -36,7 +39,7 @@ if ( thisScriptEle === null ) {
 }
 
 // Configure the logging level that will be used for this library. This can be
-// overriden externally by loading the wica library with an HTML script tag
+// overridden externally by loading the wica library with an HTML script tag
 // that looks as follows:
 // <script data-wica-log-level= src="wica/wica.js" type="module"></script>
 const logLevel = thisScriptEle.hasAttribute( "data-wica-log-level" ) ?
@@ -48,7 +51,7 @@ log.info( "The configured log level has been set to: ", logLevel );
 const WICA_OWN_HOST = location.origin;
 
 // Configure the URL of the stream server that will be targeted by this library.
-// This can be overriden externally by loading the wica library with an HTML
+// This can be overridden externally by loading the wica library with an HTML
 // script tag that looks as follows:
 // <script data-wica-stream-server-url="https://gfa-wica.psi.ch" src="wica/wica.js" type="module"></script>
 const streamServerUrl = thisScriptEle.hasAttribute( "data-wica-stream-server-url" ) ?
