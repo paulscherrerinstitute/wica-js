@@ -30,8 +30,6 @@ filtering (eg noise or rate limiting).
 * Implemented as Javascript ES6-module with few external dependencies.
 * Tooling and dependency management handled by Node.Js/NPM. 
 
-Works out-of-the-box: no complicated build chain (currently no build chain at all).
-
 # Installation
 
 The Wica-JS library release consists of the following files:
