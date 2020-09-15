@@ -29,8 +29,8 @@ This log describes the functionality of tagged versions within the repository.
 * [1.1.3]
   Fixed bug which affected precisiom. Now builds and exports separate wica/client-api.js 
   classes.
-  #6 Precision ('prec') field has no effect when specified in wica-rendering-props object 
-  #7 Create Wica-JS 1.1.3 Release
+  * Issue #6 Precision ('prec') field has no effect when specified in wica-rendering-props object 
+  * Issue #7 Create Wica-JS 1.1.3 Release
   
 * [1.2.0] 
   * Issue #8 Create Wica-JS 1.2.0 Release
@@ -52,7 +52,8 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #18 DEPENDENCIES: Upgrade JSON5 version from 2.1.0 -> 2.1.3 to address GitHub security alert. 
   * Issue #19 DEPENDENCIES: Create Wica-JS 1.2.2 Release.
   
-* [1.3.0] Released 2020-09-14
+* [1.3.0] Released 2020-09-15
+
   Created initial support for 'wica-stream-props' attribute.
   Updated tooltip support so that tooltips are now handled by default through CSS rather
   than by document-text-renderer.
@@ -69,4 +70,4 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #27 ENHANCEMENT: Create release 1.3.0.
   * Issue #28 ENHANCEMENT: Attempt to cleanup tooltip implementation.
   * Issue #29 DEPENDENCIES: Update all remaining dependencies to latest.
-  * Issue #30 ENHACEMENT: Improve Docker naming on wica-related volumes.
+  * Issue #30 ENHANCEMENT: Improve Docker naming on wica-related volumes.
