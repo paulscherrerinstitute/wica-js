@@ -193,8 +193,7 @@ The attributes are available to the user's web page who may use it to perform **
 | 'data-wica-channel-value-latest'      |Reflects the latest value obtained from the wica channel.               | Format depends on data-source (ciontrol system).   |
 | 'data-wica-channel-alarm-state'       |Reflects the alarm status most recently obtained from the wica channel. | "0", "1", "2", "3"                                 |
 
-See the [WicaElementConnectionAttributes](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#~WicaElementConnectionAttributes) for further information.  
-
+See the [WicaElementConnectionAttributes](https://paulscherrerinstitute.github.io/wica-js/latest/module-shared-definitions.html#.WicaElementConnectionAttributes) for further information.  
 
 # Wica-specific HTML Event Support
 
