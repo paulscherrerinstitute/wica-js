@@ -37,7 +37,7 @@ class DocumentStreamBuilder
      *
      * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The
      *     names of the HTML element attributes that are to be used in the wica communication process.
-     *     See {@link module:shared-definitions~WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
      */
     constructor( streamServerUrl, wicaStreamPropertyDefaults, wicaElementConnectionAttributes )
     {
