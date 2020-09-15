@@ -27,7 +27,7 @@ export {
      * subscribing to it and for publishing locally the received information.
      * See {@link module:stream-manager~StreamManager StreamManager}.
      */
-        StreamManager,
+    StreamManager,
 }
 
 export {
@@ -35,7 +35,7 @@ export {
      * Class providing all the functionality necessary to support a wica-aware html page.
      * See {@link module:document-support-loader~DocumentSupportLoader DocumentSupportLoader}.
      */
-        DocumentSupportLoader
+    DocumentSupportLoader
 }
 
 /*- Script Execution Starts Here ---------------------------------------------*/
