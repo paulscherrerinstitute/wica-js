@@ -1,3 +1,13 @@
+/*
+ * Provides CSS definitions for styling wica-aware HTML elements. Includes support for:
+ * <ul>
+ *   <li>wica stream connection state colourisation.</li>
+ *   <li>wica channel connection state colourisation.</li>
+ *   <li>wica channel alarm state colourisation.</li>
+ *   <li>tooltip popup styling and content.</li>
+ * <ul>
+ */
+
 /*----------------------------------------------------------------------------*/
 /* Note: the names of the attributes used in the CSS below must track the     */
 /* definitions given in the 'shared-definitions.js' file.                     */
