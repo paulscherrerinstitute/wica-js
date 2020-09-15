@@ -29,10 +29,10 @@ class PlotBuffer
      *
      * @param {string[]} htmlElementIds the names of the elements to listen to.
      *
-     * @param maximumBufferSize the number of entries that will be buffered. Beyond
+     * @param {number} maximumBufferSize the number of entries that will be buffered. Beyond
      *     this limit the oldest values will be silently thrown away.
      */
-    constructor(  htmlElementIds, maximumBufferSize = 32 )
+    constructor( htmlElementIds, maximumBufferSize = 32 )
     {
         this.htmlElementIds = htmlElementIds;
         this.maximumBufferSize = maximumBufferSize;
@@ -160,7 +160,6 @@ class PlotBuffer
      * @return metadataMap - Map of channel names and their associated metadata. See
      *     {@link module:shared-definitions.WicaChannelName WicaChannelName} and
      *     {@link module:shared-definitions.WicaChannelMetadata WicaChannelMetadata}.
-     *
      */
     getMetadataMap()
     {
