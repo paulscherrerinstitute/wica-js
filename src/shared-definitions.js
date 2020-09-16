@@ -435,13 +435,13 @@ const WicaTextRenderingPropertyDefaults = Object.freeze ({
  * @property {number} WicaStreamProperties.hbflux=15000 - The interval in milliseconds between heartbeat messages.
  * @property {number} WicaStreamProperties.metaflux=100 The interval in milliseconds between transmitting successive
  *    Server-Sent-Event (SSE) messages with the latest wica channel metadata.
- * @property {number} WicaStreamProperties.monflux=100 The interval in milliseconds between transmitting successive
+ * @property {number} WicaStreamProperties.monflux=200 The interval in milliseconds between transmitting successive
  *    Server-Sent-Event (SSE) messages with the latest wica channel monitored values.
  * @property {number} WicaStreamProperties.pollflux=1000 The interval in milliseconds between transmitting successive
  *    Server-Sent-Event (SSE) messages with the latest wica channel polled values.
  * @property {string} WicaStreamProperties.daqmode=monitor - The default data acquisition mode.
  * @property {number} WicaStreamProperties.pollint=1000 - The default polling interval in milliseconds.
- * @property {number} WicaStreamProperties.prec=6 - The precision (= number of digits after the decimal point) to be used when
+ * @property {number} WicaStreamProperties.prec=3 - The precision (= number of digits after the decimal point) to be used when
  *     sending numeric information.
  * @property {string} WicaStreamProperties.fields=val;sevr - A semicolon delimited list defining the data fields that
  *    should be included by default in the stream of WicaChannelValues.
