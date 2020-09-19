@@ -71,3 +71,12 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #28 ENHANCEMENT: Attempt to cleanup tooltip implementation.
   * Issue #29 DEPENDENCIES: Update all remaining dependencies to latest.
   * Issue #30 ENHANCEMENT: Improve Docker naming on wica-related volumes.
+  
+* [1.3.1] Released 2020-09-19 
+
+  Tooltips got bigger. Fixed incorrect documentation on WicaStreamProperties. Default precision is 3 digits.
+  Monitor flux runs at 200ms. 
+  
+  * Issue #31 ENHANCEMENT: Miscellaneous Jsdoc improvements.
+  * Issue #32 ENHANCEMENT: Increase default size of tooltip popup text.
+  * Issue #33 ENHANCEMENT: Create release 1.3.1.
