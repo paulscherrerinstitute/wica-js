@@ -70,7 +70,7 @@
     content: attr( data-wica-channel-name );
     background-color: yellow;
     color: black;
-    font-size: 0.75rem;
+    font-size: 1.3rem;
     display: block;
     position:absolute;
     border: 0.05rem solid black;
@@ -83,7 +83,7 @@
     content: attr( data-wica-tooltip );
     background-color: yellow;
     color: black;
-    font-size: 0.75rem;
+    font-size: 1.3rem;
     display: block;
     position:absolute;
     border: 0.05rem solid black;
