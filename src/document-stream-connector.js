@@ -31,7 +31,8 @@ class DocumentStreamConnector
      * The returned object will remain in a dormant state until triggered by a call to the
      *     {@link module:document-stream-connector.DocumentStreamConnector#activate activate} method.
      *
-     * @param  {!string} streamName - The name of this stream (which will be reflected on the
+     * @param  {!string} assignedStreamName - The name of this stream (which will be reflected on each
+     *     wica channel element)
      *
      * @param {!Element} rootElement - the root of the document tree to be searched when looking for wica
      *    channel elements.
@@ -46,9 +47,9 @@ class DocumentStreamConnector
      *     of the wica html element attributes that are to be used in the wica communication process.
      *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
      */
-    constructor( streamName, rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes )
+    constructor( assignedStreamName, rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes )
     {
-        this.streamName = streamName;
+        this.assignedStreamName = assignedStreamName;
         this.rootElement = rootElement;
         this.streamServerUrl = streamServerUrl;
         this.wicaStreamProperties = wicaStreamProperties;
@@ -73,7 +74,7 @@ class DocumentStreamConnector
         // Optimisation: cache the retrieved information for use during future scanning.
         this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( this.rootElement );
 
-        this.configureStreamNameAttributes_( this.wicaElementConnectionAttributes.streamName );
+        this.configureAssignedStreamNameAttributes_( this.wicaElementConnectionAttributes.assignedStreamName );
 
         this.configureStreamConnectionHandlers_( this.wicaElementConnectionAttributes.streamState );
 
@@ -101,15 +102,15 @@ class DocumentStreamConnector
     }
 
     /**
-     * Configures the stream name attributes on all wica channel elements.
+     * Configures the assigned stream name attributes on all wica channel elements.
      *
      * @private
-     * @param {string} streamNameAttribute - The attribute whose value is to be updated with the stream name.
+     * @param {string} assignedStreamNameAttribute - The attribute whose value is to be updated with the stream name.
      */
-    configureStreamNameAttributes_( streamNameAttribute )
+    configureAssignedStreamNameAttributes_(assignedStreamNameAttribute )
     {
-        log.log("Setting wica stream name attribute on all html elements to: '" + this.streamName + "'" );
-        this.wicaChannelElements.forEach( element => element.setAttribute( streamNameAttribute, this.streamName ) );
+        log.log("Setting wica stream name attribute on all html elements to: '" + this.assignedStreamName + "'" );
+        this.wicaChannelElements.forEach( element => element.setAttribute( assignedStreamNameAttribute, this.assignedStreamName ) );
     }
 
     /**
