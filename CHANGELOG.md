@@ -80,3 +80,11 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #31 ENHANCEMENT: Miscellaneous Jsdoc improvements.
   * Issue #32 ENHANCEMENT: Increase default size of tooltip popup text.
   * Issue #33 ENHANCEMENT: Create release 1.3.1.
+
+* [1.3.2] Released 2020-10-19 
+
+  Fixed bug in stream handling which could sometimes result in multiple streams being
+  requested with empty payloads.
+
+  * Issue #34 BUG Add support for data-wica-assigned-stream-name.
+  * Issue #35 ENHANCEMENT: Create release 1.3.2
