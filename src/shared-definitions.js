@@ -162,8 +162,10 @@ log.log( "Executing script in shared-definitions.js module...");
  *
  * @typedef module:shared-definitions.WicaElementConnectionAttributes
  *
- * @property {string} streamName - The name of the element attribute which specifies the wica stream name.
- *    Format: JS string literal.
+ * @property {string} assignedStreamName - The name of the element attribute which specifies the wica stream name.
+
+ * @property {string} assignedStreamName - The name of the element attribute which reflects the stream name
+ *     assigned by wica following document scanning. Format: JS string literal.
  *
  * @property {string} streamProperties - The name of the element attribute which
  *     specifies the wica stream properties. Format: JSON string literal, representing JS
@@ -324,9 +326,12 @@ const WicaElementEventAttributes = Object.freeze ({
  *
  * @type {module:shared-definitions.WicaElementConnectionAttributes}
  *
- * @property {string} streamName="data-wica-stream-name" - The name of the element attribute which specifies
+ * @property {string} assignedStreamName="data-wica-stream-name" - The name of the element attribute which specifies
  *     the wica stream name. Format: JS string literal.
-
+ *
+ * @property {string} assignedStreamName="data-wica-assigned-stream-name" - The name of the element attribute which
+ *     will reflects the stream name assigned by wica following document scanning. Format: JS string literal.
+ *
  * @property {string} streamProperties="data-wica-stream-properties" - The name of the element attribute which
  *     specifies the wica stream properties. Format: JSON string literal, representing JS
  *     {@link module:shared-definitions.WicaStreamProperties WicaStreamProperties} object.
@@ -370,6 +375,7 @@ const WicaElementEventAttributes = Object.freeze ({
  */
 const WicaElementConnectionAttributes = Object.freeze ({
     streamName:             "data-wica-stream-name",
+    assignedStreamName:     "data-wica-assigned-stream-name",
     streamProperties:       "data-wica-stream-props",
     streamState:            "data-wica-stream-state",
     channelName:            "data-wica-channel-name",
