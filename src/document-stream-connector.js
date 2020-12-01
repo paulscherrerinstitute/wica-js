@@ -216,12 +216,8 @@ class DocumentStreamConnector
 
             const instance = allocatorMap.has( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
             allocatorMap.set( channelType, instance );
-            const channelUniqName = instance === 0 ? channelNameAsString : channelNameAsString + "####" + instance;
-
-            if ( instance === 1 )
-            {
-                this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
-            }
+            const channelUniqName = channelNameAsString + "x" + instance;
+            this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
             this.saveStreamLookupTableEntry_( channelUniqName, ele );
         });
         this.streamConfiguration = { "channels": this.wicaStreamChannels, "props": this.wicaStreamProperties };
@@ -267,7 +263,16 @@ class DocumentStreamConnector
         {
             this.wicaStreamChannels = [];
         }
-        this.wicaStreamChannels.push( { "name": channelUniqName, "props": channelProps } );
+        let found = false;
+        this.wicaStreamChannels.forEach( (ch) => {
+            if ( ch === channelUniqName ) {
+                found = true;
+            }
+        })
+        if ( !found )
+        {
+            this.wicaStreamChannels.push({"name": channelUniqName, "props": channelProps});
+        }
     }
 
     /**

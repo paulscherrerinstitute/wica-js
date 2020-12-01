@@ -1,6 +1,6 @@
 {
   "name": "@psi/wica-js",
-  "version": "1.4.0-rc8",
+  "version": "1.4.0-rc9",
   "description": "Wica Javascript Library",
   "main": "wica.js",
   "directories": {
