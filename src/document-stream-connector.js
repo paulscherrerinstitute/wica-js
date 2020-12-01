@@ -210,7 +210,8 @@ class DocumentStreamConnector
         const allocatorMap = new Map();
         this.wicaChannelElements.forEach( (ele) => {
             const channelName = ele.getAttribute( channelNameAttribute );
-            const channelProps = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "";
+            const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
+            const channelProps = JsonUtilities.parse( channelPropsAsString );
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelName, channelProps );
 
             const instance = allocatorMap.has( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
