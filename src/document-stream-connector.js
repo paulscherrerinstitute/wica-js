@@ -208,7 +208,7 @@ class DocumentStreamConnector
         log.info("Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
 
         const allocatorMap = new Map();
-        let allocId = 1000;
+        let allocId = 1;
         this.wicaChannelElements.forEach( (ele) => {
             const channelNameAsString = ele.getAttribute( channelNameAttribute );
             const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
@@ -216,17 +216,22 @@ class DocumentStreamConnector
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );
 
             let channelUniqName = "";
+            if ( channelNameAsString.includes( "##" ) )
+            {
+                channelUniqName = channelNameAsString;
+                this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
+            }
             if ( ! allocatorMap.has( channelType ) )
             {
                 allocId++;
                 allocatorMap.set( channelType, allocId );
-                channelUniqName = channelNameAsString + "###" + allocId;
+                channelUniqName = channelNameAsString + "##" + allocId;
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
             }
             else
             {
                 const allocId = allocatorMap.get( channelType );
-                channelUniqName = channelNameAsString + "###" + allocId;
+                channelUniqName = channelNameAsString + "##" + allocId;
             }
             this.saveStreamLookupTableEntry_( channelUniqName, ele );
         });
