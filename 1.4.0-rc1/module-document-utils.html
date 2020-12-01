@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: document-event-manager</title>
+    <title>JSDoc: Module: document-utils</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: document-event-manager</h1>
+    <h1 class="page-title">Module: document-utils</h1>
 
     
 
@@ -38,8 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Provides support for firing custom notification events on wica-aware elements in the current document to
-update interested third-parties on the latest status received from the wica event stream.</div>
+            <div class="description">Provides helper functions for wica-aware html pages.</div>
         
 
         
@@ -122,13 +121,6 @@ update interested third-parties on the latest status received from the wica even
     
 
     
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-document-event-manager.DocumentEventManager.html">DocumentEventManager</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
@@ -139,20 +131,24 @@ update interested third-parties on the latest status received from the wica even
     
 
     
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Methods</h3>
 
         
-                
-<h4 class="name" id=".OnWicaEvent">OnWicaEvent</h4>
+            
 
+    
+
+    
+    <h4 class="name" id="~findWicaChannelElements"><span class="type-signature">(inner) </span>findWicaChannelElements<span class="signature">(rootElement)</span><span class="type-signature"> &rarr; {Array.&lt;Element>}</span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    Provides a type definition for a JS CustomEvent object that is fired to inform observers of the
-latest metadata and value information received on a wica-aware element.
+    Finds all wica-channel-related HTML elements in the current document. That's to say, all elements
+which include an attribute which defines the name of the wica channel.
 </div>
 
 
@@ -161,11 +157,12 @@ latest metadata and value information received on a wica-aware element.
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -187,13 +184,13 @@ latest metadata and value information received on a wica-aware element.
 
         <tr>
             
-                <td class="name"><code>target</code></td>
+                <td class="name"><code>rootElement</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Element</span>
 
 
             
@@ -203,156 +200,14 @@ latest metadata and value information received on a wica-aware element.
 
             
 
-            <td class="description last">A reference to the target element on which the event was dispatched.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>detail</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An object providing the customised data payload for the event.
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>channelName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the channel associated with the element on which the
-    event was fired. See <a href="module-shared-definitions.html#.WicaChannelName">WicaChannelName</a>.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>channelMetadata</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">WicaChannelMetadata</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The most recent channel metadata.
-    See <a href="module-shared-definitions.html#.WicaChannelMetadata">WicaChannelMetadata</a>.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>channelValueArray</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;WicaChannelValue></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The latest channel values.
-    See <a href="module-shared-definitions.html#.WicaChannelValue">WicaChannelValue</a>.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>channelValueLatest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">WicaChannelValue</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The most recent channel value.
-    See <a href="module-shared-definitions.html#.WicaChannelValue">WicaChannelValue</a>.</td>
+            <td class="description last">the document element at which to start searching.</td>
         </tr>
 
     
     </tbody>
 </table>
 
-            </td>
-        </tr>
 
-    
-    </tbody>
-</table>
 
 
 
@@ -397,7 +252,329 @@ latest metadata and value information received on a wica-aware element.
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The result list.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Element></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
             
+
+    
+
+    
+    <h4 class="name" id="~findWicaElementsWithAttributeNameAlsoInShadowDom"><span class="type-signature">(inner) </span>findWicaElementsWithAttributeNameAlsoInShadowDom<span class="signature">(parentNode<span class="signature-attributes">non-null</span>, attributeName<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {Array.&lt;Element>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Finds all HTML elements in the current document whose attribute name matches the specified value.
+Continue search into subtrees that are DOM shadow roots.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parentNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ParentNode</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the node at which to start searching.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attributeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The attribute name to target.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The result list.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Element></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~findWicaStreamElements"><span class="type-signature">(inner) </span>findWicaStreamElements<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Element>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Finds all wica-stream-related HTML elements in the current document. That's to say, all elements
+which include an attribute which defines the name or properties of a stream.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The result list.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Element></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
     
 
     
@@ -417,7 +594,7 @@ latest metadata and value information received on a wica-aware element.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Tue Dec 01 2020 00:43:51 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Tue Dec 01 2020 00:47:55 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
