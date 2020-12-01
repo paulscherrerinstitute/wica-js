@@ -213,11 +213,11 @@ class DocumentStreamConnector
             const channelProps = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "";
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelName, channelProps );
 
-            const instance = allocatorMap.contains( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
+            const instance = allocatorMap.has( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
             allocatorMap.put( channelType, instance );
             const channelUniqName = instance === 0 ? channelName : channelName + "##" + instance;
 
-            this.saveLookupTableEntry_( channelUniqName, ele );
+            this.saveStreamLookupTableEntry_( channelUniqName, ele );
             this.saveStreamChannelEntry_( channelUniqName, channelProps );
         });
 
@@ -238,7 +238,7 @@ class DocumentStreamConnector
      * @param {!HTMLElement} wicaElement - an element with which it is associated.
      * @private
      */
-    saveLookupTableEntry_( channelUniqName, wicaElement )
+    saveStreamLookupTableEntry_( channelUniqName, wicaElement )
     {
         if ( ! Array.isArray( this.wicaStreamLookupTable[ channelUniqName ] ) )
         {
