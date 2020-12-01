@@ -208,7 +208,7 @@ class DocumentStreamConnector
         log.info("Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
 
         const allocatorMap = new Map();
-        let allocId = 0;
+        let allocId = 1000;
         this.wicaChannelElements.forEach( (ele) => {
             const channelNameAsString = ele.getAttribute( channelNameAttribute );
             const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
