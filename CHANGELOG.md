@@ -88,3 +88,10 @@ This log describes the functionality of tagged versions within the repository.
 
   * Issue #34 BUG Add support for data-wica-assigned-stream-name.
   * Issue #35 ENHANCEMENT: Create release 1.3.2
+  
+* [1.4.0-rc1] Released 2020-12-01 
+
+  Support for auto-generation of the Wica Channel instance specifier.
+  
+  * Issue #38 Create release 1.4.0-rc1
+  * Issue #39 ENHANCEMENT Add support for auto-generation of the Wica Channel instance specifiers.
