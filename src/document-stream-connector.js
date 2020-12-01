@@ -221,7 +221,7 @@ class DocumentStreamConnector
                 channelUniqName = channelNameAsString;
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
             }
-            if ( ! allocatorMap.has( channelType ) )
+            else if ( ! allocatorMap.has( channelType ) )
             {
                 allocId++;
                 allocatorMap.set( channelType, allocId );
