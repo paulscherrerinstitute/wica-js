@@ -208,16 +208,26 @@ class DocumentStreamConnector
         log.info("Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
 
         const allocatorMap = new Map();
+        let allocId = 0;
         this.wicaChannelElements.forEach( (ele) => {
             const channelNameAsString = ele.getAttribute( channelNameAttribute );
             const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
             const channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );
 
-            const instance = allocatorMap.has( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
-            allocatorMap.set( channelType, instance );
-            const channelUniqName = channelNameAsString + "##x" + instance;
-            this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
+            let channelUniqName = "";
+            if ( ! allocatorMap.has( channelType ) )
+            {
+                allocId++;
+                allocatorMap.set( channelType, allocId );
+                channelUniqName = channelNameAsString + "###" + allocId;
+                this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
+            }
+            else
+            {
+                const allocId = allocatorMap.get( channelType );
+                channelUniqName = channelNameAsString + "###" + allocId;
+            }
             this.saveStreamLookupTableEntry_( channelUniqName, ele );
         });
         this.streamConfiguration = { "channels": this.wicaStreamChannels, "props": this.wicaStreamProperties };
@@ -263,16 +273,7 @@ class DocumentStreamConnector
         {
             this.wicaStreamChannels = [];
         }
-        let found = false;
-        this.wicaStreamChannels.forEach( (ch) => {
-            if ( ch === channelUniqName ) {
-                found = true;
-            }
-        })
-        if ( !found )
-        {
-            this.wicaStreamChannels.push({"name": channelUniqName, "props": channelProps});
-        }
+        this.wicaStreamChannels.push( { "name": channelUniqName, "props": channelProps } );
     }
 
     /**
