@@ -208,32 +208,33 @@ class DocumentStreamConnector
         log.info("Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
 
         const allocatorMap = new Map();
-        let allocId = 1;
+        let allocId = 1000;
         this.wicaChannelElements.forEach( (ele) => {
             const channelNameAsString = ele.getAttribute( channelNameAttribute );
             const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
             const channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );
 
-            let channelUniqName = "";
             if ( channelNameAsString.includes( "##" ) )
             {
-                channelUniqName = channelNameAsString;
+                const channelUniqName = channelNameAsString;
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
+                this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
             else if ( ! allocatorMap.has( channelType ) )
             {
                 allocId++;
                 allocatorMap.set( channelType, allocId );
-                channelUniqName = channelNameAsString + "##" + allocId;
+                const channelUniqName = channelNameAsString + "##" + allocId;
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
+                this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
             else
             {
                 const allocId = allocatorMap.get( channelType );
-                channelUniqName = channelNameAsString + "##" + allocId;
+                const channelUniqName = channelNameAsString + "##" + allocId;
+                this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
-            this.saveStreamLookupTableEntry_( channelUniqName, ele );
         });
         this.streamConfiguration = { "channels": this.wicaStreamChannels, "props": this.wicaStreamProperties };
     }
