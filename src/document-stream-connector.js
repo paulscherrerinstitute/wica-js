@@ -209,19 +209,21 @@ class DocumentStreamConnector
 
         const allocatorMap = new Map();
         this.wicaChannelElements.forEach( (ele) => {
-            const channelName = ele.getAttribute( channelNameAttribute );
+            const channelNameAsString = ele.getAttribute( channelNameAttribute );
             const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
-            const channelProps = JsonUtilities.parse( channelPropsAsString );
-            const channelType = DocumentStreamConnector.getChannelConfigType_( channelName, channelProps );
+            const channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
+            const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );
 
             const instance = allocatorMap.has( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
             allocatorMap.set( channelType, instance );
-            const channelUniqName = instance === 0 ? channelName : channelName + "##" + instance;
+            const channelUniqName = instance === 0 ? channelNameAsString : channelNameAsString + "##" + instance;
 
+            if ( instance === 1 )
+            {
+                this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
+            }
             this.saveStreamLookupTableEntry_( channelUniqName, ele );
-            this.saveStreamChannelEntry_( channelUniqName, channelProps );
         });
-
         this.streamConfiguration = { "channels": this.wicaStreamChannels, "props": this.wicaStreamProperties };
     }
 
@@ -265,12 +267,7 @@ class DocumentStreamConnector
         {
             this.wicaStreamChannels = [];
         }
-
-        // Ensure uniqueness in the wica channels array
-        if ( ! this.wicaStreamChannels.includes( channelUniqName ) )
-        {
-            this.wicaStreamChannels.push( {"name": channelUniqName, "props": channelProps } );
-        }
+        this.wicaStreamChannels.push( { "name": channelUniqName, "props": channelProps } );
     }
 
     /**
