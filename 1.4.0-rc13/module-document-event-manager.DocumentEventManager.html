@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: DocumentSupportLoader</title>
+    <title>JSDoc: Class: DocumentEventManager</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: DocumentSupportLoader</h1>
+    <h1 class="page-title">Class: DocumentEventManager</h1>
 
     
 
@@ -29,9 +29,11 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-document-support-loader.html">document-support-loader</a>~</span>DocumentSupportLoader<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-document-event-manager.html">document-event-manager</a>~</span>DocumentEventManager<span class="signature">(wicaElementConnectionAttributes, wicaElementEventAttributes)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Provides the functionality necessary to support a wica-aware html page.</div>
+            <div class="class-description">Provides support for periodically scanning the current document for wica-aware elements with attached
+event handlers or event listeners. Fires a custom <a href="module-document-event-manager.html#.OnWicaEvent">OnWicaEvent</a> to inform the attached observers of the latest status received from the wica event
+stream.</div>
         
     
 </header>
@@ -46,7 +48,7 @@
     
 
     
-    <h4 class="name" id="DocumentSupportLoader"><span class="type-signature"></span>new DocumentSupportLoader<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DocumentEventManager"><span class="type-signature"></span>new DocumentEventManager<span class="signature">(wicaElementConnectionAttributes, wicaElementEventAttributes)</span><span class="type-signature"></span></h4>
     
 
     
@@ -54,7 +56,7 @@
 
 
 <div class="description">
-    Constructs a new instance to work with the specified Wica Server.
+    Constructs a new instance.
 </div>
 
 
@@ -90,13 +92,13 @@
 
         <tr>
             
-                <td class="name"><code>streamServerUrl</code></td>
+                <td class="name"><code>wicaElementConnectionAttributes</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="module-shared-definitions.html#.WicaElementConnectionAttributes">module:shared-definitions.WicaElementConnectionAttributes</a></span>
 
 
             
@@ -106,8 +108,34 @@
 
             
 
-            <td class="description last">The URL of the Wica Server with whom
-   this instance should communicate.</td>
+            <td class="description last">The names of the wica-aware
+    element attributes that can be examined to determine the name of the channel and its current status.
+    See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">WicaElementConnectionAttributes</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wicaElementEventAttributes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-shared-definitions.html#.WicaElementEventAttributes">module:shared-definitions.WicaElementEventAttributes</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The names of the wica-aware
+    element attributes that can be examined to determine whether a wica-aware element has any attached handlers.
+    See <a href="module-shared-definitions.html#.WicaElementEventAttributes">WicaElementEventAttributes</a>.</td>
         </tr>
 
     
@@ -199,7 +227,7 @@
     
 
     
-    <h4 class="name" id="activate"><span class="type-signature"></span>activate<span class="signature">(textRendererRefreshRate<span class="signature-attributes">opt</span>, eventManagerRefreshRate<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="activate"><span class="type-signature"></span>activate<span class="signature">(refreshRateInMilliseconds<span class="signature-attributes">opt</span>, supportEventListeners<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -207,7 +235,10 @@
 
 
 <div class="description">
-    Activates support for the current document.
+    Starts periodically scanning the current document and firing events on all wica channel elements
+to publish their current state.
+
+The event that will be published is called 'onwica'.
 </div>
 
 
@@ -247,7 +278,7 @@
 
         <tr>
             
-                <td class="name"><code>textRendererRefreshRate</code></td>
+                <td class="name"><code>refreshRateInMilliseconds</code></td>
             
 
             <td class="type">
@@ -274,26 +305,26 @@
             
                 <td class="default">
                 
-                    100
+                    200
                 
                 </td>
             
 
-            <td class="description last">The rate at which the document's text renderer should run to update the
-    visual state of the document's wica-aware elements.</td>
+            <td class="description last">The period to wait after each document scan before
+    starting the next one.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>eventManagerRefreshRate</code></td>
+                <td class="name"><code>supportEventListeners</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -314,13 +345,16 @@
             
                 <td class="default">
                 
-                    100
+                    false
                 
                 </td>
             
 
-            <td class="description last">The rate at which the document's event manager should run to fire
-   notification events on the state of the document's wica-aware elements.</td>
+            <td class="description last">Determines whether events are fired ONLY on elements which
+    have defined event handlers or whether they are fired unconditionally on all elements (as is required to
+    support any attached event listeners).
+
+See also: <a href="module-document-event-manager.DocumentEventManager.html#shutdown">shutdown</a>.</td>
         </tr>
 
     
@@ -400,7 +434,9 @@
 
 
 <div class="description">
-    Shuts down support for the current document.
+    Shuts down the service offered by this class.
+
+See also: <a href="module-document-event-manager.DocumentEventManager.html#activate">activate</a>.
 </div>
 
 
@@ -491,7 +527,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Tue Dec 01 2020 22:11:41 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Tue Dec 01 2020 22:16:44 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
