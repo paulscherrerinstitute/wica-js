@@ -41,7 +41,7 @@ if ( thisScriptEle === null ) {
 // Configure the logging level that will be used for this library. This can be
 // overridden externally by loading the wica library with an HTML script tag
 // that looks as follows:
-// <script data-wica-log-level= src="wica/wica.js" type="module"></script>
+// <script data-wica-log-level="XXX" src="wica/wica.js" type="module"></script>
 const logLevel = thisScriptEle.hasAttribute( "data-wica-log-level" ) ?
     thisScriptEle.getAttribute("data-wica-log-level" ) :  log.logLevels.DEFAULT;
 log.setLevel( logLevel );
