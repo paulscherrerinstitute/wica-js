@@ -265,7 +265,12 @@ class DocumentStreamConnector
         {
             this.wicaStreamChannels = [];
         }
-        this.wicaStreamChannels.push( { "name" : channelUniqName , "props" : channelProps } );
+
+        // Ensure uniqueness in the wica channels array
+        if ( ! this.wicaStreamChannels.includes( channelUniqName ) )
+        {
+            this.wicaStreamChannels.push( {"name": channelUniqName, "props": channelProps } );
+        }
     }
 
     /**
