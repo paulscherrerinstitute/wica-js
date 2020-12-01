@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: DocumentTextRenderer</title>
+    <title>JSDoc: Class: DocumentSupportLoader</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: DocumentTextRenderer</h1>
+    <h1 class="page-title">Class: DocumentSupportLoader</h1>
 
     
 
@@ -29,10 +29,9 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-document-text-renderer.html">document-text-renderer</a>~</span>DocumentTextRenderer<span class="signature">(wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>, wicaElementTextRenderingAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-document-support-loader.html">document-support-loader</a>~</span>DocumentSupportLoader<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Renders the textual content of all wica channel elements in the current document based on Wica attribute
-information obtained from the Wica server on the backend.</div>
+            <div class="class-description">Provides the functionality necessary to support a wica-aware html page.</div>
         
     
 </header>
@@ -47,7 +46,7 @@ information obtained from the Wica server on the backend.</div>
     
 
     
-    <h4 class="name" id="DocumentTextRenderer"><span class="type-signature"></span>new DocumentTextRenderer<span class="signature">(wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>, wicaElementTextRenderingAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DocumentSupportLoader"><span class="type-signature"></span>new DocumentSupportLoader<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -55,7 +54,7 @@ information obtained from the Wica server on the backend.</div>
 
 
 <div class="description">
-    Constructs a new instance.
+    Constructs a new instance to work with the specified Wica Server.
 </div>
 
 
@@ -91,13 +90,13 @@ information obtained from the Wica server on the backend.</div>
 
         <tr>
             
-                <td class="name"><code>wicaElementConnectionAttributes</code></td>
+                <td class="name"><code>streamServerUrl</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-shared-definitions.html#.WicaElementConnectionAttributes">module:shared-definitions.WicaElementConnectionAttributes</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -107,34 +106,8 @@ information obtained from the Wica server on the backend.</div>
 
             
 
-            <td class="description last">The
-    names of the HTML element attributes that are to be used in the wica communication process.
-    See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">WicaElementConnectionAttributes</a>.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>wicaElementTextRenderingAttributes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-shared-definitions.html#.WicaElementTextRenderingAttributes">module:shared-definitions.WicaElementTextRenderingAttributes</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The
-    names of the HTML element attributes that are to be used in the wica text rendering process.
-    See WicaElementRenderingAttributes.</td>
+            <td class="description last">The URL of the Wica Server with whom
+   this instance should communicate.</td>
         </tr>
 
     
@@ -226,7 +199,7 @@ information obtained from the Wica server on the backend.</div>
     
 
     
-    <h4 class="name" id="activate"><span class="type-signature"></span>activate<span class="signature">(refreshRateInMilliseconds<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="activate"><span class="type-signature"></span>activate<span class="signature">(textRendererRefreshRate<span class="signature-attributes">opt</span>, eventManagerRefreshRate<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -234,8 +207,7 @@ information obtained from the Wica server on the backend.</div>
 
 
 <div class="description">
-    Starts periodically scanning the current document and updating the text content of all wica channel
-elements to match the information obtained from the wica server.
+    Activates support for the current document.
 </div>
 
 
@@ -275,7 +247,7 @@ elements to match the information obtained from the wica server.
 
         <tr>
             
-                <td class="name"><code>refreshRateInMilliseconds</code></td>
+                <td class="name"><code>textRendererRefreshRate</code></td>
             
 
             <td class="type">
@@ -307,10 +279,48 @@ elements to match the information obtained from the wica server.
                 </td>
             
 
-            <td class="description last">The period to wait after each update scan before
-    starting the next one.
+            <td class="description last">The rate at which the document's text renderer should run to update the
+    visual state of the document's wica-aware elements.</td>
+        </tr>
 
-See also: <a href="module-document-text-renderer.DocumentTextRenderer.html#shutdown">shutdown</a>.</td>
+    
+
+        <tr>
+            
+                <td class="name"><code>eventManagerRefreshRate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    100
+                
+                </td>
+            
+
+            <td class="description last">The rate at which the document's event manager should run to fire
+   notification events on the state of the document's wica-aware elements.</td>
         </tr>
 
     
@@ -390,9 +400,7 @@ See also: <a href="module-document-text-renderer.DocumentTextRenderer.html#shutd
 
 
 <div class="description">
-    Shuts down the service offered by this class.
-
-See also: <a href="module-document-text-renderer.DocumentTextRenderer.html#activate">activate</a>.
+    Shuts down support for the current document.
 </div>
 
 
@@ -483,7 +491,7 @@ See also: <a href="module-document-text-renderer.DocumentTextRenderer.html#activ
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Tue Dec 01 2020 01:08:54 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Tue Dec 01 2020 01:08:53 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
