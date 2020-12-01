@@ -216,7 +216,7 @@ class DocumentStreamConnector
 
             const instance = allocatorMap.has( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
             allocatorMap.set( channelType, instance );
-            const channelUniqName = instance === 0 ? channelNameAsString : channelNameAsString + "##" + instance;
+            const channelUniqName = instance === 0 ? channelNameAsString : channelNameAsString + "####" + instance;
 
             if ( instance === 1 )
             {
