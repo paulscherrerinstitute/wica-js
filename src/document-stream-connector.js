@@ -58,7 +58,8 @@ class DocumentStreamConnector
         this.streamConnectionHandlers = {};
         this.streamMessageHandlers = {};
         this.wicaChannelElements = [];
-        this.wicaElementLookupTable = {};
+        this.wicaStreamLookupTable = {};
+        this.wicaStreamChannels = {};
     }
 
     /**
@@ -84,8 +85,8 @@ class DocumentStreamConnector
                                               this.wicaElementConnectionAttributes.channelConnectionState,
                                               this.wicaElementConnectionAttributes.channelAlarmState );
 
-        this.buildStreamConfiguration_( this.wicaElementConnectionAttributes.channelName, this.wicaElementConnectionAttributes.channelProperties );
-        this.buildWicaElementLookupTable_( this.wicaElementConnectionAttributes.channelName );
+        this.buildStreamAndLookupTableConfiguration_( this.wicaElementConnectionAttributes.channelName, this.wicaElementConnectionAttributes.channelProperties );
+
         this.createStream_();
 
         JsonUtilities.load(() => this.streamManager.activate() );
@@ -202,29 +203,68 @@ class DocumentStreamConnector
      * @param channelPropertiesAttribute
      * @private
      */
-    buildStreamConfiguration_( channelNameAttribute, channelPropertiesAttribute )
-    {
+    buildStreamAndLookupTableConfiguration_( channelNameAttribute, channelPropertiesAttribute ) {
         // Provide some diagnostics on the number of elements that will be incorporated into the stream.
-        log.info( "Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length );
+        log.info("Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
 
-        // Create an array of the associated channel names
-        const channels = [];
-        this.wicaChannelElements.forEach( (widget) =>
-        {
-            const channelName = widget.getAttribute( channelNameAttribute );
-            if ( widget.hasAttribute( channelPropertiesAttribute ) )
-            {
-                const channelProps = widget.getAttribute( channelPropertiesAttribute );
-                const channelConfiguration = { "name": channelName, "props": JsonUtilities.parse( channelProps ) };
-                channels.push( channelConfiguration );
-            }
-            else
-            {
-                const channelConfiguration = { "name": channelName };
-                channels.push( channelConfiguration );
-            }
+        const allocatorMap = new Map();
+        this.wicaChannelElements.forEach( (ele) => {
+            const channelName = ele.getAttribute( channelNameAttribute );
+            const channelProps = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "";
+            const channelType = DocumentStreamConnector.getChannelConfigType_( channelName, channelProps );
+
+            const instance = allocatorMap.contains( channelType ) ? allocatorMap.get( channelType ) + 1 : 1;
+            allocatorMap.put( channelType, instance );
+            const channelUniqName = instance === 0 ? channelName : channelName + "##" + instance;
+
+            this.saveLookupTableEntry_( channelUniqName, ele );
+            this.saveStreamChannelEntry_( channelUniqName, channelProps );
         });
-        this.streamConfiguration = { "channels": channels, "props": this.wicaStreamProperties };
+
+        this.streamConfiguration = { "channels": this.wicaStreamChannels, "props": this.wicaStreamProperties };
+    }
+
+    static getChannelConfigType_( channelName, channelProps )
+    {
+        return channelName + channelProps;
+    }
+
+    /**
+     * Saves the association between the specified channel name and a wica element
+     * with (that's to say which needs to be updated should its value or metadata
+     * changes).
+     *
+     * @param {!string} channelUniqName - the name of the wica channel.
+     * @param {!HTMLElement} wicaElement - an element with which it is associated.
+     * @private
+     */
+    saveLookupTableEntry_( channelUniqName, wicaElement )
+    {
+        if ( ! Array.isArray( this.wicaStreamLookupTable[ channelUniqName ] ) )
+        {
+            this.wicaStreamLookupTable[ channelUniqName ] = [];
+        }
+        // Add the widget to the list of widgets whose attributes are to be
+        // updated if the wica stream provides new information.
+        this.wicaStreamLookupTable[ channelUniqName ].push( wicaElement );
+    }
+
+    /**
+     * Saves the association between the specified channel name and the
+     * with (that's to say which needs to be updated should its value or metadata
+     * changes).
+     *
+     * @param {!string} channelUniqName - the name of the wica channel.
+     * @param {!string} channelProps - the properties of the wica channel.
+     * @private
+     */
+    saveStreamChannelEntry_( channelUniqName, channelProps )
+    {
+        if ( ! Array.isArray( this.wicaStreamChannels ) )
+        {
+            this.wicaStreamChannels = [];
+        }
+        this.wicaStreamChannels.push( { "name" : channelUniqName , "props" : channelProps } );
     }
 
     /**
@@ -293,51 +333,16 @@ class DocumentStreamConnector
     }
 
     /**
-     * Create a lookup table of the HTML elements associated with each wica
-     * channel in the current document.
-     *
-     * @param {!string} channelNameAttribute - the
-     * @private
-     */
-    buildWicaElementLookupTable_( channelNameAttribute )
-    {
-        this.wicaChannelElements.forEach( (widget) =>
-        {
-            const channelName = widget.getAttribute( channelNameAttribute );
-            this.saveLookupTableEntry_( channelName, widget )
-        });
-    }
-
-    /**
-     * Saves the association between the specified channel name and a wica element
-     * with which it is associated (that's to say which needs to be updated should
-     * its value or metadata changes).
-     *
-     * @param {!string} channelName - the name of the wica channel.
-     * @param {!HTMLElement} wicaElement - an element with which it is associated.
-     * @private
-     */
-    saveLookupTableEntry_( channelName, wicaElement )
-    {
-        if ( ! Array.isArray( this.wicaElementLookupTable[ channelName ] ) ) {
-            this.wicaElementLookupTable[ channelName ] = [];
-        }
-        // Add the widget to the list of widgets whose attributes are to be
-        // updated if the wica stream provides new information.
-        this.wicaElementLookupTable[ channelName ].push( wicaElement );
-    }
-
-    /**
      * Retrieves an array of all wica elements associated with the specified channel.
-     * @param channelName
+     * @param channelUniqName
      * @return {!HTMLElement[]} array of HTML elements with which the specified wica
      *    channel name is associated.
      * @private
      */
-    findWicaElementsForChannelWithName_( channelName )
+    findWicaElementsForChannelWithName_( channelUniqName )
     {
-        return Object.hasOwnProperty.call( this.wicaElementLookupTable, channelName ) ?
-            this.wicaElementLookupTable[ channelName ] : [];
+        return Object.hasOwnProperty.call( this.wicaStreamLookupTable, channelUniqName ) ?
+            this.wicaStreamLookupTable[ channelUniqName ] : [];
     }
 
 }
