@@ -237,7 +237,7 @@ log.log( "Executing script in shared-definitions.js module...");
  *     property is specified it will be used. When not specified an attempt will be made to obtain the units
  *     from the metadata.
  * @property {boolean} [exp] - Sets the rendering format for channels which return numeric data. Possible
- *     values: [true (use exponential format, eg 1.27E-1), false (use fixed decimal point format, eg 0.127)].
+ *     values: [true: (use exponential format, eg 1.27E-1), false: (use fixed decimal point format, eg 0.127)].
  * @property {number} [prec] - The precision (= number of digits after the decimal point) to be used for
  *     channels which return numeric data.
  */
