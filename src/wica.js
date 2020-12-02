@@ -45,7 +45,16 @@ if ( thisScriptEle === null ) {
 const logLevel = thisScriptEle.hasAttribute( "data-wica-log-level" ) ?
     thisScriptEle.getAttribute("data-wica-log-level" ) :  log.logLevels.DEFAULT;
 log.setLevel( logLevel );
-log.info( "The configured log level has been set to: ", logLevel );
+log.info( "The wica library log level has been set to: ", logLevel );
+
+// Configure whether to autoload the default wica CSS file when the JS library is loaded.
+// The wica CSS file supports features such as tooltip hover and alarm state colourisation.
+// The CSS autoload feature can be disabled in situations where the user elects to perform
+// their own rendering.
+// <script data-wica-autoload-css=false" src="wica/wica.js" type="module"></script>
+const autoloadCss = thisScriptEle.hasAttribute( "data-wica-stream-autoload-css" ) ?
+    thisScriptEle.getAttribute("data-wica-stream-exclude-css" ) : true;
+log.info( "The wica library CSS autoload feature has been set to ", autoloadCss );
 
 // Define the server this application is intended to target.
 const WICA_OWN_HOST = location.origin;
@@ -56,7 +65,7 @@ const WICA_OWN_HOST = location.origin;
 // <script data-wica-stream-server-url="https://gfa-wica.psi.ch" src="wica/wica.js" type="module"></script>
 const streamServerUrl = thisScriptEle.hasAttribute( "data-wica-stream-server-url" ) ?
     thisScriptEle.getAttribute("data-wica-stream-server-url" ) : WICA_OWN_HOST;
-const documentSupportLoader = new DocumentSupportLoader( streamServerUrl );
+const documentSupportLoader = new DocumentSupportLoader( streamServerUrl, autoloadCss );
 log.info( "The wica library will communicate with the wica stream server at the following URL: ", streamServerUrl );
 
 // Create and activate a document support loader for the document which loaded this library.
