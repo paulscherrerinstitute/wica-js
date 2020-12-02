@@ -49,6 +49,8 @@ log.log( "Executing script in json5-wrapper.js module...");
  *     by parsing is transformed, before being returned.
  *
  * @return {*} the object corresponding to the given JSON5 text.
+ *
+ * @throws SyntaxError if the input string could not be parsed into a JSON object.
  */
 const parse = function parse( text, reviver )
 {
@@ -64,7 +66,7 @@ const parse = function parse( text, reviver )
  * function is specified, or optionally including only the specified properties if a replacer
  * array is specified.
  *
- * @param {string} value - The value to convert to a JSON5 string.
+ * @param {Object} value - The value to convert to a JSON5 string.
  *
  * @param {function} [replacer] - A function that alters the behavior of the stringification process, or
  *     an array of String and Number objects that serve as a whitelist for selecting/filtering
@@ -82,6 +84,8 @@ const parse = function parse( text, reviver )
  *     arrays.
  *
  * @return {string} A JSON5 string representing the value.
+ *
+ * @throws TypeError if the input JSON Object could not be turned into a string.
  */
 const stringify = function( value, replacer, space )
 {
