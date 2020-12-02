@@ -34,10 +34,14 @@ class DocumentSupportLoader
      *
      * @param {!string} streamServerUrl - The URL of the Wica Server with whom
      *    this instance should communicate.
+     *
+     * @param {!boolean} autoloadCss - whether or not to automatically load
+     *   the CSS file when this class instance is activated. Default is true.
      */
-    constructor( streamServerUrl )
+    constructor( streamServerUrl, autoloadCss = true )
     {
         this.streamServerUrl = streamServerUrl;
+        this.autoloadCss = autoloadCss
         this.documentStreamBuilder = new DocumentStreamBuilder( streamServerUrl, WicaStreamPropertyDefaults, WicaElementConnectionAttributes );
         this.documentTextRenderer = new DocumentTextRenderer( WicaElementConnectionAttributes, WicaElementTextRenderingAttributes );
         this.documentEventManager = new DocumentEventManager( WicaElementConnectionAttributes, WicaElementEventAttributes );
@@ -54,7 +58,15 @@ class DocumentSupportLoader
      */
     activate( textRendererRefreshRate = 100, eventManagerRefreshRate = 100 )
     {
-        this.loadWicaCSS_();
+        if ( this.autoloadCss )
+        {
+            log.log( "The CSS autoload feature has been enabled." );
+            this.loadWicaCSS_();
+        }
+        else
+        {
+            log.log( "The CSS autoload feature has been disabled." );
+        }
 
         JsonUtilities.load(() => {
             this.documentStreamBuilder.activate();
@@ -75,14 +87,14 @@ class DocumentSupportLoader
 
     /**
      * Loads the CSS that is used to render the visual state of wica-aware elements
-     * using information in the element's attributes.
+     * using dynamically changing information in the element's attributes.
      * @private
      */
     loadWicaCSS_()
     {
         // ENABLE use of streamServerUrl when calculating URL to load CSS.
         // It's currently not clear (2019-09-25) whether we ever need to prepend
-        // streamSerevr URL to the request or whether we can assume in all situations
+        // streamServer URL to the request or whether we can assume in all situations
         // that the wia.css file is colocated at the same origin as the wica.js file.
         const prependStreamServerUrl = true;
 
