@@ -211,7 +211,7 @@ class DocumentStreamConnector
      */
     buildStreamAndLookupTableConfiguration_( channelNameAttribute, channelPropertiesAttribute, allocIdStart ) {
         // Provide some diagnostics on the number of elements that will be incorporated into the stream.
-        log.info( "Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
+        log.info( "Building new stream configuration. Number of wica channel elements found in document tree: ", this.wicaChannelElements.length);
 
         const allocatorMap = new Map();
         let allocId = allocIdStart;
@@ -224,7 +224,7 @@ class DocumentStreamConnector
                 channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
             }
             catch( e ) {
-                log.warn( "The channel properties attribute for: '" + channelNameAsString + "are ('" + channelPropsAsString + "') invalid => channel will be excluded from the stream." );
+                log.warn( "The channel properties attribute for: '" + channelNameAsString + "' ('" + channelPropsAsString + "') was invalid => channel will be excluded stream." );
             }
 
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );
@@ -232,7 +232,7 @@ class DocumentStreamConnector
             // If the channel already has an instance specifier simply accept it.
             if ( channelNameAsString.includes( "##" ) )
             {
-                log.debug( "A channel WITH user-supplied name instance-specifier was discovered and will be directly added to the stream configuration.");
+                log.debug( "A channel WITH user-supplied name instance-specifier was discovered => will be directly added to the stream configuration.");
                 log.log( "Stream Configuration: channel with user-supplied name: '" + channelNameAsString + "' and properties: '" + channelPropsAsString + "' will be added." );
                 const channelUniqName = channelNameAsString;
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
@@ -241,7 +241,7 @@ class DocumentStreamConnector
             // If the channel does NOT have a user-supplied instance specifier then autogenerate it.
             else if ( ! allocatorMap.has( channelType ) )
             {
-                log.debug( "A channel WITHOUT user-supplied name instance-specifier was discovered. The instance-specifier will be automatically generated." );
+                log.debug( "A channel WITHOUT user-supplied name instance-specifier was discovered => instance-specifier will be automatically generated." );
                 allocId++;
                 allocatorMap.set( channelType, allocId );
                 const channelUniqName = channelNameAsString + "##" + allocId;
@@ -254,10 +254,10 @@ class DocumentStreamConnector
             // fresh information.
             else
             {
-                log.debug( "A channel WITHOUT user-supplied name instance-specifier was discovered. This channel already exists in the stream and can be shared." )
+                log.debug( "A channel WITHOUT user-supplied name instance-specifier was discovered => channel already exists, data can be shared." )
                 const allocId = allocatorMap.get( channelType );
                 const channelUniqName = channelNameAsString + "##" + allocId;
-                log.log( "Stream Configuration: channel configuration is not unique and will be share data from existing stream member: '" + channelUniqName + "'." )
+                log.log( "Stream Configuration: channel configuration is not unique and will share data with existing stream member: '" + channelUniqName + "'." )
                 this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
         });
