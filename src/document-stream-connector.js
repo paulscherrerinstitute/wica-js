@@ -367,7 +367,7 @@ class DocumentStreamConnector
                 ele.setAttribute( channelValueLatestAttribute, channelValueLatestAsString);
                 ele.setAttribute( channelConnectionStateAttribute, channelConnectionState);
                 ele.setAttribute( channelAlarmStateAttribute, channelValueLatest.sevr);
-                log.log( "Value updated on channel: '" + key + "', new value: '" + channelValueLatestAsString + "'" );
+                log.debug( "Value updated on channel: '" + key + "', new value: '" + channelValueLatestAsString + "'" );
             });
         });
     }
