@@ -225,6 +225,7 @@ class DocumentStreamConnector
             }
             catch( e ) {
                 log.warn( "The channel properties attribute for: '" + channelNameAsString + "' ('" + channelPropsAsString + "') was invalid => channel will be excluded stream." );
+                return;
             }
 
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );

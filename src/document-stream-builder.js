@@ -71,7 +71,17 @@ class DocumentStreamBuilder
             const streamName = widget.hasAttribute( streamNameAttribute ) ? widget.getAttribute( streamNameAttribute ) : "default";
             const streamPropertiesAttribute = this.wicaElementConnectionAttributes.streamProperties;
             const streamPropertyAsString = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : "{}";
-            const streamPropertyOverrideObject = JsonUtilities.parse( streamPropertyAsString )
+
+            // Validate stream properties, logging console warning message tif the supplied data was not valid json.
+            let streamPropertyOverrideObject;
+            try {
+                streamPropertyOverrideObject = JsonUtilities.parse( streamPropertyAsString )
+            }
+            catch ( e )
+            {
+                log.warn( "The stream properties attribute for: '" + streamName + "' ('" + streamPropertyAsString + "') was invalid => stream properties will be ignored, defaults will be used." );
+                streamPropertyOverrideObject = {};
+            }
             const streamProperties = this.buildStreamProperties_( streamPropertyOverrideObject );
             const documentStreamConnector = new DocumentStreamConnector( streamName, widget, this.streamServerUrl, streamProperties, this.wicaElementConnectionAttributes );
             this.documentStreamConnectors.push( documentStreamConnector );
