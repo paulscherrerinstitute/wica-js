@@ -51,7 +51,7 @@ log.info( "The wica library log level has been set to: ", logLevel );
 // The wica CSS file supports features such as tooltip hover and alarm state colourisation.
 // The CSS autoload feature can be disabled in situations where the user elects to perform
 // their own rendering.
-// <script data-wica-autoload-css=false" src="wica/wica.js" type="module"></script>
+// <script data-wica-autoload-css=false src="wica/wica.js" type="module"></script>
 const autoloadCss = thisScriptEle.hasAttribute( "data-wica-stream-autoload-css" ) ?
     thisScriptEle.getAttribute("data-wica-stream-exclude-css" ) : true;
 log.info( "The wica library CSS autoload feature has been set to ", autoloadCss );

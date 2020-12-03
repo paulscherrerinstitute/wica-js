@@ -89,9 +89,30 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #34 BUG Add support for data-wica-assigned-stream-name.
   * Issue #35 ENHANCEMENT: Create release 1.3.2
   
-* [1.4.0-rc1] Released 2020-12-01 
+* [1.4.0] Released 2020-12-03 
 
-  Support for auto-generation of the Wica Channel instance specifier.
+  Support for auto-generation of the Wica Channel instance specifier. This means that in the HTML
+  file multiple tags can use the same wica channel. Thus, the following definition is valid
+  and would result in two unique control system channels being generated.
+ 
+  ```
+     <label data-wica-channel-name="my-channel" data-wica-channel-props='{ "daqmode"="poll" }'></label>
+     <label data-wica-channel-name="my-channel" data-wica-channel-props='{ "daqmode"="monitor" }'></label>
+     <label data-wica-channel-name="my-channel" data-wica-channel-props='{ "daqmode"="monitor" }'></label>
+     <label data-wica-channel-name="my-channel" data-wica-channel-props='{ "daqmode"="monitor" }'></label>
+  ```
   
+  The auto-allocation instance specifier sequence is currently set in the library as a
+  non-confgurable parameter (current start setting = 1000). 
+  
+  Support for suppressing wica CSS autoload for situations which do not require it. To suppress
+  CSS autoload include the wica-js library as follows:
+  
+  ```
+     <script data-wica-autoload-css=false src="wica/wica.js" type="module"></script>
+  ```
+   
   * Issue #38 Create release 1.4.0-rc1
   * Issue #39 ENHANCEMENT Add support for auto-generation of the Wica Channel instance specifiers.
+  * Issue #40 ENHANCEMENT Add support for CSS autoload configuration feature.
+  * Issue #41 Create release 1.4.0.
