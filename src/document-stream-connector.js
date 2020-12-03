@@ -85,7 +85,12 @@ class DocumentStreamConnector
                                               this.wicaElementConnectionAttributes.channelConnectionState,
                                               this.wicaElementConnectionAttributes.channelAlarmState );
 
-        this.buildStreamAndLookupTableConfiguration_( this.wicaElementConnectionAttributes.channelName, this.wicaElementConnectionAttributes.channelProperties );
+        // Define the starting instance specifier for wica channel instances which not specified by the
+        // user but autoallocated by this library.
+        const ALLOC_ID_START = 1000;
+        this.buildStreamAndLookupTableConfiguration_( this.wicaElementConnectionAttributes.channelName,
+                                                      this.wicaElementConnectionAttributes.channelProperties,
+                                                      ALLOC_ID_START );
 
         this.createStream_();
 
@@ -110,7 +115,7 @@ class DocumentStreamConnector
      */
     configureAssignedStreamNameAttributes_(assignedStreamNameAttribute )
     {
-        log.log("Setting wica stream name attribute on all html elements to: '" + this.assignedStreamName + "'" );
+        log.debug( "Setting wica stream name attribute on all html elements to: '" + this.assignedStreamName + "'" );
         this.wicaChannelElements.forEach( element => element.setAttribute( assignedStreamNameAttribute, this.assignedStreamName ) );
     }
 
@@ -126,13 +131,13 @@ class DocumentStreamConnector
     {
         this.streamConnectionHandlers.streamConnect = (count) => {
             log.log( "Event stream connect: " + count );
-            log.log( "Setting wica stream state on all html channel elements to: 'connect-" + count + "'" );
+            log.debug( "Setting wica stream state on all html channel elements to: 'connect-" + count + "'" );
             this.wicaChannelElements.forEach( element => element.setAttribute( streamConnectionStateAttribute, "connect-" + count ) );
         };
 
         this.streamConnectionHandlers.streamOpened = (id) => {
             log.log( "Event stream opened: " + id);
-            log.log( "Setting wica stream state on all html channel elements to: 'opened-" + id + "'" );
+            log.debug( "Setting wica stream state on all html channel elements to: 'opened-" + id + "'" );
             this.wicaChannelElements.forEach( element => element.setAttribute( streamConnectionStateAttribute, "opened-" + id));
             this.lastOpenedStreamId = id;
         };
@@ -140,10 +145,10 @@ class DocumentStreamConnector
         this.streamConnectionHandlers.streamClosed = (id) => {
             log.log("Event stream closed: " + id);
             if ( id === this.lastOpenedStreamId ) {
-                log.log("Setting wica stream state on all html channel elements to: 'closed'");
+                log.debug("Setting wica stream state on all html channel elements to: 'closed'");
                 this.wicaChannelElements.forEach( element => element.setAttribute( streamConnectionStateAttribute, "closed-" + id));
             } else {
-                log.log("Wica stream state on all html channel elements will be left unchanged as a newer event source is already open !");
+                log.debug("Wica stream state on all html channel elements will be left unchanged as a newer event source is already open !");
             }
         };
     }
@@ -199,40 +204,60 @@ class DocumentStreamConnector
     /**
      * Builds the stream configuration based on the wica channel elements in the current document tree.
      *
-     * @param channelNameAttribute
-     * @param channelPropertiesAttribute
+     * @param {string} channelNameAttribute - the name of the HTML attribute which defines the channel name.
+     * @param {string} channelPropertiesAttribute - the name of the HTML attribute which defines the channel properties.
+     * @param {number} allocIdStart - the starting number for auto-allocation of channel instances.
      * @private
      */
-    buildStreamAndLookupTableConfiguration_( channelNameAttribute, channelPropertiesAttribute ) {
+    buildStreamAndLookupTableConfiguration_( channelNameAttribute, channelPropertiesAttribute, allocIdStart ) {
         // Provide some diagnostics on the number of elements that will be incorporated into the stream.
-        log.info("Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
+        log.info( "Building new stream configuration. Number of wica-aware elements found in document tree: ", this.wicaChannelElements.length);
 
         const allocatorMap = new Map();
-        let allocId = 1000;
+        let allocId = allocIdStart;
         this.wicaChannelElements.forEach( (ele) => {
             const channelNameAsString = ele.getAttribute( channelNameAttribute );
             const channelPropsAsString = ele.hasAttribute( channelPropertiesAttribute ) ? ele.getAttribute( channelPropertiesAttribute ) : "{}";
-            const channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
+
+            let channelPropsAsObject;
+            try {
+                channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
+            }
+            catch( e ) {
+                log.warn( "The channel properties attribute for: '" + channelNameAsString + "are ('" + channelPropsAsString + "') invalid => channel will be excluded from the stream." );
+            }
+
             const channelType = DocumentStreamConnector.getChannelConfigType_( channelNameAsString, channelPropsAsString );
 
+            // If the channel already has an instance specifier simply accept it.
             if ( channelNameAsString.includes( "##" ) )
             {
+                log.debug( "A channel WITH user-supplied name instance-specifier was discovered and will be directly added to the stream configuration.");
+                log.log( "Stream Configuration: channel with user-supplied name: '" + channelNameAsString + "' and properties: '" + channelPropsAsString + "' will be added." );
                 const channelUniqName = channelNameAsString;
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
                 this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
+            // If the channel does NOT have a user-supplied instance specifier then autogenerate it.
             else if ( ! allocatorMap.has( channelType ) )
             {
+                log.debug( "A channel WITHOUT user-supplied name instance-specifier was discovered. The instance-specifier will be automatically generated." );
                 allocId++;
                 allocatorMap.set( channelType, allocId );
                 const channelUniqName = channelNameAsString + "##" + allocId;
+                log.log( "Stream Configuration: channel with autogenerated name: '" + channelUniqName + "' and properties " + channelPropsAsString + " will be added." );
                 this.saveStreamChannelEntry_( channelUniqName, channelPropsAsObject );
                 this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
+            // If a channel with the same name and properties already exists there is no need to add it to the stream configuration.
+            // But we do need to add it to the lookup table configuration so that the html element can be informed when the stream delivers
+            // fresh information.
             else
             {
+                log.debug( "A channel WITHOUT user-supplied name instance-specifier was discovered. This channel already exists in the stream and can be shared." )
                 const allocId = allocatorMap.get( channelType );
                 const channelUniqName = channelNameAsString + "##" + allocId;
+                log.log( "Stream Configuration: channel configuration is not unique and will be share data from existing stream member: '" + channelUniqName + "'." )
                 this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
         });
