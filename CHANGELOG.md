@@ -126,7 +126,7 @@ This log describes the functionality of tagged versions within the repository.
   ```
   <script data-wica-log-level="[0-7]" src="wica/wica.js" type="module"></script>
   <script data-wica-stream-server-url="<serverUrl>" src="wica/wica.js" type="module"></script>
-  <script data-wica-with-css="true|false>" src="wica/wica.js" type="module"></script>
+  <script data-wica-no-css="true|false>" src="wica/wica.js" type="module"></script>
   <script data-wica-with-text-renderer="true|false" src="wica/wica.js" type="module"></script>
   <script data-wica-auto-activate="true|false" src="wica/wica.js" type="module"></script>
   ```
@@ -143,3 +143,21 @@ This log describes the functionality of tagged versions within the repository.
    * Issue #44 ENHANCEMENT: Add support for conditional startup of the wica text renderer function.
    * Issue #45 Create release 1.5.0
    * Issue #46 ENHANCEMENT: Cleanup library startup options and provide new 'data-wica-auto-activate' option.
+
+* [1.5.1] Released 2020-12-04    
+
+  Bug fix release which fixes my previously incorrect understanding of how HTML boolean
+  attributes are meant to work. HTML does not support "true" or "false" on boolean attributes.
+  To assert a boolean attribute it must be present; when not present the attribute is
+  set to false. The library startup options therefore need to be a bit different to 
+  how they were documented above. 
+  
+  The keywords "no-css", "no-render" and "no-autoload" are now available and can be used to
+  suppress loading the wica CSS file, to suppress the rendering of the text content of wica
+  HTML elements, and/or to entirely suppress document support. Thus:
+    ```
+    <script data-wica-no-css src="wica/wica.js" type="module"></script>
+    <script data-wica-no-render src="wica/wica.js" type="module"></script>
+    <script data-wica-no-autoload src="wica/wica.js" type="module"></script>
+    ```
+   * Issue #47 BUG FIX: Create release 1.5.1
