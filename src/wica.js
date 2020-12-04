@@ -109,7 +109,7 @@ function restartDocumentSupportLoader( textRendererRefreshRate = 200, eventManag
     log.info( "Wica is starting/restarting support for the current document..." );
 
     // If a document support loader instance already exists then shut it down.
-    if ( documentSupportLoader !== null )
+    if ( documentSupportLoader !== undefined )
     {
         console.log( "Wica is shutting down the previous document support loader instance..." );
         documentSupportLoader.shutdown();
