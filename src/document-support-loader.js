@@ -35,13 +35,17 @@ class DocumentSupportLoader
      * @param {!string} streamServerUrl - The URL of the Wica Server with whom
      *    this instance should communicate.
      *
-     * @param {!boolean} autoloadCss - whether or not to automatically load
-     *   the CSS file when this class instance is activated. Default is true.
+     * @param {!boolean} withCssSupport - whether or not to load the CSS file when this
+     *    class instance is activated. Default is true.
+     *
+     * @param {!boolean} withTextRendererSupport - whether or not to enable the wica
+     *   HTML element text renderer when this class instance is activated. Default is true.
      */
-    constructor( streamServerUrl, autoloadCss = true )
+    constructor( streamServerUrl, withCssSupport = true, withTextRendererSupport )
     {
         this.streamServerUrl = streamServerUrl;
-        this.autoloadCss = autoloadCss
+        this.withCssSupport = withCssSupport;
+        this.withTextRendererSupport = withTextRendererSupport
         this.documentStreamBuilder = new DocumentStreamBuilder( streamServerUrl, WicaStreamPropertyDefaults, WicaElementConnectionAttributes );
         this.documentTextRenderer = new DocumentTextRenderer( WicaElementConnectionAttributes, WicaElementTextRenderingAttributes );
         this.documentEventManager = new DocumentEventManager( WicaElementConnectionAttributes, WicaElementEventAttributes );
@@ -58,20 +62,37 @@ class DocumentSupportLoader
      */
     activate( textRendererRefreshRate = 100, eventManagerRefreshRate = 100 )
     {
-        if ( this.autoloadCss )
+        if ( this.withCssSupport )
         {
-            log.log( "The CSS autoload feature has been enabled." );
+            log.log( "The CSS support feature has been enabled." );
             this.loadWicaCSS_();
         }
         else
         {
-            log.log( "The CSS autoload feature has been disabled." );
+            log.log( "The CSS support feature has been disabled." );
         }
 
         JsonUtilities.load(() => {
+
+            log.log( "Activating document stream builder..." );
             this.documentStreamBuilder.activate();
-            this.documentTextRenderer.activate( textRendererRefreshRate );
+            log.log( "The document stream builder has been activated." );
+
+            log.log( "Activating document event manager..." );
             this.documentEventManager.activate( eventManagerRefreshRate );
+            log.log( "The document event manager has been activated." );
+
+            if ( this.withTextRendererSupport )
+            {
+                log.log( "The document text renderer support feature has been enabled." );
+                log.log( "Activating document text renderer..." );
+                this.documentTextRenderer.activate( textRendererRefreshRate );
+                log.log( "The document text renderer has been activated." );
+            }
+            else
+            {
+                log.log( "The document text renderer support feature has been disabled." );
+            }
         });
     }
 
@@ -81,8 +102,13 @@ class DocumentSupportLoader
     shutdown()
     {
         this.documentStreamBuilder.shutdown();
-        this.documentTextRenderer.shutdown();
         this.documentEventManager.shutdown();
+
+        // Only shutdown the text renderer if the feature was enabled.
+        if ( this.withTextRendererSupport )
+        {
+            this.documentTextRenderer.shutdown();
+        }
     }
 
     /**
