@@ -152,11 +152,11 @@ This log describes the functionality of tagged versions within the repository.
   set to false. The library startup options therefore need to be a bit different to 
   how they were documented above. 
   
-  The keywords "no-css", "no-render" and "no-autoload" are now available and can be used to
+  The keywords "no-cssload", "no-render" and "no-autoload" are now available and can be used to
   suppress loading the wica CSS file, to suppress the rendering of the text content of wica
   HTML elements, and/or to entirely suppress document support. Thus:
     ```
-    <script data-wica-no-css src="wica/wica.js" type="module"></script>
+    <script data-wica-no-cssload src="wica/wica.js" type="module"></script>
     <script data-wica-no-render src="wica/wica.js" type="module"></script>
     <script data-wica-no-autoload src="wica/wica.js" type="module"></script>
     ```

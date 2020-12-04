@@ -51,13 +51,13 @@ log.info( "The wica library log level has been set to: ", logLevel );
 // The wica CSS definition file supports features such as tooltip hover and alarm state
 // colourisation. The CSS load feature can be disabled in situations where the user
 // elects to perform their own rendering.
-// <script data-wica-no-css-load src="wica/wica.js" type="module"></script>
-const noCss = thisScriptEle.hasAttribute("data-wica-no-css-load");
-log.info( "The wica disable CSS load feature has been set to ", noCss );
+// <script data-wica-no-cssload src="wica/wica.js" type="module"></script>
+const noCssLoad = thisScriptEle.hasAttribute("data-wica-no-cssload");
+log.info( "The wica disable CSS load feature has been set to ", noCssLoad );
 
 // Configure whether to suppress automatic rendering of the text content of wica channel html elements.
-// <script data-wica-no-text-rendering src="wica/wica.js" type="module"></script>
-const noRender = thisScriptEle.hasAttribute( "data-wica-no-text-renderering" );
+// <script data-wica-no-render src="wica/wica.js" type="module"></script>
+const noRender = thisScriptEle.hasAttribute( "data-wica-no-render" );
 log.info( "The wica disable document text rendering feature has been set to ", noRender );
 
 // Configure the URL of the stream server that will be targeted by this library.
@@ -89,7 +89,7 @@ window.onbeforeunload = () => {
 // support loader instance based on the supplied feature options.
 if ( ! noAutoload )
 {
-    documentSupportLoader = new DocumentSupportLoader( streamServerUrl, ! noCss, ! noRender );
+    documentSupportLoader = new DocumentSupportLoader( streamServerUrl, ! noCssLoad, ! noRender );
     documentSupportLoader.activate(200, 200);
 }
 
@@ -119,7 +119,7 @@ function restartDocumentSupportLoader( textRendererRefreshRate = 200, eventManag
     // Create a new document support loader instance based on the previously
     // configured feature options.
     console.log( "Wica is creating a new document support loader..." );
-    documentSupportLoader = new DocumentSupportLoader( streamServerUrl, ! noCss, ! noRender );
+    documentSupportLoader = new DocumentSupportLoader( streamServerUrl, ! noCssLoad, ! noRender );
     console.log( "Wica document support loader was created OK." );
 
     console.log( "Wica is activating the new document support loader..." );
