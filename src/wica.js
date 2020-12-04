@@ -111,18 +111,18 @@ function restartDocumentSupportLoader( textRendererRefreshRate = 200, eventManag
     // If a document support loader instance already exists then shut it down.
     if ( documentSupportLoader !== undefined )
     {
-        console.log( "Wica is shutting down the previous document support loader instance..." );
+        log.info( "Wica is shutting down the previous document support loader instance..." );
         documentSupportLoader.shutdown();
-        console.log( "Wica document support loader instance was shutdown OK." );
+        log.info( "Wica document support loader instance was shutdown OK." );
     }
 
     // Create a new document support loader instance based on the previously
     // configured feature options.
-    console.log( "Wica is creating a new document support loader..." );
+    log.info( "Wica is creating a new document support loader..." );
     documentSupportLoader = new DocumentSupportLoader( streamServerUrl, ! noCssLoad, ! noRender );
-    console.log( "Wica document support loader was created OK." );
+    log.info( "Wica document support loader was created OK." );
 
-    console.log( "Wica is activating the new document support loader..." );
+    log.info( "Wica is activating the new document support loader..." );
     documentSupportLoader.activate( textRendererRefreshRate, eventManagerRefreshRate );
     log.info( "Wica document support loader was activated OK." );
 }
