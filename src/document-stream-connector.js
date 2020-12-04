@@ -110,6 +110,11 @@ class DocumentStreamConnector
      */
     shutdown()
     {
+        if ( this.wicaChannelElements.length === 0)
+        {
+            log.warn( "The stream named: '" + this.assignedStreamName + "' did not contain any wica channel elements => stream cannot be shutdown." );
+            return;
+        }
         this.streamManager.shutdown();
     }
 
