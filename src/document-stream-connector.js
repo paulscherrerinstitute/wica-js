@@ -65,7 +65,7 @@ class DocumentStreamConnector
     /**
      * Scans the specified document tree for wica channel elements, creates a stream on the Wica backend server to
      * obtain information from each element's data source, sets up handlers to update each element's attributes on
-     * as fresh information is received .
+     * as fresh information is received.
      *
      * See also: {@link module:document-stream-connector.DocumentStreamConnector#shutdown shutdown}.
      */
