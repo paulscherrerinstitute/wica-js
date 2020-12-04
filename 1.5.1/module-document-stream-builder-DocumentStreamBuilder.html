@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: DocumentStreamConnector</title>
+    <title>JSDoc: Class: DocumentStreamBuilder</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: DocumentStreamConnector</h1>
+    <h1 class="page-title">Class: DocumentStreamBuilder</h1>
 
     
 
@@ -29,10 +29,10 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-document-stream-connector.html">document-stream-connector</a>~</span>DocumentStreamConnector<span class="signature">(assignedStreamName<span class="signature-attributes">non-null</span>, rootElement<span class="signature-attributes">non-null</span>, streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamProperties<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-document-stream-builder.html">document-stream-builder</a>~</span>DocumentStreamBuilder<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamPropertyDefaults<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Provides real-time updates to wica channel elements in the supplied document tree based on
-information streamed from the Wica server on the backend.</div>
+            <div class="class-description">Scans the current document for HTML elements which provide wica stream definitions.
+Sets up Document Stream Connectors for each discovered instance.</div>
         
     
 </header>
@@ -47,7 +47,7 @@ information streamed from the Wica server on the backend.</div>
     
 
     
-    <h4 class="name" id="DocumentStreamConnector"><span class="type-signature"></span>new DocumentStreamConnector<span class="signature">(assignedStreamName<span class="signature-attributes">non-null</span>, rootElement<span class="signature-attributes">non-null</span>, streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamProperties<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DocumentStreamBuilder"><span class="type-signature"></span>new DocumentStreamBuilder<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamPropertyDefaults<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -58,7 +58,7 @@ information streamed from the Wica server on the backend.</div>
     Constructs a new instance to work with the specified backend server.
 
 The returned object will remain in a dormant state until triggered by a call to the
-    <a href="module-document-stream-connector.DocumentStreamConnector.html#activate">activate</a> method.
+    activate method.
 </div>
 
 
@@ -94,54 +94,6 @@ The returned object will remain in a dormant state until triggered by a call to 
 
         <tr>
             
-                <td class="name"><code>assignedStreamName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of this stream (which will be reflected on each
-    wica channel element)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>rootElement</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Element</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the root of the document tree to be searched when looking for wica
-   channel elements.</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>streamServerUrl</code></td>
             
 
@@ -165,7 +117,7 @@ The returned object will remain in a dormant state until triggered by a call to 
 
         <tr>
             
-                <td class="name"><code>wicaStreamProperties</code></td>
+                <td class="name"><code>wicaStreamPropertyDefaults</code></td>
             
 
             <td class="type">
@@ -181,8 +133,9 @@ The returned object will remain in a dormant state until triggered by a call to 
 
             
 
-            <td class="description last">The properties of the stream that
-    will be created to obtain the required information from the data sources.
+            <td class="description last">The default properties
+    for the streams created by this builder. Individual stream properties may be overridden by the explicit
+    definitions on the wica stream HTML elements.
     See <a href="module-shared-definitions.html#.WicaStreamProperties">WicaStreamProperties</a>.</td>
         </tr>
 
@@ -206,8 +159,8 @@ The returned object will remain in a dormant state until triggered by a call to 
 
             
 
-            <td class="description last">The names
-    of the wica html element attributes that are to be used in the wica communication process.
+            <td class="description last">The
+    names of the HTML element attributes that are to be used in the wica communication process.
     See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">WicaElementConnectionAttributes</a>.</td>
         </tr>
 
@@ -308,11 +261,11 @@ The returned object will remain in a dormant state until triggered by a call to 
 
 
 <div class="description">
-    Scans the specified document tree for wica channel elements, creates a stream on the Wica backend server to
-obtain information from each element's data source, sets up handlers to update each element's attributes on
-as fresh information is received .
+    Scans the current document for wica-stream elements, creates streams on the Wica backend server to obtain
+information for each element's data source, sets up handlers to update each element's attributes on
+the basis of the received information.
 
-See also: <a href="module-document-stream-connector.DocumentStreamConnector.html#shutdown">shutdown</a>.
+See also: shutdown.
 </div>
 
 
@@ -395,9 +348,9 @@ See also: <a href="module-document-stream-connector.DocumentStreamConnector.html
 
 
 <div class="description">
-    Shuts down the service offered by this class.
+    Shuts down the streams that were earlier built by this class.
 
-See also: <a href="module-document-stream-connector.DocumentStreamConnector.html#shutdown">activate</a>.
+See also: activate.
 </div>
 
 
@@ -488,7 +441,7 @@ See also: <a href="module-document-stream-connector.DocumentStreamConnector.html
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Dec 04 2020 16:32:02 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Dec 04 2020 16:32:52 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
