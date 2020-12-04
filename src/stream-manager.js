@@ -141,6 +141,7 @@ class StreamManager
         this.countdownInSeconds = 0;
         this.connectionRequestCounter = 1;
         this.activeStreamId = undefined;
+        this.eventSource = undefined;
     }
 
     /**
@@ -178,7 +179,10 @@ class StreamManager
             clearInterval( this.intervalTimer );
         }
 
-        // Cancel the most recently established stream (if one has been established).
+        // Send an HTTPS command to cancel the most recently established stream
+        // (if one has been established). This may, or may-not get delivered to
+        // the server, but gives it at least the chance to shutdown the stream
+        // gracefully.
         if ( this.activeStreamId !== undefined )
         {
             if ( this.asyncStreamDeleteEnable ) {
@@ -188,6 +192,15 @@ class StreamManager
                 this.deleteStream_(this.activeStreamId );
             }
         }
+
+        // If an EventSource is already active then close it. This will cause
+        // the browser to stop consuming data sent from the server and is the
+        // fundamental (and brutal !) way that the server can in all cases
+        // learn that the server-sent-event stream is no longer being consumed.
+        if ( this.eventSource !== undefined ) {
+            this.eventSource.close();
+        }
+
     }
 
     /**
@@ -317,7 +330,8 @@ class StreamManager
     }
 
     /**
-     * Sends a GET request to the Wica Server to subscribe to the specified streams.
+     * Creates an EventSource and adds an EventListener which will result in a GET
+     * request being sent to the Wica Server to subscribe to the specified streams.
      * Adds handlers to deal with the various events and/or messages which may be
      * associated with the stream.
      *
@@ -326,13 +340,13 @@ class StreamManager
      */
     subscribeStream_( subscribeUrl )
     {
-        const eventSource = new EventSource( subscribeUrl, { withCredentials: true } );
+        this.eventSource = new EventSource( subscribeUrl, { withCredentials: true } );
 
         // The heartbeat message is for internal use of this stream handler.
         // If a heartbeat isn't received periodically then the connection
         // will be deemed to have failed, triggering a new stream creation
         // and subscription cycle.
-        eventSource.addEventListener( 'ev-wica-server-heartbeat', ev => {
+        this.eventSource.addEventListener( 'ev-wica-server-heartbeat', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
                 const evSrc = ev.target;
                 const evSrcUrl = evSrc.url;
@@ -342,7 +356,7 @@ class StreamManager
             }
         }, false) ;
 
-        eventSource.addEventListener( 'ev-wica-channel-metadata',ev => {
+        this.eventSource.addEventListener( 'ev-wica-channel-metadata',ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
                 const metadataArrayObject = JsonUtilities.parse( ev.data );
                 this.channelMetadataUpdated( metadataArrayObject );
@@ -350,14 +364,14 @@ class StreamManager
 
         }, false);
 
-        eventSource.addEventListener( 'ev-wica-channel-value', ev => {
+        this.eventSource.addEventListener( 'ev-wica-channel-value', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
                 const valueArrayObject = JsonUtilities.parse( ev.data );
                 this.channelValuesUpdated( valueArrayObject );
             }
         }, false);
 
-        eventSource.addEventListener( 'open', ev => {
+        this.eventSource.addEventListener( 'open', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
                 const evSrc = ev.target;
                 const evSrcUrl = evSrc.url;
@@ -368,7 +382,7 @@ class StreamManager
             }
         }, false);
 
-        eventSource.addEventListener( 'error', ev => {
+        this.eventSource.addEventListener( 'error', ev => {
             if ( this.crossOriginCheckOk_( ev ) ) {
                 const evSrc = ev.target;
                 const evSrcUrl = evSrc.url;
