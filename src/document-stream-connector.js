@@ -77,7 +77,7 @@ class DocumentStreamConnector
 
         if ( this.wicaChannelElements.length === 0)
         {
-            log.warn( "The stream named: '" + this.assignedStreamName + "' did not contain any wica channel elements => stream cannot be activated." );
+            log.warn( "The stream named: '" + this.assignedStreamName + "' did not contain any wica channel elements => stream activation requires no further action." );
             return;
         }
 
@@ -91,8 +91,8 @@ class DocumentStreamConnector
                                               this.wicaElementConnectionAttributes.channelConnectionState,
                                               this.wicaElementConnectionAttributes.channelAlarmState );
 
-        // Define the starting instance specifier for wica channel instances which not specified by the
-        // user but autoallocated by this library.
+        // Define the starting instance specifier for wica channel instances which are not specified by the
+        // user but automatically allocated by this library.
         const ALLOC_ID_START = 1000;
         this.buildStreamAndLookupTableConfiguration_( this.wicaElementConnectionAttributes.channelName,
                                                       this.wicaElementConnectionAttributes.channelProperties,
@@ -110,9 +110,9 @@ class DocumentStreamConnector
      */
     shutdown()
     {
-        if ( this.wicaChannelElements.length === 0)
+        if ( this.streamManager === undefined )
         {
-            log.warn( "The stream named: '" + this.assignedStreamName + "' did not contain any wica channel elements => stream cannot be shutdown." );
+            log.log( "The stream manager for stream named: '" + this.assignedStreamName + "' was never activated => stream shutdown requires no further action." );
             return;
         }
         this.streamManager.shutdown();
