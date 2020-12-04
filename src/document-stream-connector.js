@@ -75,6 +75,12 @@ class DocumentStreamConnector
         // Optimisation: cache the retrieved information for use during future scanning.
         this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( this.rootElement );
 
+        if ( this.wicaChannelElements.length === 0)
+        {
+            log.warn( "The stream named: '" + this.assignedStreamName + "' did not contain any wica channel elements => stream cannot be activated." );
+            return;
+        }
+
         this.configureAssignedStreamNameAttributes_( this.wicaElementConnectionAttributes.assignedStreamName );
 
         this.configureStreamConnectionHandlers_( this.wicaElementConnectionAttributes.streamState );
