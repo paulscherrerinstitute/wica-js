@@ -116,3 +116,30 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #39 ENHANCEMENT Add support for auto-generation of the Wica Channel instance specifiers.
   * Issue #40 ENHANCEMENT Add support for CSS autoload configuration feature.
   * Issue #41 Create release 1.4.0.
+  
+* [1.5.0] Released 2020-12-04    
+
+  A few tweaks on the previous version.
+  
+  The library startup options now include the following variants, or combinations thereof:
+  
+  ```
+  <script data-wica-log-level="[0-7]" src="wica/wica.js" type="module"></script>
+  <script data-wica-stream-server-url="<serverUrl>" src="wica/wica.js" type="module"></script>
+  <script data-wica-with-css="true|false>" src="wica/wica.js" type="module"></script>
+  <script data-wica-with-text-renderer="true|false" src="wica/wica.js" type="module"></script>
+  <script data-wica-auto-activate="true|false" src="wica/wica.js" type="module"></script>
+  ```
+  The wica library logging levels go from 0-7 in increasing levels of chattiness.  The categories
+  are as follows: [0=NONE, 1=ERROR, 2 =WARN, 3=INFO, 4=LOG, 5=DEBUG, 6 = TRACE] 
+ 
+  By default the library log level is set to WARN (=2), the wica serverUrl is set to target
+  the host where the web page was loaded and all the boolean options are set to true.
+  
+  Issues addressed:
+  
+   * Issue #42 BUG FIX: Suppress sending stream create requests with empty channels if there are no wica channels discovered in the stream.
+   * Issue #43 BUG FIX: Ensure that stream shutdown actively closes EventSource.
+   * Issue #44 ENHANCEMENT: Add support for conditional startup of the wica text renderer function.
+   * Issue #45 Create release 1.5.0
+   * Issue #46 ENHANCEMENT: Cleanup library startup options and provide new 'data-wica-auto-activate' option.
