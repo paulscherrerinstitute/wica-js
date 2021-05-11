@@ -4,35 +4,35 @@ This log describes the functionality of tagged versions within the repository.
 
 # Tags  
 
-* [1.0.0] 
+## [1.0.0] 
   Created first version based on version 1.7.0-RELEASE of the incubator project on PSI's 
   internal GitLab Server (ch.psi.wica2).
   
   Note: this release was created manually by zipping up the source directory. In future
   releases the travis build will be updated to perfrom this task manually.
    
-* [1.1.0]
+## [1.1.0]
   Now restructured to use node-based toolchain.
   Uses Node Rollup plugin to bundle Wica-JS as standalone module.
   Uses Node Terser plugin to create minified library output.
   Upgraded Travis yaml build recipe to deploy API docs to GitHub Pages Area and 
   zipped release assets to GitHub Releases Area. Also builds image for Docker Hub.
   
-* [1.1.1]
+## [1.1.1]
   Documentation improvements.
   
-* [1.1.2]
+## [1.1.2]
   Now exports client API classes.
   Suppressed terse JS output to ease debugging.
   Added bare modules support.
   
-* [1.1.3]
+## [1.1.3]
   Fixed bug which affected precisiom. Now builds and exports separate wica/client-api.js 
   classes.
   * Issue #6 Precision ('prec') field has no effect when specified in wica-rendering-props object 
   * Issue #7 Create Wica-JS 1.1.3 Release
   
-* [1.2.0] 
+## [1.2.0] 
   * Issue #8 Create Wica-JS 1.2.0 Release
   * Issue #9 ENHANCEMENT: When navigating away from wica pages send delete stream request asynchronously.
   * Issue #10 ENHANCEMENT: Optimise document-stream-connector to used html element cache.
@@ -41,18 +41,18 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #14 Create license.
   * Issue #15 Update packages after NPM audit. 
 
-* [1.2.1] 
+## [1.2.1] 
   * Issue #9 ENHANCEMENT: When navigating away from wica pages send delete stream request asynchronously.
     Adjusted feature for compatibility with Wica-HTTP Release 1.4.0. POST and DELETE HTTP requests now 
     go to the same endpoint. POST requests must additionally contain 'DELETE'  string literal in 
     content body. 
   * Issue #16 Create Wica-JS 1.2.0 Release.  
 
-* [1.2.2] Released 2020-06-29
+## [1.2.2] Released 2020-06-29
   * Issue #18 DEPENDENCIES: Upgrade JSON5 version from 2.1.0 -> 2.1.3 to address GitHub security alert. 
   * Issue #19 DEPENDENCIES: Create Wica-JS 1.2.2 Release.
   
-* [1.3.0] Released 2020-09-15
+## [1.3.0] Released 2020-09-15
 
   Created initial support for 'wica-stream-props' attribute.
   Updated tooltip support so that tooltips are now handled by default through CSS rather
@@ -72,7 +72,7 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #29 DEPENDENCIES: Update all remaining dependencies to latest.
   * Issue #30 ENHANCEMENT: Improve Docker naming on wica-related volumes.
   
-* [1.3.1] Released 2020-09-19 
+## [1.3.1] Released 2020-09-19 
 
   Tooltips got bigger. Fixed incorrect documentation on WicaStreamProperties. Default precision is 3 digits.
   Monitor flux runs at 200ms. 
@@ -81,7 +81,7 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #32 ENHANCEMENT: Increase default size of tooltip popup text.
   * Issue #33 ENHANCEMENT: Create release 1.3.1.
 
-* [1.3.2] Released 2020-10-19 
+## [1.3.2] Released 2020-10-19 
 
   Fixed bug in stream handling which could sometimes result in multiple streams being
   requested with empty payloads.
@@ -89,7 +89,7 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #34 BUG Add support for data-wica-assigned-stream-name.
   * Issue #35 ENHANCEMENT: Create release 1.3.2
   
-* [1.4.0] Released 2020-12-03 
+## [1.4.0] Released 2020-12-03 
 
   Support for auto-generation of the Wica Channel instance specifier. This means that in the HTML
   file multiple tags can use the same wica channel. Thus, the following definition is valid
@@ -117,7 +117,7 @@ This log describes the functionality of tagged versions within the repository.
   * Issue #40 ENHANCEMENT Add support for CSS autoload configuration feature.
   * Issue #41 Create release 1.4.0.
   
-* [1.5.0] Released 2020-12-04    
+## [1.5.0] Released 2020-12-04    
 
   A few tweaks on the previous version.
   
@@ -144,7 +144,7 @@ This log describes the functionality of tagged versions within the repository.
    * Issue #45 Create release 1.5.0
    * Issue #46 ENHANCEMENT: Cleanup library startup options and provide new 'data-wica-auto-activate' option.
 
-* [1.5.1] Released 2020-12-04    
+## [1.5.1] Released 2020-12-04    
 
   Bug fix release which fixes my previously incorrect understanding of how HTML boolean
   attributes are meant to work. HTML does not support "true" or "false" on boolean attributes.
@@ -161,3 +161,14 @@ This log describes the functionality of tagged versions within the repository.
     <script data-wica-no-autoload src="wica/wica.js" type="module"></script>
     ```
    * Issue #47 BUG FIX: Create release 1.5.1
+
+## [1.5.2] Released 2021-05-11
+
+  Updated to latest version of dependencies to fix GitHub Dependabot alerts.
+
+  This involved adding the [npm-force-resolutions](https://www.npmjs.com/package/npm-force-resolutions)
+  package and a a new ```resolutions``` section to the ```package.json``` file to overcome a transititive
+  dependency of the ```jsdoc``` documentation generator on an insecure version of ```underscore```. For
+  further details see [this](https://www.npmjs.com/advisories/1674) advisory.
+  
+  * Issue #49 Create release 1.5.2

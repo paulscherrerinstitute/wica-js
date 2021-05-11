@@ -1,12 +1,13 @@
 {
   "name": "@psi/wica-js",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Wica Javascript Library",
   "main": "wica.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "version": "echo $npm_package_version",
     "clean": "rm -rf build dist",
     "lint": "eslint src/**/*.js",
@@ -36,18 +37,21 @@
   "publishConfig": {
     "registry": "http://npm.psi.ch"
   },
+  "resolutions": {
+    "underscore": "~1.12.1"
+  },
   "devDependencies": {
-    "bestzip": "^2.1.7",
-    "eslint": "^7.8.1",
-    "jsdoc": "^3.6.5",
-    "npm-auto-snapshot": "^0.5.3",
-    "rollup": "^2.26.11",
-    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "rollup-plugin-copy-assets": "^2.0.1",
+    "bestzip": "^2.2.0",
+    "eslint": "^7.26.0",
+    "jsdoc": "^3.6.6",
+    "npm-auto-snapshot": "^0.5.3",
+    "rollup": "^2.47.0",
+    "rollup-plugin-copy-assets": "^2.0.3",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "json5": "^2.1.3"
+    "json5": "^2.2.0"
   }
 }
