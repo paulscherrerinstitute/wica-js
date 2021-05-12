@@ -100,7 +100,7 @@ jobs:
           context: ./
           file: ./docker/Dockerfile
           push: true
-          tags: paulscherrerinstitute/wica-js:${{ github.ref }}
+          tags: paulscherrerinstitute/wica-js:${{ github.event.ref }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
