@@ -172,3 +172,14 @@ This log describes the functionality of tagged versions within the repository.
   further details see [this](https://www.npmjs.com/advisories/1674) advisory.
   
   * Issue #49 Create release 1.5.2
+
+## [1.5.3] Released 2021-05-12
+
+   This release retires the Travis build and now builds using the GitHub Actions CI environment instead.
+   The behaviour is intended to be the same as the Travis build. That's to say:
+   - use node to build release locally
+   - create docs and upload to GitHub Pages Area.
+   - deploy release to GitHub releases area inlcuding additional assets.
+   - build and create a tagged docker image on Docker Hub.
+
+  * Issue #50 Create release 1.5.3
