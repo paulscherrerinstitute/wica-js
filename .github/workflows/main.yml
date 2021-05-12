@@ -28,5 +28,7 @@ jobs:
         with:
           node-version: 14
       - run: npm ci
+      - run: npm run-script lint
+      - run: npm run-script docs
       - run: npm run-script build
 
