@@ -192,5 +192,4 @@ This release updates all Wica-JS dependencies to the latest.
 * Issue #52: Bump minimist from 1.2.5 to 1.2.6
 * Issue #53: Create release 1.5.4
 * Issue #54: Improve support for searching for target attributes in both light and shadow DOM.
-* Issue #55:
-* Create release 1.5.4
+* Issue #55: Bump ansi-regex from 5.0.0 to 5.0.1
