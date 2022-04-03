@@ -51,15 +51,24 @@ function findWicaElementsWithAttributeNameAlsoInShadowDom( parentNode, attribute
 {
     const selector = "[" + attributeName + "]";
     const nodesInParent = parentNode.querySelectorAll( selector );
-    let nodesInChildren = [];
+    let nodesInShadowChildren = [];
     Array.from( parentNode.querySelectorAll('*') )
-        .filter( element => element.shadowRoot )
+        .filter( element => element.shadowRoot !== null )
         .forEach( element => {
             const nodesInChild = findWicaElementsWithAttributeNameAlsoInShadowDom( element.shadowRoot, attributeName );
             const nodesInChildAsArray = Array.from( nodesInChild );
-            nodesInChildren = nodesInChildren.concat( nodesInChildAsArray );
+            nodesInShadowChildren = nodesInShadowChildren.concat( nodesInChildAsArray );
+        }) ;
+
+    let nodesInContentChildren = [];
+    Array.from( parentNode.querySelectorAll('*') )
+        .filter( element => element.contentDocument != null )
+        .forEach( element => {
+            const nodesInChild = findWicaElementsWithAttributeNameAlsoInShadowDom( element.contentDocument, attributeName );
+            const nodesInChildAsArray = Array.from( nodesInChild );
+            nodesInContentChildren = nodesInContentChildren.concat( nodesInChildAsArray );
         });
 
-    return [ ...nodesInParent, ...nodesInChildren ];
+    return [ ...nodesInParent, ...nodesInShadowChildren, ...nodesInContentChildren ];
 }
 
