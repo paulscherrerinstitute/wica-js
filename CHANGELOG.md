@@ -188,4 +188,9 @@ This log describes the functionality of tagged versions within the repository.
 
 This release updates all Wica-JS dependencies to the latest.
 
-* Issue #51 Create release 1.5.4
+* Issue #51: Bump path-parse from 1.0.6 to 1.0.7
+* Issue #52: Bump minimist from 1.2.5 to 1.2.6
+* Issue #53: Create release 1.5.4
+* Issue #54: Improve support for searching for target attributes in both light and shadow DOM.
+* Issue #55:
+* Create release 1.5.4
