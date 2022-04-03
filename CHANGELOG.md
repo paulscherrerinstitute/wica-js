@@ -183,3 +183,9 @@ This log describes the functionality of tagged versions within the repository.
    - build and create a tagged docker image on Docker Hub.
 
   * Issue #50 Create release 1.5.3
+
+## [1.5.4] Released 2022-04-03
+
+This release updates all Wica-JS dependencies to the latest.
+
+* Issue #51 Create release 1.5.4
