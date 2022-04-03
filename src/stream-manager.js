@@ -229,7 +229,7 @@ class StreamManager
      * existing stream.
      *
      * This version blocks waiting for the response from the Wica server.
-     * This approach is now (2020-03-130 disallowed by modern browsers such
+     * This approach is now (2020-03-13) disallowed by modern browsers such
      * as Chrome. See the information here:
      * https://www.chromestatus.com/feature/4664843055398912
      *
