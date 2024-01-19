@@ -1,4 +1,4 @@
-# Overview [![Build Status](https://travis-ci.com/paulscherrerinstitute/wica-js.svg?branch=master)](https://travis-ci.com/paulscherrerinstitute/wica-js) [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/paulscherrerinstitute/wica-js?color=limegreen&label=release)](https://github.com/paulscherrerinstitute/wica-js/releases) [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/paulscherrerinstitute/wica-js?label=dockerhub)](https://hub.docker.com/r/paulscherrerinstitute/wica-js)
+# Overview [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/paulscherrerinstitute/wica-js?color=limegreen&label=release)](https://github.com/paulscherrerinstitute/wica-js/releases) [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/paulscherrerinstitute/wica-js?label=dockerhub)](https://hub.docker.com/r/paulscherrerinstitute/wica-js)
 
 This is the **Wica-JS** git repository, one component of PSI's WICA software suite. 
  
