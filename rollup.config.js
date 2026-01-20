@@ -1,7 +1,7 @@
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import copy from "rollup-plugin-copy-assets";
+import copy from "rollup-plugin-copy";
 
 export default [ {
         input: 'src/wica.js',
@@ -12,9 +12,9 @@ export default [ {
         },
         plugins: [
             copy({
-                assets: [
-                    "src/about.html",
-                    "src/wica.css",
+                targets: [
+                    {src: "src/about.html", dest: "dist/rel" },
+                    {src: "src/wica.css", dest: "dist/rel" },
                 ],
             }),
             resolve(),
