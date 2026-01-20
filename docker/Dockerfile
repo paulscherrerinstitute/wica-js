@@ -2,7 +2,7 @@
 # Dockerfile to support download of Wica-JS library in docker data container
 ###############################################################################
 
-FROM alpine:latest as NVM_BUILD
+FROM alpine:latest AS nvm_build
 
 # If we need to look inside this image we will do it as root.
 USER root
@@ -16,7 +16,7 @@ COPY package.json .
 
 RUN npm install
 
-COPY .eslintrc.js .
+COPY eslint.config.js .
 COPY rollup.config.js .
 COPY .jsdoc.conf.json .
 COPY ./src ./src
@@ -50,7 +50,7 @@ WORKDIR /root
 RUN mkdir ./static ./static/wica_js_root ./static/wica_js_root/wica
 
 # Populate the application directories as appropriate
-COPY --from=NVM_BUILD /tmp/dist/rel/* ./static/wica_js_root/wica/
+COPY --from=nvm_build /tmp/dist/rel/* ./static/wica_js_root/wica/
 
 RUN ls ./static/wica_js_root/
 
@@ -65,4 +65,4 @@ VOLUME /root/static/wica_js_root
 # 5.0 Define the ENTRYPOINT
 ###############################################################################
 
-ENTRYPOINT /bin/sh
+ENTRYPOINT ["/bin/sh"]
