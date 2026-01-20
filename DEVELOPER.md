@@ -56,7 +56,7 @@ live data from the control system from within the user's facility.
 Example: Target requests to the PSI's Wica Development Server.
 ```
    ...
-   <script src="/wica/wica.js" data-wica-stream-server-url="https://gfa-wica-dev.psi.ch" type="module"></script>
+   <script type="module" src="https://cas-wica.psi.ch/wica/wica.js" data-wica-stream-server-url="https://cas-wica.psi.ch"></script>
    ...
 ```
 
@@ -69,17 +69,15 @@ Example: Target requests to the PSI's Wica Development Server.
          
    Examples: 1.0.0, 1.1.0, 1.2.3-rc1, 1.2.3-rc2, 7.1.5-rc19
    
-1. Update the [CHANGELOG](CHANGELOG.md) file to describe the new release.
+2. Update the [CHANGELOG](CHANGELOG.md) file to describe the new release.
 
-1. Commit locally (- **but don't yet push** -) the latest changes.
+3. Commit locally (- **but don't yet push** -) the latest changes.
     ```
     git commit -m "my latest changes" .
     ```
 
-1. Use the npm 'release' target to create a tag and to push it to the GitHub Server.
+4. Use the npm 'release' target to create a tag and to push it to the GitHub Server.
     ```
     npm run github-release
     ```
-1. Verify that the Travis automatic build worked and/or that the expected artifacts 
-   are available on GitHub and on Docker Hub sites.
    
