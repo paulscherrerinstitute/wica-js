@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import copy from "rollup-plugin-copy";
 
+// noinspection JSUnusedGlobalSymbols
 export default [ {
         input: 'src/wica.js',
         output: {
