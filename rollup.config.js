@@ -33,9 +33,7 @@ export default [ {
         plugins: [
             resolve(),
             commonjs(),
-            // Invoke terser but just use the default options until
-            // it is proved that we need something else.
-            terser({}),
+            // Note: we don't use terser when building the client-api.js
         ]
     }
 ];
