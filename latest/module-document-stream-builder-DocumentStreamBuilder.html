@@ -29,7 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-document-stream-builder.html">document-stream-builder</a>~</span>DocumentStreamBuilder<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamPropertyDefaults<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-document-stream-builder.html">document-stream-builder</a>~</span>DocumentStreamBuilder<span class="signature">(streamServerUrl, wicaStreamPropertyDefaults, wicaElementConnectionAttributes)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Scans the current document for HTML elements which provide wica stream definitions.
 Sets up Document Stream Connectors for each discovered instance.</div>
@@ -47,7 +47,7 @@ Sets up Document Stream Connectors for each discovered instance.</div>
     
 
     
-    <h4 class="name" id="DocumentStreamBuilder"><span class="type-signature"></span>new DocumentStreamBuilder<span class="signature">(streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamPropertyDefaults<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DocumentStreamBuilder"><span class="type-signature"></span>new DocumentStreamBuilder<span class="signature">(streamServerUrl, wicaStreamPropertyDefaults, wicaElementConnectionAttributes)</span><span class="type-signature"></span></h4>
     
 
     
@@ -58,7 +58,7 @@ Sets up Document Stream Connectors for each discovered instance.</div>
     Constructs a new instance to work with the specified backend server.
 
 The returned object will remain in a dormant state until triggered by a call to the
-    activate method.
+    module:document-stream-builder.DocumentStreamBuilder#activate method.
 </div>
 
 
@@ -136,7 +136,7 @@ The returned object will remain in a dormant state until triggered by a call to 
             <td class="description last">The default properties
     for the streams created by this builder. Individual stream properties may be overridden by the explicit
     definitions on the wica stream HTML elements.
-    See <a href="module-shared-definitions.html#.WicaStreamProperties">WicaStreamProperties</a>.</td>
+    See <a href="module-shared-definitions.html#.WicaStreamProperties">module:shared-definitions.WicaStreamProperties</a>.</td>
         </tr>
 
     
@@ -161,7 +161,7 @@ The returned object will remain in a dormant state until triggered by a call to 
 
             <td class="description last">The
     names of the HTML element attributes that are to be used in the wica communication process.
-    See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">WicaElementConnectionAttributes</a>.</td>
+    See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">module:shared-definitions.WicaElementConnectionAttributes</a>.</td>
         </tr>
 
     
@@ -265,7 +265,7 @@ The returned object will remain in a dormant state until triggered by a call to 
 information for each element's data source, sets up handlers to update each element's attributes on
 the basis of the received information.
 
-See also: shutdown.
+See also: module:document-stream-builder.DocumentStreamBuilder#shutdown.
 </div>
 
 
@@ -435,13 +435,13 @@ See also: activate.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-client-api.html">client-api</a></li><li><a href="module-document-event-manager.html">document-event-manager</a></li><li><a href="module-document-stream-builder.html">document-stream-builder</a></li><li><a href="module-document-stream-connector.html">document-stream-connector</a></li><li><a href="module-document-support-loader.html">document-support-loader</a></li><li><a href="module-document-text-renderer.html">document-text-renderer</a></li><li><a href="module-document-utils.html">document-utils</a></li><li><a href="module-json5-wrapper.html">json5-wrapper</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-plot-buffer.html">plot-buffer</a></li><li><a href="module-shared-definitions.html">shared-definitions</a></li><li><a href="module-stream-manager.html">stream-manager</a></li><li><a href="module-wica.html">wica</a></li></ul><h3>Classes</h3><ul><li><a href="module-document-event-manager.DocumentEventManager.html">DocumentEventManager</a></li><li><a href="module-document-stream-builder-DocumentStreamBuilder.html">DocumentStreamBuilder</a></li><li><a href="module-document-stream-connector.DocumentStreamConnector.html">DocumentStreamConnector</a></li><li><a href="module-document-support-loader-DocumentSupportLoader.html">DocumentSupportLoader</a></li><li><a href="module-document-text-renderer.DocumentTextRenderer.html">DocumentTextRenderer</a></li><li><a href="module-plot-buffer-PlotBuffer.html">PlotBuffer</a></li><li><a href="module-stream-manager-StreamManager.html">StreamManager</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-client-api.html">client-api</a></li><li><a href="module-document-event-manager.html">document-event-manager</a></li><li><a href="module-document-stream-builder.html">document-stream-builder</a></li><li><a href="module-document-stream-connector.html">document-stream-connector</a></li><li><a href="module-document-support-loader.html">document-support-loader</a></li><li><a href="module-document-text-renderer.html">document-text-renderer</a></li><li><a href="module-document-utils.html">document-utils</a></li><li><a href="module-json5-wrapper.html">json5-wrapper</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-plot-buffer.html">plot-buffer</a></li><li><a href="module-shared-definitions.html">shared-definitions</a></li><li><a href="module-stream-manager.html">stream-manager</a></li><li><a href="module-wica.html">wica</a></li></ul><h3>Classes</h3><ul><li><a href="module-document-event-manager.DocumentEventManager.html">DocumentEventManager</a></li><li><a href="module-document-stream-builder-DocumentStreamBuilder.html">DocumentStreamBuilder</a></li><li><a href="module-document-stream-connector-DocumentStreamConnector.html">DocumentStreamConnector</a></li><li><a href="module-document-support-loader-DocumentSupportLoader.html">DocumentSupportLoader</a></li><li><a href="module-document-text-renderer.DocumentTextRenderer.html">DocumentTextRenderer</a></li><li><a href="module-plot-buffer-PlotBuffer.html">PlotBuffer</a></li><li><a href="module-stream-manager-StreamManager.html">StreamManager</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jan 21 2026 19:42:46 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Jan 21 2026 21:16:42 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
