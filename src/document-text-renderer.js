@@ -1,7 +1,7 @@
 /**
  * Provides support for rendering the textual content of all wica channel elements in the
  * current document.
- * @module
+ * @module document-text-renderer
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
@@ -33,13 +33,13 @@ class DocumentTextRenderer
     /**
      * Constructs a new instance.
      *
-     * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The
+     * @param {module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The
      *     names of the HTML element attributes that are to be used in the wica communication process.
-     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes}.
      *
-     * @param {!module:shared-definitions.WicaElementTextRenderingAttributes} wicaElementTextRenderingAttributes - The
+     * @param {module:shared-definitions.WicaElementTextRenderingAttributes} wicaElementTextRenderingAttributes - The
      *     names of the HTML element attributes that are to be used in the wica text rendering process.
-     *     See {@link module:shared-definitions.WicaElementRenderingAttributes WicaElementRenderingAttributes}.
+     *     See {@link module:shared-definitions.WicaElementTextRenderingAttributes}.
      */
     constructor( wicaElementConnectionAttributes, wicaElementTextRenderingAttributes,  )
     {
@@ -54,7 +54,7 @@ class DocumentTextRenderer
      * @param {number} [refreshRateInMilliseconds=100] - The period to wait after each update scan before
      *     starting the next one.
      *
-     * See also: {@link module:document-text-renderer.DocumentTextRenderer#shutdown shutdown}.
+     * See also: {@link module:document-text-renderer.DocumentTextRenderer#shutdown}.
      */
     activate( refreshRateInMilliseconds = 100 )
     {
@@ -62,7 +62,7 @@ class DocumentTextRenderer
         // Optimisation: cache the retrieved information for use during future scanning.
         this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( document.documentElement );
 
-        // Start update process if not already active. Otherwise do nothing.
+        // Start update process if not already active. Otherwise, do nothing.
         if ( this.intervalTimer === undefined )
         {
             JsonUtilities.load( () => this.doScan_( refreshRateInMilliseconds ) );
@@ -72,7 +72,7 @@ class DocumentTextRenderer
     /**
      * Shuts down the service offered by this class.
      *
-     * See also: {@link module:document-text-renderer.DocumentTextRenderer#activate activate}.
+     * See also: {@link module:document-text-renderer.DocumentTextRenderer#activate}.
      */
     shutdown()
     {
@@ -190,7 +190,7 @@ class DocumentTextRenderer
         const rawValue = channelValueLatest.val;
 
         // The renderer assigns units either from either the rendering properties "units" field if
-        // available or from the metadata "egu" field if available. Otherwise it assigns blank.
+        // available or from the metadata "egu" field if available. Otherwise, it assigns blank.
         const units = {}.hasOwnProperty.call( renderingProperties, "units" ) ? renderingProperties.units :
                       {}.hasOwnProperty.call( channelMetadata, "egu" ) ? channelMetadata.egu : "";
 
@@ -206,7 +206,7 @@ class DocumentTextRenderer
                 const useExponentialFormat = {}.hasOwnProperty.call(renderingProperties, "exp") ? renderingProperties.exp : false;
                 const precision = Math.min({}.hasOwnProperty.call(renderingProperties, "prec") ? renderingProperties.prec : channelMetadata.prec, DEFAULT_PRECISION);
                 // TODO: Look at improved deserialisation of NaN's, Infinity etc
-                // TODO: The backend serialiser has been changed (2019-02-02) to the more rigorous implementation of
+                // TODO: The backend serializer has been changed (2019-02-02) to the more rigorous implementation of
                 // TODO: sending Nan and Infinity as numbers not strings. Need to check whether the implementation
                 // TODO: here still works.
                 if ((rawValue === "Infinity") || (rawValue === "NaN")) {
@@ -224,7 +224,7 @@ class DocumentTextRenderer
 
             case "INTEGER":
                 // TODO: Look at improved deserialisation of NaN's, Infinity etc
-                // TODO: The backend serialiser has been changed (2019-02-02) to the more rigorous implementation of
+                // TODO: The backend serializer has been changed (2019-02-02) to the more rigorous implementation of
                 // TODO: sending Nan and Infinity as numbers not strings. Need to check whether the implementation
                 // TODO: here still works.
                 if ( rawValue === "Infinity" )

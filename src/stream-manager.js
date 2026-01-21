@@ -1,6 +1,6 @@
 /**
  * Provides support for creating and using Wica streams.
- * @module
+ * @module stream-manager
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
@@ -47,8 +47,8 @@ log.log( "Executing script in stream-manager.js module...");
 /**
  * @callback module:stream-manager.ChannelMetadataUpdatedCallback
  * @param {Object.<WicaChannelName, WicaChannelMetadata>} metadataMap - Map of channel names and their
- *     associated metadata. See {@link module:shared-definitions.WicaChannelName WicaChannelName} and
- *     {@link module:shared-definitions.WicaChannelMetadata WicaChannelMetadata}.
+ *     associated metadata. See {@link module:shared-definitions.WicaChannelName} and
+ *     {@link module:shared-definitions.WicaChannelMetadata}.
  * @returns {void}
  */
 
@@ -56,8 +56,8 @@ log.log( "Executing script in stream-manager.js module...");
  * @callback module:stream-manager.ChannelValuesUpdatedCallback
  * @param {Object.<WicaChannelName,WicaChannelValue[]>} valueMap - Map of channel names and array of
  *     associated values that have been received for the channel in chronological order.
- *     See {@link module:shared-definitions.WicaChannelName WicaChannelName} and
- *     {@link module:shared-definitions.WicaChannelValue WicaChannelValue}.
+ *     See {@link module:shared-definitions.WicaChannelName} and
+ *     {@link module:shared-definitions.WicaChannelValue}.
  * @returns {void}
  */
 
@@ -72,68 +72,55 @@ class StreamManager
      *
      * The returned object will remain in a dormant state until triggered by a call to the activate method.
      *
-     * @param {!string} serverUrl - The URL of the server to contact to request the creation of the new stream.
+     * @param {string} serverUrl - The URL of the server that will create the new stream.
      *
-     * @param {!Object} streamConfiguration - The stream specification to be sent to the server. This includes
-     *     the configuration of each of the stream's channels, together with, optionally, the stream properties
-     *     object.
+     * @param {Object} streamConfiguration - The stream specification sent to the server, including channel
+     *     configurations and optional stream properties.
+     * @param {Array<{name:module:shared-definitions.WicaChannelName, properties: module:shared-definitions.WicaChannelProperties}>} streamConfiguration.channels - Object
+     *     specifying the configuration of each wica channel in the stream.
+     * @param {module:shared-definitions.WicaStreamProperties} [streamConfiguration.props] - Optional stream-level
+     *     properties.
      *
-     * @param {!Array<WicaChannelName, module:shared-definitions.WicaChannelProperties>} streamConfiguration.channels - Array specifying
-     *     the configuration of each stream channel. See {@link module:shared-definitions.WicaChannelName WicaChannelName}
-     *     and {@link module:shared-definitions.WicaChannelProperties WicaChannelProperties}.
+     * @param {Object} connectionHandlers - Callback functions for handling connection state changes.
+     * @param {module:stream-manager.StreamConnectCallback} connectionHandlers.streamConnect - Called when the
+     *     stream manager begins a new connect sequence. See {@link module:stream-manager.StreamConnectCallback}.
+     * @param {module:stream-manager.StreamOpenedCallback} connectionHandlers.streamOpened - Called when the stream
+     *     is successfully opened. See {@link module:stream-manager.StreamOpenedCallback}.
+     * @param {module:stream-manager.StreamClosedCallback} connectionHandlers.streamClosed - Called when the stream
+     *      is closed. See {@link module:stream-manager.StreamClosedCallback}.
      *
-     * @param {!WicaStreamProperties} [streamConfiguration.props] - The stream properties object.
-     *     See {@link module:shared-definitions~WicaStreamProperties WicaStreamProperties}.
+     * @param {Object} messageHandlers -  Callbacks for handling SSE data messages.
+     * @param {module:stream-manager.ChannelMetadataUpdatedCallback} messageHandlers.channelMetadataUpdated - Called
+     *     when new channel metadata is received. See {@link module:stream-manager.ChannelMetadataUpdatedCallback}.
+     * @param {module:stream-manager.ChannelValuesUpdatedCallback} messageHandlers.channelValuesUpdated - Called
+     *     when new channel value data is received. See {@link module:stream-manager.ChannelValuesUpdatedCallback}.
      *
-     * @param {!Object} connectionHandlers - Callbacks for handling connection state changes.
-     *
-     * @param {!module:stream-manager.StreamConnectCallback} connectionHandlers.streamConnect - Called when the stream manager begins
-     *     a new connect sequence. This occurs after the stream manager activate method has been invoked, or
-     *     if the stream manager doesn't see a stream heartbeat message within the expected time interval. See
-     *     {@link module:stream-manager.StreamConnectCallback StreamConnectCallback}.
-     *
-     * @param {!module:stream-manager.StreamOpenedCallback} connectionHandlers.streamOpened - Called when the stream is opened. See
-     *     {@link module:stream-manager.StreamOpenedCallback StreamOpenedCallback}.
-     *
-     * @param {!module:stream-manager.StreamClosedCallback} connectionHandlers.streamClosed - Called when the stream is opened. See
-     *     {@link module:stream-manager.StreamClosedCallback StreamClosedCallback}.
-     *
-     * @param {!Object} messageHandlers - Callbacks for handling data received from the SSE stream.
-     *
-     * @param {!module:stream-manager.ChannelMetadataUpdatedCallback} messageHandlers.channelMetadataUpdated - Called when channel
-     *     metadata information is received. See
-     *     {@link module:stream-manager.ChannelMetadataUpdatedCallback ChannelMetadataUpdatedCallback}.
-     *
-     * @param {!module:stream-manager.ChannelValuesUpdatedCallback} messageHandlers.channelValuesUpdated - Called when channel
-     *     value information is received. See
-     *     {@link module:stream-manager.ChannelValuesUpdatedCallback ChannelValuesUpdatedCallback}.
-     *
-     * @param {!Object} options - Provides additional client-side configuration options.
-     *
-     * @param {!number} [options.streamTimeoutIntervalInSeconds] - Periodicity with which the stream's heartbeat
-     *     message needs to be received before the manager will conclude that a communication outage has occurred.
-     *
-     * @param {!number} [options.streamReconnectIntervalInSeconds] - Period between successive reconnection
-     *     attempts following a communication outage.
-     *
-     * @param {!boolean} [options.crossOriginCheckEnable] - Whether this manager should perform a CORS check
-     *     to verify that the origin of the event stream is the same as the origin from which this manager
-     *     was loaded.
-     *
-     * @param {!boolean} [options.asyncStreamDeleteEnable] - Defines how this manager will send
-     *     stream delete requests to the wica stream server when the manager is shutdown.  Set true to
-     *     enable the modern navigator.sendBeacon based approach. Set false to use a conventional
-     *     blocking HTTP DELETE approach.
+     * @param {Object} [options] - Optional client-side configuration.
+     * @param {number} [options.streamTimeoutIntervalInSeconds] - Maximum permitted interval between heartbeat messages.
+     * @param {number} [options.streamReconnectIntervalInSeconds] - Delay between reconnect attempts after an outage.
+     * @param {boolean} [options.crossOriginCheckEnable] - Whether CORS origin checks should be performed.
+     * @param {boolean} [options.asyncStreamDeleteEnable] - Whether to delete the stream using navigator.sendBeacon
+     *      (true) or a blocking HTTP DELETE request (false).
      */
-    constructor( serverUrl, streamConfiguration, connectionHandlers, messageHandlers, options )
+    constructor( serverUrl,
+                 streamConfiguration,
+                 connectionHandlers,
+                 messageHandlers,
+                 options )
     {
         this.serverUrl = serverUrl;
         this.streamConfiguration = streamConfiguration;
+
+        // Extract the connection handler components
         this.streamOpened = connectionHandlers.streamOpened;
         this.streamConnect = connectionHandlers.streamConnect;
         this.streamClosed = connectionHandlers.streamClosed;
+
+        // Extract the message handler components
         this.channelMetadataUpdated = messageHandlers.channelMetadataUpdated;
         this.channelValuesUpdated = messageHandlers.channelValuesUpdated;
+
+        // Extract the option components
         this.streamReconnectIntervalInSeconds = options.streamReconnectIntervalInSeconds;
         this.streamTimeoutIntervalInSeconds = options.streamTimeoutIntervalInSeconds;
         this.crossOriginCheckEnable = options.crossOriginCheckEnable;
@@ -151,7 +138,7 @@ class StreamManager
      * and for calling other handlers as required to track the evolving connection state and received
      * data.
      *
-     * See also: {@link module:stream-manager.StreamManager#shutdown shutdown}.
+     * See also: {@link module:stream-manager.StreamManager#shutdown}.
      *
      * @implNote
      * The current implementation expects to receive a periodic "heartbeat" message to confirm
@@ -169,7 +156,7 @@ class StreamManager
     /**
      * Shuts down this stream manager instance.
      *
-     * See also: {@link module:stream-manager.StreamManager#activate activate}.
+     * See also: {@link module:stream-manager.StreamManager#activate}.
      */
     shutdown()
     {
@@ -181,7 +168,7 @@ class StreamManager
 
         // Send an HTTPS command to cancel the most recently established stream
         // (if one has been established). This may, or may-not get delivered to
-        // the server, but gives it at least the chance to shutdown the stream
+        // the server, but gives it at least the chance to shut down the stream
         // gracefully.
         if ( this.activeStreamId !== undefined )
         {
@@ -428,6 +415,7 @@ class StreamManager
      */
     static extractEventSourceStreamIdFromUrl_( url )
     {
-        return url.substr( url.lastIndexOf( "/" ) + 1 );
+        const idx = url.lastIndexOf("/") + 1;
+        return url.substring(idx);
     }
 }

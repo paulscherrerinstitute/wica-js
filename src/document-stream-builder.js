@@ -1,6 +1,6 @@
 /**
  * Provides support for updating the current document with live information from the data sources on the backend.
- * @module
+ * @module document-stream-builder
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
@@ -26,18 +26,18 @@ class DocumentStreamBuilder
      * Constructs a new instance to work with the specified backend server.
      *
      * The returned object will remain in a dormant state until triggered by a call to the
-     *     {@link module:document-stream-builder.DocumentStreamBuilderr#activate activate} method.
+     *     {@link module:document-stream-builder.DocumentStreamBuilder#activate} method.
      *
-     * @param {!string} streamServerUrl - The URL of the backend server from whom information is to be obtained.
+     * @param {string} streamServerUrl - The URL of the backend server from whom information is to be obtained.
      *
-     * @param {!module:shared-definitions.WicaStreamProperties} wicaStreamPropertyDefaults - The default properties
+     * @param {module:shared-definitions.WicaStreamProperties} wicaStreamPropertyDefaults - The default properties
      *     for the streams created by this builder. Individual stream properties may be overridden by the explicit
      *     definitions on the wica stream HTML elements.
-     *     See {@link module:shared-definitions.WicaStreamProperties WicaStreamProperties}.
+     *     See {@link module:shared-definitions.WicaStreamProperties}.
      *
-     * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The
+     * @param {module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The
      *     names of the HTML element attributes that are to be used in the wica communication process.
-     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes}.
      */
     constructor( streamServerUrl, wicaStreamPropertyDefaults, wicaElementConnectionAttributes )
     {
@@ -52,7 +52,7 @@ class DocumentStreamBuilder
      * information for each element's data source, sets up handlers to update each element's attributes on
      * the basis of the received information.
      *
-     * See also: {@link module:document-stream-builder.DocumentStreamBuilder#shutdown shutdown}.
+     * See also: {@link module:document-stream-builder.DocumentStreamBuilder#shutdown}.
      */
     activate()
     {
@@ -72,11 +72,12 @@ class DocumentStreamBuilder
             const streamPropertiesAttribute = this.wicaElementConnectionAttributes.streamProperties;
             const streamPropertyAsString = widget.hasAttribute( streamPropertiesAttribute ) ? widget.getAttribute( streamPropertiesAttribute ) : "{}";
 
-            // Validate stream properties, logging console warning message tif the supplied data was not valid json.
+            // Validate stream properties, logging console warning message tif the supplied data was not valid JSON.
             let streamPropertyOverrideObject;
             try {
                 streamPropertyOverrideObject = JsonUtilities.parse( streamPropertyAsString )
             }
+            // eslint-disable-next-line no-unused-vars
             catch ( e )
             {
                 log.warn( "The stream properties attribute for: '" + streamName + "' ('" + streamPropertyAsString + "') was invalid => stream properties will be ignored, defaults will be used." );

@@ -1,15 +1,15 @@
 /**
  * Loads the services that are required to provide Wica support for the current HTML document.
- * @module
+ * @module document-support-loader
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
 
 import * as log from "./logger.js"
 import {
-    WicaElementConnectionAttributes,
-    WicaElementEventAttributes,
-    WicaElementTextRenderingAttributes,
+    WicaElementConnectionAttributeDefaults,
+    WicaElementEventAttributeDefaults,
+    WicaElementTextRenderingAttributeDefaults,
     WicaStreamPropertyDefaults
 } from './shared-definitions.js';
 
@@ -25,20 +25,20 @@ export { DocumentSupportLoader }
 log.log( "Executing script in document-support-loader.js module...");
 
 /**
- * Provides the functionality necessary to support a wica-aware html page.
+ * Provides the functionality necessary to support a wica-aware HTML page.
  */
 class DocumentSupportLoader
 {
     /**
      * Constructs a new instance to work with the specified Wica Server.
      *
-     * @param {!string} streamServerUrl - The URL of the Wica Server with whom
+     * @param {string} streamServerUrl - The URL of the Wica Server with whom
      *    this instance should communicate.
      *
-     * @param {!boolean} withCssSupport - whether or not to load the CSS file when this
+     * @param {boolean} withCssSupport - whether to load the CSS file when this
      *    class instance is activated. Default is true.
      *
-     * @param {!boolean} withTextRendererSupport - whether or not to enable the wica
+     * @param {boolean} withTextRendererSupport - whether to enable the wica
      *   HTML element text renderer when this class instance is activated. Default is true.
      */
     constructor( streamServerUrl, withCssSupport = true, withTextRendererSupport )
@@ -46,9 +46,9 @@ class DocumentSupportLoader
         this.streamServerUrl = streamServerUrl;
         this.withCssSupport = withCssSupport;
         this.withTextRendererSupport = withTextRendererSupport
-        this.documentStreamBuilder = new DocumentStreamBuilder( streamServerUrl, WicaStreamPropertyDefaults, WicaElementConnectionAttributes );
-        this.documentTextRenderer = new DocumentTextRenderer( WicaElementConnectionAttributes, WicaElementTextRenderingAttributes );
-        this.documentEventManager = new DocumentEventManager( WicaElementConnectionAttributes, WicaElementEventAttributes );
+        this.documentStreamBuilder = new DocumentStreamBuilder( streamServerUrl, WicaStreamPropertyDefaults, WicaElementConnectionAttributeDefaults );
+        this.documentTextRenderer = new DocumentTextRenderer( WicaElementConnectionAttributeDefaults, WicaElementTextRenderingAttributeDefaults );
+        this.documentEventManager = new DocumentEventManager( WicaElementConnectionAttributeDefaults, WicaElementEventAttributeDefaults );
     }
 
     /**

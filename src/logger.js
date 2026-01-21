@@ -10,12 +10,12 @@
  *     <li>Debug - Information that is diagnostically helpful to people more than just developers (IT, sysadmins,
  *     etc.).</li>
  *
- *     <li>Info - Generally useful information to log (service start/stop, configuration assumptions, etc). Info I
+ *     <li>Info - Generally useful information to log (service start/stop, configuration assumptions, etc.). Info I
  *     want to always have available but usually don't care about under normal circumstances. This is my out-of-the-box
- *     config level..</li>
+ *     config level.</li>
  *
  *     <li>Warn - Anything that can potentially cause application oddities, but for which I am automatically recovering.
- *     (Such as switching from a primary to backup server, retrying an operation, missing secondary data, etc.).</li>
+ *     (Such as switching from a primary to back up server, retrying an operation, missing secondary data, etc.).</li>
  *
  *     <li>Error - Any error which is fatal to the operation, but not the service or application (can't open a
  *     required file, missing data, etc.). These errors will force user (administrator, or direct user) intervention.
@@ -67,7 +67,7 @@ const logLevels = {
  * Outputs a log message at TRACE level.
  *
  * @param {string} msg - A message string containing zero or more substitution strings.
- * @param {Object} msgOptions - Zero or more objects with which to replace substitution
+ * @param {object} msgOptions - Zero or more objects with which to replace substitution
  *     strings within msg.
  */
 function trace( msg, ...msgOptions  ) { logger_.trace( msg, ...msgOptions ) }
@@ -76,7 +76,7 @@ function trace( msg, ...msgOptions  ) { logger_.trace( msg, ...msgOptions ) }
  * Outputs a log message at DEBUG level.
  *
  * @param {string} msg - A message string containing zero or more substitution strings.
- * @param {Object} msgOptions - Zero or more objects with which to replace substitution
+ * @param {object} msgOptions - Zero or more objects with which to replace substitution
  *     strings within msg.
  */
 function debug(msg, ...msgOptions  ) { logger_.debug( msg, ...msgOptions ) }
@@ -85,7 +85,7 @@ function debug(msg, ...msgOptions  ) { logger_.debug( msg, ...msgOptions ) }
  * Outputs a log message at LOG level.
  *
  * @param {string} msg - A message string containing zero or more substitution strings.
- * @param {Object} msgOptions - Zero or more objects with which to replace substitution
+ * @param {object} msgOptions - Zero or more objects with which to replace substitution
  *     strings within msg.
  */
 function log( msg, ...msgOptions  ) { logger_.log( msg, ...msgOptions ) }
@@ -94,7 +94,7 @@ function log( msg, ...msgOptions  ) { logger_.log( msg, ...msgOptions ) }
  * Outputs a log message at INFO level.
  *
  * @param {string} msg - A message string containing zero or more substitution strings.
- * @param {Object} msgOptions - Zero or more objects with which to replace substitution
+ * @param {object} msgOptions - Zero or more objects with which to replace substitution
  *     strings within msg.
  */
 function info( msg, ...msgOptions  ) { logger_.info( msg, ...msgOptions ) }
@@ -103,7 +103,7 @@ function info( msg, ...msgOptions  ) { logger_.info( msg, ...msgOptions ) }
  * Outputs a log message at WARN level.
  *
  * @param {string} msg - A message string containing zero or more substitution strings.
- * @param {Object} msgOptions - Zero or more objects with which to replace substitution
+ * @param {object} msgOptions - Zero or more objects with which to replace substitution
  *     strings within msg.
  */
 function warn( msg, ...msgOptions  ) { logger_.warn( msg, ...msgOptions ) }
@@ -112,7 +112,7 @@ function warn( msg, ...msgOptions  ) { logger_.warn( msg, ...msgOptions ) }
  * Outputs a log message at TRACE level.
  *
  * @param {string} msg - A message string containing zero or more substitution strings.
- * @param {Object} msgOptions - Zero or more objects with which to replace substitution
+ * @param {object} msgOptions - Zero or more objects with which to replace substitution
  *     strings within msg.
  */
 function error(msg, ...msgOptions  ) { logger_.error( msg, ...msgOptions ) }

@@ -2,7 +2,7 @@
  * Provides support for firing custom notification events on wica-aware elements in the current document to
  * update interested third-parties on the latest status received from the wica event stream.
  *
- * @module
+ * @module document-event-manager
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
@@ -26,25 +26,25 @@ log.log( "Executing script in document-event-manager.js module...");
  *
  * @property {Object} target - A reference to the target element on which the event was dispatched.
  *
- * @property {Object} detail - An object providing the customised data payload for the event.
+ * @property {Object} detail - An object providing the customized data payload for the event.
  *
  * @property {string} detail.channelName - The name of the channel associated with the element on which the
- *     event was fired. See {@link module:shared-definitions.WicaChannelName WicaChannelName}.
+ *     event was fired. See {@link module:shared-definitions.WicaChannelName}.
  *
  * @property {WicaChannelMetadata} detail.channelMetadata - The most recent channel metadata.
- *     See {@link module:shared-definitions.WicaChannelMetadata WicaChannelMetadata}.
+ *     See {@link module:shared-definitions.WicaChannelMetadata}.
  *
  * @property {WicaChannelValue[]} detail.channelValueArray - The latest channel values.
- *     See {@link module:shared-definitions.WicaChannelValue WicaChannelValue}.
+ *     See {@link module:shared-definitions.WicaChannelValue}.
  *
  * @property {WicaChannelValue} detail.channelValueLatest - The most recent channel value.
- *     See {@link module:shared-definitions.WicaChannelValue WicaChannelValue}.
+ *     See {@link module:shared-definitions.WicaChannelValue}.
  */
 
 /**
  * Provides support for periodically scanning the current document for wica-aware elements with attached
- * event handlers or event listeners. Fires a custom {@link module:document-event-manager.OnWicaEvent
- * OnWicaEvent} to inform the attached observers of the latest status received from the wica event
+ * event handlers or event listeners. Fires a custom {@link module:document-event-manager.OnWicaEvent}
+ * to inform the attached observers of the latest status received from the wica event
  * stream.
  *
  * @static
@@ -56,15 +56,15 @@ class DocumentEventManager
      *
      * @param {module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names of the wica-aware
      *     element attributes that can be examined to determine the name of the channel and its current status.
-     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes}.
      *
      * @param {module:shared-definitions.WicaElementEventAttributes} wicaElementEventAttributes - The names of the wica-aware
      *     element attributes that can be examined to determine whether a wica-aware element has any attached handlers.
-     *     See {@link module:shared-definitions.WicaElementEventAttributes WicaElementEventAttributes}.
+     *     See {@link module:shared-definitions.WicaElementEventAttributes}.
      *
      * @implNote
      *
-     * It is currently (2019-01-29) impossible to optimise the firing of events to trigger them only on elements
+     * It is currently (2019-01-29) impossible to optimize the firing of events to trigger them only on elements
      * with attached event listeners. This is because it is impossible to detect programmatically the presence
      * of attached event listeners.
      */
@@ -87,7 +87,7 @@ class DocumentEventManager
      *     have defined event handlers or whether they are fired unconditionally on all elements (as is required to
      *     support any attached event listeners).
      *
-     * See also: {@link module:document-event-manager.DocumentEventManager#shutdown shutdown}.
+     * See also: {@link module:document-event-manager.DocumentEventManager#shutdown}.
      */
     activate( refreshRateInMilliseconds = 100, supportEventListeners = true )
     {
@@ -95,7 +95,7 @@ class DocumentEventManager
         // Optimisation: cache the retrieved information for use during future scanning.
         this.wicaChannelElements = DocumentUtilities.findWicaChannelElements( document.documentElement );
 
-        // Start update process if not already active. Otherwise do nothing.
+        // Start update process if not already active. Otherwise, do nothing.
         if ( this.intervalTimer === undefined )
         {
             try
@@ -113,7 +113,7 @@ class DocumentEventManager
     /**
      * Shuts down the service offered by this class.
      *
-     * See also: {@link module:document-event-manager.DocumentEventManager#activate activate}.
+     * See also: {@link module:document-event-manager.DocumentEventManager#activate}.
      */
     shutdown()
     {
@@ -151,7 +151,7 @@ class DocumentEventManager
     }
 
     /**
-     * Fires a custom {@link module:document-event-manager.OnWicaEvent OnWicaEvent} on all wica-aware elements in the
+     * Fires a custom {@link module:document-event-manager.OnWicaEvent} on all wica-aware elements in the
      * current document to inform any attached event handlers or event listeners of the latest state.
      *
      * The event payload includes the most recently received stream notification information for the wica channel's
@@ -165,7 +165,7 @@ class DocumentEventManager
      * @param {string} eventHandlerAttribute - The name of the attribute which determines whether an element has
      *    a defined event handler.
      * @param {boolean} supportEventListeners - Whether events are to be fired unconditionally to support event
-     *     listeners or in a more optimised way which supports event handlers only.
+     *     listeners or in a more optimized way which supports event handlers only.
      * @private
      */
     fireEvents_( channelNameAttribute, channelMetadataAttribute, channelValueArrayAttribute,

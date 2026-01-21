@@ -1,14 +1,14 @@
 /**
 * Provides support for buffering the information received from the document's wica event stream.
 *
-* @module
+* @module plot-buffer
 */
 
 /*- Import/Export Declarations -----------------------------------------------*/
 
 import * as log from "./logger.js"
 import * as JsonUtilities from './json5-wrapper.js'
-import {WicaElementConnectionAttributes} from './shared-definitions.js';
+import {WicaElementConnectionAttributeDefaults} from './shared-definitions.js';
 
 export {PlotBuffer}
 
@@ -27,9 +27,9 @@ class PlotBuffer
     /**
      * Constructs a new instance based on the specified DOM elements and buffer size.
      *
-     * @param {string[]} htmlElementIds the names of the elements to listen to.
+     * @param {string[]} htmlElementIds - the names of the elements to listen to.
      *
-     * @param {number} maximumBufferSize the number of entries that will be buffered. Beyond
+     * @param {number} maximumBufferSize - the number of entries that will be buffered. Beyond
      *     this limit the oldest values will be silently thrown away.
      */
     constructor( htmlElementIds, maximumBufferSize = 32 )
@@ -46,9 +46,9 @@ class PlotBuffer
             const ele = document.getElementById( htmlElementId );
             if ( ele !== null )
             {
-                if ( ele.hasAttribute( WicaElementConnectionAttributes.channelName ) )
+                if ( ele.hasAttribute( WicaElementConnectionAttributeDefaults.channelName ) )
                 {
-                    const channelName = ele.getAttribute( WicaElementConnectionAttributes.channelName );
+                    const channelName = ele.getAttribute( WicaElementConnectionAttributeDefaults.channelName );
                     this.valueMap[ channelName ]= [];
                     this.htmlElements.push( ele );
                 }
@@ -69,13 +69,14 @@ class PlotBuffer
     /**
      * Activate the plot buffer to receive information for the elements specified in the constructor.
      */
+    // noinspection JSUnusedGlobalSymbols
     activate()
     {
         const mutationObserverOptions = { subtree: false,
                                           childList: false,
                                           attributes: true,
-                                          attributeFilter: [ WicaElementConnectionAttributes.channelMetadata,
-                                                             WicaElementConnectionAttributes.channelValueArray ] };
+                                          attributeFilter: [ WicaElementConnectionAttributeDefaults.channelMetadata,
+                                                             WicaElementConnectionAttributeDefaults.channelValueArray ] };
         for ( const htmlElement of this.htmlElements )
         {
             this.observer.observe( htmlElement, mutationObserverOptions );
@@ -96,14 +97,15 @@ class PlotBuffer
      *
      * @returns {boolean}
      */
+    // noinspection JSUnusedGlobalSymbols
     isConnectedToServer()
     {
         // Scan through all elements and check that the stream state is shown as opened
         for ( const ele of this.htmlElements )
         {
-            if ( ele.hasAttribute( WicaElementConnectionAttributes.streamState ) )
+            if ( ele.hasAttribute( WicaElementConnectionAttributeDefaults.streamState ) )
             {
-                const streamState = ele.getAttribute( WicaElementConnectionAttributes.streamState );
+                const streamState = ele.getAttribute( WicaElementConnectionAttributeDefaults.streamState );
                 if ( ! streamState.includes( "opened-") )
                 {
                     return false;
@@ -128,6 +130,7 @@ class PlotBuffer
      *
      * @returns {boolean}
      */
+    // noinspection JSUnusedGlobalSymbols
     isDataAvailable()
     {
         if ( Object.values( this.metadataMap ).length === 0 )
@@ -158,9 +161,10 @@ class PlotBuffer
      * Returns a map containing the most recently received channel metadata.
      *
      * @return metadataMap - Map of channel names and their associated metadata. See
-     *     {@link module:shared-definitions.WicaChannelName WicaChannelName} and
-     *     {@link module:shared-definitions.WicaChannelMetadata WicaChannelMetadata}.
+     *     {@link module:shared-definitions.WicaChannelName} and
+     *     {@link module:shared-definitions.WicaChannelMetadata}.
      */
+    // noinspection JSUnusedGlobalSymbols
     getMetadataMap()
     {
         return this.metadataMap;
@@ -170,9 +174,10 @@ class PlotBuffer
      * Returns a map containing the most recently received channel values.
      *
      * @return valueMap - Map of channel names and array of values that have been received for the channel in
-     *     chronological order. See {@link module:shared-definitions.WicaChannelName WicaChannelName} and
-     *     {@link module:shared-definitions.WicaChannelValue WicaChannelValue}.
+     *     chronological order. See {@link module:shared-definitions.WicaChannelName} and
+     *     {@link module:shared-definitions.WicaChannelValue}.
      */
+    // noinspection JSUnusedGlobalSymbols
     getValueMap()
     {
         return this.valueMap;
@@ -189,18 +194,19 @@ class PlotBuffer
             if ( mutation.type === "attributes" )
             {
                 const element = mutation.target;
-                const channelName = element.getAttribute( WicaElementConnectionAttributes.channelName );
+                const channelName = element.getAttribute( WicaElementConnectionAttributeDefaults.channelName );
 
-                if ( mutation.attributeName === WicaElementConnectionAttributes.channelMetadata )
+                if ( mutation.attributeName === WicaElementConnectionAttributeDefaults.channelMetadata )
                 {
-                    const metadataAsJsonString = element.getAttribute( WicaElementConnectionAttributes.channelMetadata );
+                    const metadataAsJsonString = element.getAttribute( WicaElementConnectionAttributeDefaults.channelMetadata );
+                    // noinspection UnnecessaryLocalVariableJS
                     const metadata = JsonUtilities.parse( metadataAsJsonString );
                     this.metadataMap[ channelName ] = metadata;
                 }
 
-                if ( mutation.attributeName === WicaElementConnectionAttributes.channelValueArray )
+                if ( mutation.attributeName === WicaElementConnectionAttributeDefaults.channelValueArray )
                 {
-                    const valueArrayAsJsonString = element.getAttribute( WicaElementConnectionAttributes.channelValueArray );
+                    const valueArrayAsJsonString = element.getAttribute( WicaElementConnectionAttributeDefaults.channelValueArray );
                     const valueArray = JsonUtilities.parse( valueArrayAsJsonString );
                     this.updateBufferedChannelValues_( channelName, valueArray );
                 }

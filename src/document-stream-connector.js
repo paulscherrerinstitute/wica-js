@@ -1,6 +1,6 @@
 /**
  * Provides support for updating the current document with live information from the data sources on the backend.
- * @module
+ * @module document-stream-connector
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
@@ -20,8 +20,6 @@ log.log( "Executing script in document-stream-connector.js module...");
 /**
  * Provides real-time updates to wica channel elements in the supplied document tree based on
  * information streamed from the Wica server on the backend.
- *
- * @static
  */
 class DocumentStreamConnector
 {
@@ -29,25 +27,29 @@ class DocumentStreamConnector
      * Constructs a new instance to work with the specified backend server.
      *
      * The returned object will remain in a dormant state until triggered by a call to the
-     *     {@link module:document-stream-connector.DocumentStreamConnector#activate activate} method.
+     *     {@link module:document-stream-connector.DocumentStreamConnector#activate} method.
      *
-     * @param  {!string} assignedStreamName - The name of this stream (which will be reflected on each
+     * @param  {string} assignedStreamName - The name of this stream (which will be reflected on each
      *     wica channel element)
      *
-     * @param {!Element} rootElement - the root of the document tree to be searched when looking for wica
+     * @param {Element} rootElement - the root of the document tree to be searched when looking for wica
      *    channel elements.
      *
-     * @param {!string} streamServerUrl - The URL of the backend server from whom information is to be obtained.
+     * @param {string} streamServerUrl - The URL of the backend server from whom information is to be obtained.
      *
-     * @param {!module:shared-definitions.WicaStreamProperties} wicaStreamProperties - The properties of the stream that
+     * @param {module:shared-definitions.WicaStreamProperties} wicaStreamProperties - The properties of the stream that
      *     will be created to obtain the required information from the data sources.
-     *     See {@link module:shared-definitions.WicaStreamProperties WicaStreamProperties}.
+     *     See {@link module:shared-definitions.WicaStreamProperties}.
      *
-     * @param {!module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names
-     *     of the wica html element attributes that are to be used in the wica communication process.
-     *     See {@link module:shared-definitions.WicaElementConnectionAttributes WicaElementConnectionAttributes}.
+     * @param {module:shared-definitions.WicaElementConnectionAttributes} wicaElementConnectionAttributes - The names
+     *     of the wica HTML element attributes that are to be used in the wica communication process.
+     *     See {@link module:shared-definitions.WicaElementConnectionAttributes}.
      */
-    constructor( assignedStreamName, rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes )
+    constructor( assignedStreamName,
+                 rootElement,
+                 streamServerUrl,
+                 wicaStreamProperties,
+                 wicaElementConnectionAttributes )
     {
         this.assignedStreamName = assignedStreamName;
         this.rootElement = rootElement;
@@ -55,8 +57,20 @@ class DocumentStreamConnector
         this.wicaStreamProperties = wicaStreamProperties;
         this.wicaElementConnectionAttributes = wicaElementConnectionAttributes;
         this.lastOpenedStreamId = 0;
-        this.streamConnectionHandlers = {};
-        this.streamMessageHandlers = {};
+
+        const noop = () => {};
+
+        this.streamConnectionHandlers = {
+            streamConnect: noop,
+            streamOpened: noop,
+            streamClosed: noop
+        };
+
+        this.streamMessageHandlers = {
+            channelMetadataUpdated: noop,
+            channelValuesUpdated: noop
+        };
+
         this.wicaChannelElements = [];
         this.wicaStreamLookupTable = {};
         this.wicaStreamChannels = {};
@@ -67,7 +81,7 @@ class DocumentStreamConnector
      * obtain information from each element's data source, sets up handlers to update each element's attributes on
      * as fresh information is received.
      *
-     * See also: {@link module:document-stream-connector.DocumentStreamConnector#shutdown shutdown}.
+     * See also: {@link module:document-stream-connector.DocumentStreamConnector#activate}.
      */
     activate()
     {
@@ -106,7 +120,7 @@ class DocumentStreamConnector
     /**
      * Shuts down the service offered by this class.
      *
-     * See also: {@link module:document-stream-connector.DocumentStreamConnector#shutdown activate}.
+     * See also: {@link module:document-stream-connector.DocumentStreamConnector#shutdown}.
      */
     shutdown()
     {
@@ -234,6 +248,7 @@ class DocumentStreamConnector
             try {
                 channelPropsAsObject = JsonUtilities.parse( channelPropsAsString );
             }
+            // eslint-disable-next-line no-unused-vars
             catch( e ) {
                 log.warn( "The channel properties attribute for: '" + channelNameAsString + "' ('" + channelPropsAsString + "') was invalid => channel will be excluded stream." );
                 return;
@@ -262,7 +277,7 @@ class DocumentStreamConnector
                 this.saveStreamLookupTableEntry_( channelUniqName, ele );
             }
             // If a channel with the same name and properties already exists there is no need to add it to the stream configuration.
-            // But we do need to add it to the lookup table configuration so that the html element can be informed when the stream delivers
+            // But we do need to add it to the lookup table configuration so that the HTML element can be informed when the stream delivers
             // fresh information.
             else
             {
@@ -286,8 +301,8 @@ class DocumentStreamConnector
      * with (that's to say which needs to be updated should its value or metadata
      * changes).
      *
-     * @param {!string} channelUniqName - the name of the wica channel.
-     * @param {!HTMLElement} wicaElement - an element with which it is associated.
+     * @param {string} channelUniqName - the name of the wica channel.
+     * @param {HTMLElement} wicaElement - an element with which it is associated.
      * @private
      */
     saveStreamLookupTableEntry_( channelUniqName, wicaElement )
@@ -306,8 +321,8 @@ class DocumentStreamConnector
      * with (that's to say which needs to be updated should its value or metadata
      * changes).
      *
-     * @param {!string} channelUniqName - the name of the wica channel.
-     * @param {!string} channelProps - the properties of the wica channel.
+     * @param {string} channelUniqName - the name of the wica channel.
+     * @param {Object} channelProps - the properties of the wica channel.
      * @private
      */
     saveStreamChannelEntry_( channelUniqName, channelProps )
@@ -387,7 +402,7 @@ class DocumentStreamConnector
     /**
      * Retrieves an array of all wica elements associated with the specified channel.
      * @param channelUniqName
-     * @return {!HTMLElement[]} array of HTML elements with which the specified wica
+     * @return {HTMLElement[]} array of HTML elements with which the specified wica
      *    channel name is associated.
      * @private
      */

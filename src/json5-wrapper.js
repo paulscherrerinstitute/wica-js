@@ -1,6 +1,6 @@
 /**
- * Provides support for parsing and stringifying JSON5.
- * @module
+ * Provides support for parsing and stringify-ing JSON5.
+ * @module json5-wrapper
  */
 
 /**
@@ -43,9 +43,9 @@ log.log( "Executing script in json5-wrapper.js module...");
  * An optional reviver function can be provided to perform a transformation on the resulting
  * object before it is returned.
  *
- * @param {!String} text - The string to parse as JSON5.
+ * @param {string} text - The string to parse as JSON5.
  *
- * @param {!Object} [reviver] - If a function, this prescribes how the value originally produced
+ * @param {Function} [reviver] - If a function, this prescribes how the value originally produced
  *     by parsing is transformed, before being returned.
  *
  * @return {*} the object corresponding to the given JSON5 text.
@@ -66,9 +66,9 @@ const parse = function parse( text, reviver )
  * function is specified, or optionally including only the specified properties if a replacer
  * array is specified.
  *
- * @param {Object} value - The value to convert to a JSON5 string.
+ * @param {object} value - The value to convert to a JSON5 string.
  *
- * @param {function} [replacer] - A function that alters the behavior of the stringification process, or
+ * @param {Function} [replacer] - A function that alters the behavior of the stringification process, or
  *     an array of String and Number objects that serve as a whitelist for selecting/filtering
  *     the properties of the value object to be included in the JSON5 string. If this value
  *     is null or not provided, all properties of the object are included in the resulting

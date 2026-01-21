@@ -1,12 +1,12 @@
 /**
- * Provides helper functions for wica-aware html pages.
- * @module
+ * Provides helper functions for wica-aware HTML pages.
+ * @module document-utils
  */
 
 /*- Import/Export Declarations -----------------------------------------------*/
 
 import * as log from "./logger.js"
-import {WicaElementConnectionAttributes} from './shared-definitions.js';
+import {WicaElementConnectionAttributeDefaults} from './shared-definitions.js';
 
 export { findWicaStreamElements,
          findWicaChannelElements,
@@ -24,7 +24,7 @@ log.log( "Executing script in document-utils.js module...");
  */
 function findWicaStreamElements()
 {
-    return findWicaElementsWithAttributeNameAlsoInShadowDom( document, WicaElementConnectionAttributes.streamName );
+    return findWicaElementsWithAttributeNameAlsoInShadowDom( document, WicaElementConnectionAttributeDefaults.streamName );
 }
 
 /**
@@ -36,15 +36,15 @@ function findWicaStreamElements()
  */
 function findWicaChannelElements( rootElement )
 {
-    return findWicaElementsWithAttributeNameAlsoInShadowDom( rootElement, WicaElementConnectionAttributes.channelName );
+    return findWicaElementsWithAttributeNameAlsoInShadowDom( rootElement, WicaElementConnectionAttributeDefaults.channelName );
 }
 
 /**
  * Finds all HTML elements in the current document whose attribute name matches the specified value.
  * Continue search into subtrees that are DOM shadow roots.
  *
- * @param {!ParentNode} parentNode - the node at which to start searching.
- * @param {!string} attributeName - The attribute name to target.
+ * @param {ParentNode} parentNode - the node at which to start searching.
+ * @param {string} attributeName - The attribute name to target.
  * @returns {Array<Element>} - The result list.
  */
 function findWicaElementsWithAttributeNameAlsoInShadowDom( parentNode, attributeName )
