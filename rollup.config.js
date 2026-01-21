@@ -1,7 +1,6 @@
 import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import copy from "rollup-plugin-copy";
 
 // noinspection JSUnusedGlobalSymbols
 export default [ {
@@ -12,12 +11,6 @@ export default [ {
             sourcemap: true,
         },
         plugins: [
-            copy({
-                targets: [
-                    {src: "src/about.html", dest: "dist/rel" },
-                    {src: "src/wica.css", dest: "dist/rel" },
-                ],
-            }),
             resolve(),
             commonjs(),
             // Invoke terser but just use the default options until
