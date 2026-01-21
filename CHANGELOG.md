@@ -213,4 +213,5 @@ This release brings the project up to date with modern NPM build standards. THe 
 * CHORE: Update developer notes.
 * CHORE: Update project file for 2026 NPM build standard.
 * CHORE: Fix JsDoc to eliminate all IntelliJ warnings.
+* CHORE: Eliminate copy plugin.
 * CHORE: Create release 1.6.0
