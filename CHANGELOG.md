@@ -215,3 +215,12 @@ This release brings the project up to date with modern NPM build standards. THe 
 * CHORE: Fix JsDoc to eliminate all IntelliJ warnings.
 * CHORE: Eliminate copy plugin.
 * CHORE: Create release 1.6.0
+
+
+## [1.6.1] Released 2026-01-21
+
+This release brings the GitHub Actions Build up-to-date with modern standards.
+
+* CHORE: Modernise GitHub Actions file.
+* CHORE: Create release 1.6.1
+
