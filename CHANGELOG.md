@@ -224,3 +224,12 @@ This release brings the GitHub Actions Build up-to-date with modern standards.
 * CHORE: Modernise GitHub Actions file.
 * CHORE: Create release 1.6.1
 
+
+## [1.6.2] Released 2026-01-22
+
+This release updates the build to use the new copy plugin and updates all dependencies to latest.
+
+* CHORE: Update build to use new copy plugin.
+* CHORE: Update deps to latest.
+* CHORE: Create release 1.6.2
+
