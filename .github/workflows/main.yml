@@ -53,7 +53,7 @@ jobs:
       - run: npm run-script zip
 
       - name: Deploy GitHub JS Docs to GitHub Pages Area 🚀
-        uses: JamesIves/github-pages-deploy-action@4.4.0
+        uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist/apidocs # The folder the action should deploy.
