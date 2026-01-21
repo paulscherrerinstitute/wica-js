@@ -107,6 +107,15 @@ jobs:
         id: get_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
 
+      - name: Docker meta
+        id: meta
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            echo "TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "TAG=latest" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Docker Build and push to Docker Hub
         id: docker_build
         uses: docker/build-push-action@v5
