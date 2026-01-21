@@ -193,3 +193,24 @@ This release updates all Wica-JS dependencies to the latest.
 * Issue #53: Create release 1.5.4
 * Issue #54: Improve support for searching for target attributes in both light and shadow DOM.
 * Issue #55: Bump ansi-regex from 5.0.0 to 5.0.1
+
+
+
+## [1.6.0] Released 2026-01-21
+
+This release brings the project up to date with modern NPM build standards. THe intended functionality is the same.
+
+* CHORE: Eliminate obsolete Travis build status.
+* CHORE: Delete old travis file.
+* CHORE: Delete old eslint config file.
+* CHORE: Fix dockerfile lint errors.
+* CHORE: Add modern-style eslint config file.
+* CHORE: Switch to more permissive ISC license.
+* CHORE: Switch to rollup-plugin-copy.
+* CHORE: Eliminate use of terser when building client-api library.
+* CHORE: Switch to standard terser rollup plugin.
+* CHORE: Fix lint warning.
+* CHORE: Update developer notes.
+* CHORE: Update project file for 2026 NPM build standard.
+* CHORE: Fix JsDoc to eliminate all IntelliJ warnings.
+* CHORE: Create release 1.6.0
