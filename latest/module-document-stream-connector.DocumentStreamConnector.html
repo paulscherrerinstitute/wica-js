@@ -29,7 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-document-stream-connector.html">document-stream-connector</a>~</span>DocumentStreamConnector<span class="signature">(assignedStreamName, rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-document-stream-connector.html">document-stream-connector</a>.</span>DocumentStreamConnector<span class="signature">(assignedStreamName<span class="signature-attributes">non-null</span>, rootElement<span class="signature-attributes">non-null</span>, streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamProperties<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Provides real-time updates to wica channel elements in the supplied document tree based on
 information streamed from the Wica server on the backend.</div>
@@ -47,7 +47,7 @@ information streamed from the Wica server on the backend.</div>
     
 
     
-    <h4 class="name" id="DocumentStreamConnector"><span class="type-signature"></span>new DocumentStreamConnector<span class="signature">(assignedStreamName, rootElement, streamServerUrl, wicaStreamProperties, wicaElementConnectionAttributes)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DocumentStreamConnector"><span class="type-signature"></span>new DocumentStreamConnector<span class="signature">(assignedStreamName<span class="signature-attributes">non-null</span>, rootElement<span class="signature-attributes">non-null</span>, streamServerUrl<span class="signature-attributes">non-null</span>, wicaStreamProperties<span class="signature-attributes">non-null</span>, wicaElementConnectionAttributes<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -58,7 +58,7 @@ information streamed from the Wica server on the backend.</div>
     Constructs a new instance to work with the specified backend server.
 
 The returned object will remain in a dormant state until triggered by a call to the
-    module:document-stream-connector.DocumentStreamConnector#activate method.
+    <a href="module-document-stream-connector.DocumentStreamConnector.html#activate">activate</a> method.
 </div>
 
 
@@ -183,7 +183,7 @@ The returned object will remain in a dormant state until triggered by a call to 
 
             <td class="description last">The properties of the stream that
     will be created to obtain the required information from the data sources.
-    See <a href="module-shared-definitions.html#.WicaStreamProperties">module:shared-definitions.WicaStreamProperties</a>.</td>
+    See <a href="module-shared-definitions.html#.WicaStreamProperties">WicaStreamProperties</a>.</td>
         </tr>
 
     
@@ -207,8 +207,8 @@ The returned object will remain in a dormant state until triggered by a call to 
             
 
             <td class="description last">The names
-    of the wica HTML element attributes that are to be used in the wica communication process.
-    See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">module:shared-definitions.WicaElementConnectionAttributes</a>.</td>
+    of the wica html element attributes that are to be used in the wica communication process.
+    See <a href="module-shared-definitions.html#.WicaElementConnectionAttributes">WicaElementConnectionAttributes</a>.</td>
         </tr>
 
     
@@ -312,7 +312,7 @@ The returned object will remain in a dormant state until triggered by a call to 
 obtain information from each element's data source, sets up handlers to update each element's attributes on
 as fresh information is received.
 
-See also: module:document-stream-connector.DocumentStreamConnector#activate.
+See also: <a href="module-document-stream-connector.DocumentStreamConnector.html#shutdown">shutdown</a>.
 </div>
 
 
@@ -397,7 +397,7 @@ See also: module:document-stream-connector.DocumentStreamConnector#activate.
 <div class="description">
     Shuts down the service offered by this class.
 
-See also: module:document-stream-connector.DocumentStreamConnector#shutdown.
+See also: <a href="module-document-stream-connector.DocumentStreamConnector.html#shutdown">activate</a>.
 </div>
 
 
@@ -482,13 +482,13 @@ See also: module:document-stream-connector.DocumentStreamConnector#shutdown.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-client-api.html">client-api</a></li><li><a href="module-document-event-manager.html">document-event-manager</a></li><li><a href="module-document-stream-builder.html">document-stream-builder</a></li><li><a href="module-document-stream-connector.html">document-stream-connector</a></li><li><a href="module-document-support-loader.html">document-support-loader</a></li><li><a href="module-document-text-renderer.html">document-text-renderer</a></li><li><a href="module-document-utils.html">document-utils</a></li><li><a href="module-json5-wrapper.html">json5-wrapper</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-plot-buffer.html">plot-buffer</a></li><li><a href="module-shared-definitions.html">shared-definitions</a></li><li><a href="module-stream-manager.html">stream-manager</a></li><li><a href="module-wica.html">wica</a></li></ul><h3>Classes</h3><ul><li><a href="module-document-event-manager.DocumentEventManager.html">DocumentEventManager</a></li><li><a href="module-document-stream-builder-DocumentStreamBuilder.html">DocumentStreamBuilder</a></li><li><a href="module-document-stream-connector-DocumentStreamConnector.html">DocumentStreamConnector</a></li><li><a href="module-document-support-loader-DocumentSupportLoader.html">DocumentSupportLoader</a></li><li><a href="module-document-text-renderer.DocumentTextRenderer.html">DocumentTextRenderer</a></li><li><a href="module-plot-buffer-PlotBuffer.html">PlotBuffer</a></li><li><a href="module-stream-manager-StreamManager.html">StreamManager</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-client-api.html">client-api</a></li><li><a href="module-document-event-manager.html">document-event-manager</a></li><li><a href="module-document-stream-builder.html">document-stream-builder</a></li><li><a href="module-document-stream-connector.html">document-stream-connector</a></li><li><a href="module-document-support-loader.html">document-support-loader</a></li><li><a href="module-document-text-renderer.html">document-text-renderer</a></li><li><a href="module-document-utils.html">document-utils</a></li><li><a href="module-json5-wrapper.html">json5-wrapper</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-plot-buffer.html">plot-buffer</a></li><li><a href="module-shared-definitions.html">shared-definitions</a></li><li><a href="module-stream-manager.html">stream-manager</a></li><li><a href="module-wica.html">wica</a></li></ul><h3>Classes</h3><ul><li><a href="module-document-event-manager.DocumentEventManager.html">DocumentEventManager</a></li><li><a href="module-document-stream-builder-DocumentStreamBuilder.html">DocumentStreamBuilder</a></li><li><a href="module-document-stream-connector.DocumentStreamConnector.html">DocumentStreamConnector</a></li><li><a href="module-document-support-loader-DocumentSupportLoader.html">DocumentSupportLoader</a></li><li><a href="module-document-text-renderer.DocumentTextRenderer.html">DocumentTextRenderer</a></li><li><a href="module-plot-buffer-PlotBuffer.html">PlotBuffer</a></li><li><a href="module-stream-manager-StreamManager.html">StreamManager</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Jan 21 2026 19:29:39 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Jan 21 2026 19:30:02 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
